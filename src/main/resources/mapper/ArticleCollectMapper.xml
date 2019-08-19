@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.ArticleCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.ArticleCollect" >
+    <constructor >
+      <idArg column="ARTICLE_COLLECT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COLLECT_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COLLECT_ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ARTICLE_COLLECT_ID, ARTICLE_COLLECT_USER_ID, ARTICLE_COLLECT_ARTICLE_ID, ARTICLE_COLLECT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article_collect
+    where ARTICLE_COLLECT_ID = #{articleCollectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from article_collect
+    where ARTICLE_COLLECT_ID = #{articleCollectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.ArticleCollect" >
+    insert into article_collect (ARTICLE_COLLECT_ID, ARTICLE_COLLECT_USER_ID, 
+      ARTICLE_COLLECT_ARTICLE_ID, ARTICLE_COLLECT_TIME
+      )
+    values (#{articleCollectId,jdbcType=VARCHAR}, #{articleCollectUserId,jdbcType=VARCHAR}, 
+      #{articleCollectArticleId,jdbcType=VARCHAR}, #{articleCollectTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.ArticleCollect" >
+    insert into article_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleCollectId != null" >
+        ARTICLE_COLLECT_ID,
+      </if>
+      <if test="articleCollectUserId != null" >
+        ARTICLE_COLLECT_USER_ID,
+      </if>
+      <if test="articleCollectArticleId != null" >
+        ARTICLE_COLLECT_ARTICLE_ID,
+      </if>
+      <if test="articleCollectTime != null" >
+        ARTICLE_COLLECT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleCollectId != null" >
+        #{articleCollectId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCollectUserId != null" >
+        #{articleCollectUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCollectArticleId != null" >
+        #{articleCollectArticleId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCollectTime != null" >
+        #{articleCollectTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.ArticleCollect" >
+    update article_collect
+    <set >
+      <if test="articleCollectUserId != null" >
+        ARTICLE_COLLECT_USER_ID = #{articleCollectUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCollectArticleId != null" >
+        ARTICLE_COLLECT_ARTICLE_ID = #{articleCollectArticleId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCollectTime != null" >
+        ARTICLE_COLLECT_TIME = #{articleCollectTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ARTICLE_COLLECT_ID = #{articleCollectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.ArticleCollect" >
+    update article_collect
+    set ARTICLE_COLLECT_USER_ID = #{articleCollectUserId,jdbcType=VARCHAR},
+      ARTICLE_COLLECT_ARTICLE_ID = #{articleCollectArticleId,jdbcType=VARCHAR},
+      ARTICLE_COLLECT_TIME = #{articleCollectTime,jdbcType=TIMESTAMP}
+    where ARTICLE_COLLECT_ID = #{articleCollectId,jdbcType=VARCHAR}
+  </update>
+</mapper>

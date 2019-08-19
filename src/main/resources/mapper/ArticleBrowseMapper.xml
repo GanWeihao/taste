@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.ArticleBrowseMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.ArticleBrowse" >
+    <constructor >
+      <idArg column="ARTICLE_BROWSE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_BROWSE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_BROWSE_ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_BROWSE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article_browse
+    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from article_browse
+    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.ArticleBrowse" >
+    insert into article_browse (ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, 
+      ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
+      )
+    values (#{articleBrowseId,jdbcType=VARCHAR}, #{articleBrowseUserId,jdbcType=VARCHAR}, 
+      #{articleBrowseArticleId,jdbcType=VARCHAR}, #{articleBrowseTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.ArticleBrowse" >
+    insert into article_browse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleBrowseId != null" >
+        ARTICLE_BROWSE_ID,
+      </if>
+      <if test="articleBrowseUserId != null" >
+        ARTICLE_BROWSE_USER_ID,
+      </if>
+      <if test="articleBrowseArticleId != null" >
+        ARTICLE_BROWSE_ARTICLE_ID,
+      </if>
+      <if test="articleBrowseTime != null" >
+        ARTICLE_BROWSE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleBrowseId != null" >
+        #{articleBrowseId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleBrowseUserId != null" >
+        #{articleBrowseUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleBrowseArticleId != null" >
+        #{articleBrowseArticleId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleBrowseTime != null" >
+        #{articleBrowseTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.ArticleBrowse" >
+    update article_browse
+    <set >
+      <if test="articleBrowseUserId != null" >
+        ARTICLE_BROWSE_USER_ID = #{articleBrowseUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleBrowseArticleId != null" >
+        ARTICLE_BROWSE_ARTICLE_ID = #{articleBrowseArticleId,jdbcType=VARCHAR},
+      </if>
+      <if test="articleBrowseTime != null" >
+        ARTICLE_BROWSE_TIME = #{articleBrowseTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.ArticleBrowse" >
+    update article_browse
+    set ARTICLE_BROWSE_USER_ID = #{articleBrowseUserId,jdbcType=VARCHAR},
+      ARTICLE_BROWSE_ARTICLE_ID = #{articleBrowseArticleId,jdbcType=VARCHAR},
+      ARTICLE_BROWSE_TIME = #{articleBrowseTime,jdbcType=TIMESTAMP}
+    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

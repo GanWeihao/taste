@@ -1,0 +1,46 @@
+server:
+  port: 9090
+
+  tomcat:
+    uri-encoding: UTF-8
+    max-connections: 20000
+
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/taste?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=Hongkong
+    username: root
+    password: 123456
+mvc:
+  static-path-pattern: /static/**
+resources:
+  static-locations: classpath:/static/
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.project.taste.model
+
+
+pattern:
+  console: '%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n  '
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+logging:
+  level:
+    root: warn
+    com.project.taste: debug
+    org:
+      springframework:
+        security: DEBUG
+        web: ERROR
+      hibernate: DEBUG
+      apache:
+        commons:
+          dbcp2: DEBUG
+  path: concretepage/logs
+  pattern:
+    file: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.VideoCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.VideoComment" >
+    <constructor >
+      <idArg column="VIDEO_COMMENT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COMMENT_CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COMMENT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="VIDEO_COMMENT_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COMMENT_VIDEO_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COMMENT_TOUSER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COMMENT_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID, 
+    VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from video_comment
+    where VIDEO_COMMENT_ID = #{videoCommentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from video_comment
+    where VIDEO_COMMENT_ID = #{videoCommentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.VideoComment" >
+    insert into video_comment (VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, 
+      VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID, 
+      VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, 
+      VIDEO_COMMENT_STATUS)
+    values (#{videoCommentId,jdbcType=VARCHAR}, #{videoCommentContent,jdbcType=VARCHAR}, 
+      #{videoCommentTime,jdbcType=TIMESTAMP}, #{videoCommentUserId,jdbcType=VARCHAR}, 
+      #{videoCommentVideoId,jdbcType=VARCHAR}, #{videoCommentTouserId,jdbcType=VARCHAR}, 
+      #{videoCommentStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.VideoComment" >
+    insert into video_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoCommentId != null" >
+        VIDEO_COMMENT_ID,
+      </if>
+      <if test="videoCommentContent != null" >
+        VIDEO_COMMENT_CONTENT,
+      </if>
+      <if test="videoCommentTime != null" >
+        VIDEO_COMMENT_TIME,
+      </if>
+      <if test="videoCommentUserId != null" >
+        VIDEO_COMMENT_USER_ID,
+      </if>
+      <if test="videoCommentVideoId != null" >
+        VIDEO_COMMENT_VIDEO_ID,
+      </if>
+      <if test="videoCommentTouserId != null" >
+        VIDEO_COMMENT_TOUSER_ID,
+      </if>
+      <if test="videoCommentStatus != null" >
+        VIDEO_COMMENT_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoCommentId != null" >
+        #{videoCommentId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentContent != null" >
+        #{videoCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentTime != null" >
+        #{videoCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoCommentUserId != null" >
+        #{videoCommentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentVideoId != null" >
+        #{videoCommentVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentTouserId != null" >
+        #{videoCommentTouserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentStatus != null" >
+        #{videoCommentStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.VideoComment" >
+    update video_comment
+    <set >
+      <if test="videoCommentContent != null" >
+        VIDEO_COMMENT_CONTENT = #{videoCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentTime != null" >
+        VIDEO_COMMENT_TIME = #{videoCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoCommentUserId != null" >
+        VIDEO_COMMENT_USER_ID = #{videoCommentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentVideoId != null" >
+        VIDEO_COMMENT_VIDEO_ID = #{videoCommentVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentTouserId != null" >
+        VIDEO_COMMENT_TOUSER_ID = #{videoCommentTouserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCommentStatus != null" >
+        VIDEO_COMMENT_STATUS = #{videoCommentStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where VIDEO_COMMENT_ID = #{videoCommentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.VideoComment" >
+    update video_comment
+    set VIDEO_COMMENT_CONTENT = #{videoCommentContent,jdbcType=VARCHAR},
+      VIDEO_COMMENT_TIME = #{videoCommentTime,jdbcType=TIMESTAMP},
+      VIDEO_COMMENT_USER_ID = #{videoCommentUserId,jdbcType=VARCHAR},
+      VIDEO_COMMENT_VIDEO_ID = #{videoCommentVideoId,jdbcType=VARCHAR},
+      VIDEO_COMMENT_TOUSER_ID = #{videoCommentTouserId,jdbcType=VARCHAR},
+      VIDEO_COMMENT_STATUS = #{videoCommentStatus,jdbcType=INTEGER}
+    where VIDEO_COMMENT_ID = #{videoCommentId,jdbcType=VARCHAR}
+  </update>
+</mapper>

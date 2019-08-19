@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.VideoBrowseMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.VideoBrowse" >
+    <constructor >
+      <idArg column="VIDEO_BROWSE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_BROWSE_VIDEO_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_BROWSE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_BROWSE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID, VIDEO_BROWSE_USER_ID, VIDEO_BROWSE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from video_browse
+    where VIDEO_BROWSE_ID = #{videoBrowseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from video_browse
+    where VIDEO_BROWSE_ID = #{videoBrowseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.VideoBrowse" >
+    insert into video_browse (VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID, 
+      VIDEO_BROWSE_USER_ID, VIDEO_BROWSE_TIME)
+    values (#{videoBrowseId,jdbcType=VARCHAR}, #{videoBrowseVideoId,jdbcType=VARCHAR}, 
+      #{videoBrowseUserId,jdbcType=VARCHAR}, #{videoBrowseTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.VideoBrowse" >
+    insert into video_browse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoBrowseId != null" >
+        VIDEO_BROWSE_ID,
+      </if>
+      <if test="videoBrowseVideoId != null" >
+        VIDEO_BROWSE_VIDEO_ID,
+      </if>
+      <if test="videoBrowseUserId != null" >
+        VIDEO_BROWSE_USER_ID,
+      </if>
+      <if test="videoBrowseTime != null" >
+        VIDEO_BROWSE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoBrowseId != null" >
+        #{videoBrowseId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoBrowseVideoId != null" >
+        #{videoBrowseVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoBrowseUserId != null" >
+        #{videoBrowseUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoBrowseTime != null" >
+        #{videoBrowseTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.VideoBrowse" >
+    update video_browse
+    <set >
+      <if test="videoBrowseVideoId != null" >
+        VIDEO_BROWSE_VIDEO_ID = #{videoBrowseVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoBrowseUserId != null" >
+        VIDEO_BROWSE_USER_ID = #{videoBrowseUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoBrowseTime != null" >
+        VIDEO_BROWSE_TIME = #{videoBrowseTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where VIDEO_BROWSE_ID = #{videoBrowseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.VideoBrowse" >
+    update video_browse
+    set VIDEO_BROWSE_VIDEO_ID = #{videoBrowseVideoId,jdbcType=VARCHAR},
+      VIDEO_BROWSE_USER_ID = #{videoBrowseUserId,jdbcType=VARCHAR},
+      VIDEO_BROWSE_TIME = #{videoBrowseTime,jdbcType=TIMESTAMP}
+    where VIDEO_BROWSE_ID = #{videoBrowseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.VideoMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.Video" >
+    <constructor >
+      <idArg column="VIDEO_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_URL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_TITLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO__CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="VIDEO_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, VIDEO_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from video
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from video
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.Video" >
+    insert into video (VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, 
+      VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, 
+      VIDEO_STATUS)
+    values (#{videoId,jdbcType=VARCHAR}, #{videoUserId,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR}, 
+      #{videoTitle,jdbcType=VARCHAR}, #{videoContent,jdbcType=VARCHAR}, #{videoTime,jdbcType=TIMESTAMP}, 
+      #{videoStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.Video" >
+    insert into video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoId != null" >
+        VIDEO_ID,
+      </if>
+      <if test="videoUserId != null" >
+        VIDEO_USER_ID,
+      </if>
+      <if test="videoUrl != null" >
+        VIDEO_URL,
+      </if>
+      <if test="videoTitle != null" >
+        VIDEO_TITLE,
+      </if>
+      <if test="videoContent != null" >
+        VIDEO__CONTENT,
+      </if>
+      <if test="videoTime != null" >
+        VIDEO_TIME,
+      </if>
+      <if test="videoStatus != null" >
+        VIDEO_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUserId != null" >
+        #{videoUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTitle != null" >
+        #{videoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="videoContent != null" >
+        #{videoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTime != null" >
+        #{videoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoStatus != null" >
+        #{videoStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Video" >
+    update video
+    <set >
+      <if test="videoUserId != null" >
+        VIDEO_USER_ID = #{videoUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null" >
+        VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTitle != null" >
+        VIDEO_TITLE = #{videoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="videoContent != null" >
+        VIDEO__CONTENT = #{videoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="videoTime != null" >
+        VIDEO_TIME = #{videoTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoStatus != null" >
+        VIDEO_STATUS = #{videoStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Video" >
+    update video
+    set VIDEO_USER_ID = #{videoUserId,jdbcType=VARCHAR},
+      VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      VIDEO_TITLE = #{videoTitle,jdbcType=VARCHAR},
+      VIDEO__CONTENT = #{videoContent,jdbcType=VARCHAR},
+      VIDEO_TIME = #{videoTime,jdbcType=TIMESTAMP},
+      VIDEO_STATUS = #{videoStatus,jdbcType=INTEGER}
+    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

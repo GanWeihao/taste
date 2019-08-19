@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.Message" >
+    <constructor >
+      <idArg column="MESSAGE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MESSAGE_TITLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MESSAGE_CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MESSAGE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MESSAGE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MESSAGE_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_TIME, MESSAGE_USER_ID, MESSAGE_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from message
+    where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.Message" >
+    insert into message (MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, 
+      MESSAGE_TIME, MESSAGE_USER_ID, MESSAGE_STATUS
+      )
+    values (#{messageId,jdbcType=VARCHAR}, #{messageTitle,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR}, 
+      #{messageTime,jdbcType=TIMESTAMP}, #{messageUserId,jdbcType=VARCHAR}, #{messageStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="messageTitle != null" >
+        MESSAGE_TITLE,
+      </if>
+      <if test="messageContent != null" >
+        MESSAGE_CONTENT,
+      </if>
+      <if test="messageTime != null" >
+        MESSAGE_TIME,
+      </if>
+      <if test="messageUserId != null" >
+        MESSAGE_USER_ID,
+      </if>
+      <if test="messageStatus != null" >
+        MESSAGE_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTitle != null" >
+        #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTime != null" >
+        #{messageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageUserId != null" >
+        #{messageUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageStatus != null" >
+        #{messageStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Message" >
+    update message
+    <set >
+      <if test="messageTitle != null" >
+        MESSAGE_TITLE = #{messageTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="messageTime != null" >
+        MESSAGE_TIME = #{messageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageUserId != null" >
+        MESSAGE_USER_ID = #{messageUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageStatus != null" >
+        MESSAGE_STATUS = #{messageStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Message" >
+    update message
+    set MESSAGE_TITLE = #{messageTitle,jdbcType=VARCHAR},
+      MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+      MESSAGE_TIME = #{messageTime,jdbcType=TIMESTAMP},
+      MESSAGE_USER_ID = #{messageUserId,jdbcType=VARCHAR},
+      MESSAGE_STATUS = #{messageStatus,jdbcType=INTEGER}
+    where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+  </update>
+</mapper>

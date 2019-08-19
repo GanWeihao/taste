@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.ContentMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.Content" >
+    <constructor >
+      <idArg column="CONTENT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CONTENT_TEXT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CONTENT_ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CONTENT_IMGURL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CONTENT_ORDER" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CONTENT_ID, CONTENT_TEXT, CONTENT_ARTICLE_ID, CONTENT_IMGURL, CONTENT_ORDER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from content
+    where CONTENT_ID = #{contentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from content
+    where CONTENT_ID = #{contentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.Content" >
+    insert into content (CONTENT_ID, CONTENT_TEXT, CONTENT_ARTICLE_ID, 
+      CONTENT_IMGURL, CONTENT_ORDER)
+    values (#{contentId,jdbcType=VARCHAR}, #{contentText,jdbcType=VARCHAR}, #{contentArticleId,jdbcType=VARCHAR}, 
+      #{contentImgurl,jdbcType=VARCHAR}, #{contentOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.Content" >
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        CONTENT_ID,
+      </if>
+      <if test="contentText != null" >
+        CONTENT_TEXT,
+      </if>
+      <if test="contentArticleId != null" >
+        CONTENT_ARTICLE_ID,
+      </if>
+      <if test="contentImgurl != null" >
+        CONTENT_IMGURL,
+      </if>
+      <if test="contentOrder != null" >
+        CONTENT_ORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="contentText != null" >
+        #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="contentArticleId != null" >
+        #{contentArticleId,jdbcType=VARCHAR},
+      </if>
+      <if test="contentImgurl != null" >
+        #{contentImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="contentOrder != null" >
+        #{contentOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Content" >
+    update content
+    <set >
+      <if test="contentText != null" >
+        CONTENT_TEXT = #{contentText,jdbcType=VARCHAR},
+      </if>
+      <if test="contentArticleId != null" >
+        CONTENT_ARTICLE_ID = #{contentArticleId,jdbcType=VARCHAR},
+      </if>
+      <if test="contentImgurl != null" >
+        CONTENT_IMGURL = #{contentImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="contentOrder != null" >
+        CONTENT_ORDER = #{contentOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CONTENT_ID = #{contentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Content" >
+    update content
+    set CONTENT_TEXT = #{contentText,jdbcType=VARCHAR},
+      CONTENT_ARTICLE_ID = #{contentArticleId,jdbcType=VARCHAR},
+      CONTENT_IMGURL = #{contentImgurl,jdbcType=VARCHAR},
+      CONTENT_ORDER = #{contentOrder,jdbcType=INTEGER}
+    where CONTENT_ID = #{contentId,jdbcType=VARCHAR}
+  </update>
+</mapper>

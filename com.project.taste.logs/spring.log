@@ -1,0 +1,27 @@
+2019-八月-19 20:08:11.164 INFO  [main] c.p.t.TasteApplication - Starting TasteApplication on DESKTOP-87JA6SM with PID 3116 (E:\taste\taste\target\classes started by Administrator in E:\taste\taste)
+2019-八月-19 20:08:11.166 DEBUG [main] c.p.t.TasteApplication - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-八月-19 20:08:11.167 INFO  [main] c.p.t.TasteApplication - The following profiles are active: dev
+2019-八月-19 20:08:12.340 INFO  [main] o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2019-八月-19 20:08:12.358 INFO  [main] o.a.c.c.StandardService - Starting service [Tomcat]
+2019-八月-19 20:08:12.358 INFO  [main] o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-八月-19 20:08:12.432 INFO  [main] o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+2019-八月-19 20:08:12.492 DEBUG [main] o.h.v.i.e.r.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-八月-19 20:08:12.493 DEBUG [main] o.h.v.m.ResourceBundleMessageInterpolator - Loaded expression factory via original TCCL
+2019-八月-19 20:08:12.495 DEBUG [main] o.h.v.i.e.r.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-八月-19 20:08:12.496 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+2019-八月-19 20:08:12.497 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom ConstraintValidatorFactory of type org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory
+2019-八月-19 20:08:12.497 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom ParameterNameProvider of type org.springframework.validation.beanvalidation.LocalValidatorFactoryBean$1
+2019-八月-19 20:08:12.499 DEBUG [main] o.h.v.i.x.c.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+2019-八月-19 20:08:12.499 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via user class loader
+2019-八月-19 20:08:12.499 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+2019-八月-19 20:08:12.500 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+2019-八月-19 20:08:12.501 DEBUG [main] o.h.v.i.x.c.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+2019-八月-19 20:08:12.505 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-八月-19 20:08:12.505 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-八月-19 20:08:12.505 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-八月-19 20:08:12.505 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-八月-19 20:08:12.505 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-八月-19 20:08:12.635 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-八月-19 20:08:12.716 WARN  [main] o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2019-八月-19 20:08:13.191 INFO  [main] o.s.b.w.e.t.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2019-八月-19 20:08:13.193 INFO  [main] c.p.t.TasteApplication - Started TasteApplication in 2.545 seconds (JVM running for 3.191)

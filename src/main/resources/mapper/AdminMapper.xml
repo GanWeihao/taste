@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.Admin" >
+    <constructor >
+      <idArg column="ADMIN_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADMIN_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADMIN_PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADMIN_ID, ADMIN_NAME, ADMIN_PASSWORD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where ADMIN_ID = #{adminId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from admin
+    where ADMIN_ID = #{adminId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.Admin" >
+    insert into admin (ADMIN_ID, ADMIN_NAME, ADMIN_PASSWORD
+      )
+    values (#{adminId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        ADMIN_ID,
+      </if>
+      <if test="adminName != null" >
+        ADMIN_NAME,
+      </if>
+      <if test="adminPassword != null" >
+        ADMIN_PASSWORD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Admin" >
+    update admin
+    <set >
+      <if test="adminName != null" >
+        ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        ADMIN_PASSWORD = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADMIN_ID = #{adminId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Admin" >
+    update admin
+    set ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      ADMIN_PASSWORD = #{adminPassword,jdbcType=VARCHAR}
+    where ADMIN_ID = #{adminId,jdbcType=VARCHAR}
+  </update>
+</mapper>

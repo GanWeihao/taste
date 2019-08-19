@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.taste.mapper.AttentionMapper" >
+  <resultMap id="BaseResultMap" type="com.project.taste.model.Attention" >
+    <constructor >
+      <idArg column="ATTENTION_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ATTENTION_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ATTENTION_TOUSER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ATTENTION_ID, ATTENTION_USER_ID, ATTENTION_TOUSER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from attention
+    where ATTENTION_ID = #{attentionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from attention
+    where ATTENTION_ID = #{attentionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.taste.model.Attention" >
+    insert into attention (ATTENTION_ID, ATTENTION_USER_ID, ATTENTION_TOUSER_ID
+      )
+    values (#{attentionId,jdbcType=VARCHAR}, #{attentionUserId,jdbcType=VARCHAR}, #{attentionTouserId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.taste.model.Attention" >
+    insert into attention
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attentionId != null" >
+        ATTENTION_ID,
+      </if>
+      <if test="attentionUserId != null" >
+        ATTENTION_USER_ID,
+      </if>
+      <if test="attentionTouserId != null" >
+        ATTENTION_TOUSER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attentionId != null" >
+        #{attentionId,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionUserId != null" >
+        #{attentionUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionTouserId != null" >
+        #{attentionTouserId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Attention" >
+    update attention
+    <set >
+      <if test="attentionUserId != null" >
+        ATTENTION_USER_ID = #{attentionUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionTouserId != null" >
+        ATTENTION_TOUSER_ID = #{attentionTouserId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATTENTION_ID = #{attentionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Attention" >
+    update attention
+    set ATTENTION_USER_ID = #{attentionUserId,jdbcType=VARCHAR},
+      ATTENTION_TOUSER_ID = #{attentionTouserId,jdbcType=VARCHAR}
+    where ATTENTION_ID = #{attentionId,jdbcType=VARCHAR}
+  </update>
+</mapper>
