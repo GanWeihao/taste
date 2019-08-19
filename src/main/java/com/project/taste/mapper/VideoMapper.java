@@ -4,6 +4,8 @@ import com.project.taste.model.Video;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component("VideoMapper")
 public interface VideoMapper {
@@ -18,4 +20,7 @@ public interface VideoMapper {
     int updateByPrimaryKeySelective(Video record);
 
     int updateByPrimaryKey(Video record);
+
+    //查询所有视频
+    List<Video> queryVideoAll();
 }
