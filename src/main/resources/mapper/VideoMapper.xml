@@ -15,16 +15,26 @@
   <sql id="Base_Column_List" >
     VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, VIDEO_STATUS
   </sql>
+
+  <!--查询所有视频-->
+  <select id="queryVideoAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from video
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from video
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from video
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="com.project.taste.model.Video" >
     insert into video (VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, 
       VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, 
@@ -33,10 +43,11 @@
       #{videoTitle,jdbcType=VARCHAR}, #{videoContent,jdbcType=VARCHAR}, #{videoTime,jdbcType=TIMESTAMP}, 
       #{videoStatus,jdbcType=INTEGER})
   </insert>
+
   <insert id="insertSelective" parameterType="com.project.taste.model.Video" >
     insert into video
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="videoId != null" >
+      <if test="videoId != null">
         VIDEO_ID,
       </if>
       <if test="videoUserId != null" >
@@ -82,6 +93,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Video" >
     update video
     <set >
@@ -106,6 +118,7 @@
     </set>
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Video" >
     update video
     set VIDEO_USER_ID = #{videoUserId,jdbcType=VARCHAR},
@@ -116,4 +129,5 @@
       VIDEO_STATUS = #{videoStatus,jdbcType=INTEGER}
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </update>
+
 </mapper>
