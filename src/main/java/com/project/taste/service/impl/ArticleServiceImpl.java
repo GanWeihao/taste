@@ -26,6 +26,12 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.selectByCategoryId(articleCategoryId);
     }
 
+    //根据文章ID查询文章
+    @Override
+    public Article selectByPrimaryKey(String articleId) {
+        return null;
+    }
+
     @Override
     public int deleteByPrimaryKey(String articleId) {
         return 0;
@@ -39,11 +45,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int insertSelective(Article record) {
         return 0;
-    }
-
-    @Override
-    public Article selectByPrimaryKey(String articleId) {
-        return null;
     }
 
     @Override
