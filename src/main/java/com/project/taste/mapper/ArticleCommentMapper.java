@@ -4,6 +4,8 @@ import com.project.taste.model.ArticleComment;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component("ArticleCommentMapper")
 public interface ArticleCommentMapper {
@@ -18,4 +20,8 @@ public interface ArticleCommentMapper {
     int updateByPrimaryKeySelective(ArticleComment record);
 
     int updateByPrimaryKey(ArticleComment record);
+    //根据文章ID查询评论
+    public List<ArticleComment> queryByIdComment(String articleCommentArticleId);
+    //根据用户ID查询文章评论
+    public List<ArticleComment>  queryUserByIdComment(String articleCommentUserId);
 }

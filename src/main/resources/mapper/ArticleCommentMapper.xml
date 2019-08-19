@@ -22,6 +22,7 @@
     from article_comment
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from article_comment
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
@@ -119,4 +120,20 @@
       ARTICLE_COMMENT_STATUS = #{articleCommentStatus,jdbcType=INTEGER}
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
   </update>
+  <!--根据文章评论ID查询文章评论-->
+  <select id="queryByIdComment"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from  article_comment  a
+    where a.ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
+  </select>
+  <!--根据用户ID查询文章评论-->
+  <select id="queryUserByIdComment" parameterType="java.lang.String"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from article_comment  a
+    where a.ARTICLE_COMMENT_USER_ID=#{articleCommentUserId,jdbcType=VARCHAR}
+  </select>
+  <!--根据文章ID查询评论数量-->
+  <!--<select id="queryCommentNumber"-->
 </mapper>
