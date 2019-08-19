@@ -16,6 +16,22 @@
     ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, ARTICLE_USER_ID, ARTICLE_CONTENT_ID, ARTICLE_CATEGORY_ID, 
     ARTICLE_TIME
   </sql>
+  <!--查询所有文章（带分页）-->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from article
+    where ARTICLE_STATUS = 0
+  </select>
+  <!--根据类别ID查所有文章（带分页）-->
+  <select id="selectByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from article
+    where  ARTICLE_CATEGORY_ID = #{articleCategoryId,jdbcType=VARCHAR}
+    and ARTICLE_STATUS = 0
+  </select>
+  <!--根据文章ID查询文章-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

@@ -13,6 +13,14 @@
   <sql id="Base_Column_List" >
     CONTENT_ID, CONTENT_TEXT, CONTENT_ARTICLE_ID, CONTENT_IMGURL, CONTENT_ORDER
   </sql>
+  <select id="selectByArticleId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List"/>
+    from content
+    where CONTENT_ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
+    order by CONTENT_ORDER asc
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
