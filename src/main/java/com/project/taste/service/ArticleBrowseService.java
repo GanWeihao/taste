@@ -14,10 +14,10 @@ public interface ArticleBrowseService {
     int deleteByArticleBrowseId2(List<String> articleBrowseList);
     //删除用户所有浏览记录
     int deleteByUserId(String articleBrowseUserId);
+    //添加文章浏览记录
+    int insertSelective(ArticleBrowse record);
 
     int insert(ArticleBrowse record);
-
-    int insertSelective(ArticleBrowse record);
 
     ArticleBrowse selectByPrimaryKey(String articleBrowseId);
 

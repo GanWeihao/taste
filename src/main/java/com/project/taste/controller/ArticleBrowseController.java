@@ -1,5 +1,6 @@
 package com.project.taste.controller;
 
+import com.project.taste.model.Article;
 import com.project.taste.model.ArticleBrowse;
 import com.project.taste.service.ArticleBrowseService;
 import com.project.taste.util.Constants;
@@ -120,6 +121,26 @@ public class ArticleBrowseController {
             }
         }catch (Exception e){
             js = new JsonResult(Constants.STATUS_ERROR,"删除异常");
+        }
+        return js;
+    }
+
+    /**
+     * 添加浏览记录
+     */
+    @ResponseBody
+    @RequestMapping("/articlebrowse/insert")
+    public JsonResult insertArticleBrowse(ArticleBrowse articleBrowse){
+        JsonResult js;
+        try{
+            int i = articleBrowseService.insertSelective(articleBrowse);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
         }
         return js;
     }
