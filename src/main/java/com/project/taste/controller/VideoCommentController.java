@@ -70,4 +70,25 @@ public class VideoCommentController {
         return result;
     }
 
+    /**
+     * 查询视频评论数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/videocomment/querynum")
+    public Object queryVideoCommentNum(){
+        JsonResult result=null;
+        try{
+            int num=videoCommentService.queryVideoCommentNum();
+            if(num!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",num);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
+
 }

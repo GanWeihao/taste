@@ -61,4 +61,13 @@ public class VideoCommentServiceImpl implements VideoCommentService {
         return list;
     }
 
+    //查询视频评论数量
+    @Override
+    public int queryVideoCommentNum() {
+        int num = videoCommentMapper.queryVideoCommentNum();
+        return num;
+    }
+
+
+
 }

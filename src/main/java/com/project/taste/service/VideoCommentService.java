@@ -22,4 +22,7 @@ public interface VideoCommentService {
 
     //查询所有视频评论
     List<VideoComment> queryVideoCommentAll();
+
+    //查询视频评论数量
+    int queryVideoCommentNum();
 }

@@ -17,8 +17,11 @@
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
   </sql>
 
-  <select id="queryVideoCommentNum" resultMap="java.lang.Integer">
-
+  <!--查询视频评论数量-->
+  <select id="queryVideoCommentNum" resultType="java.lang.Integer">
+    select count(*)
+           from video_comment
+           where VIDEO_COMMENT_STATUS=0
   </select>
 
   <!--根据视频ID查询视频的所有评论-->
