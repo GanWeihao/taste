@@ -53,4 +53,15 @@ public class VideoServiceImpl implements VideoService {
         List<Video> list=videoMapper.queryVideoAll();
         return list;
     }
+
+    /**
+     * 根据用户ID查询该用户上传的视频数量
+     * @param userId
+     * @return
+     */
+    @Override
+    public int queryVideoNum(String userId) {
+        int num=videoMapper.queryVideoNum(userId);
+        return num;
+    }
 }

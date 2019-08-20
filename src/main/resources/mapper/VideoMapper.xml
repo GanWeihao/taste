@@ -23,6 +23,14 @@
     from video where VIDEO_STATUS=1
   </select>
 
+  <!--根据用户ID查询该用户上传的视频数量-->
+  <select id="queryVideoNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*)
+                  from video
+                  where VIDEO_STATUS=1
+                  and VIDEO_USER_ID=#{videoId,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

@@ -44,4 +44,26 @@ public class VideoController {
         }
         return result;
     }
+
+    /**
+     * 根据用户ID查询该用户上传的视频数量
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/video/qyerynum/userid")
+    public Object queryVideoNum(String userId){
+        JsonResult result=null;
+        try{
+            int num=videoService.queryVideoNum(userId);
+            if(num!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",num);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+                result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
 }
