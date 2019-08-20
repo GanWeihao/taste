@@ -29,7 +29,13 @@ public class ArticleServiceImpl implements ArticleService {
     //根据文章ID查询文章
     @Override
     public Article selectByPrimaryKey(String articleId) {
-        return null;
+        return articleMapper.selectByPrimaryKey(articleId);
+    }
+
+    //根据文章ID删除文章
+    @Override
+    public int deleteByArticleId(String articleId) {
+        return articleMapper.deleteByArticleId(articleId);
     }
 
     @Override

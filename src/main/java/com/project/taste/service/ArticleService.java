@@ -11,6 +11,8 @@ public interface ArticleService {
     List <Article> selectByCategoryId(String articleCategoryId);
     //根据文章ID查询文章
     Article selectByPrimaryKey(String articleId);
+    //根据ID删除文章
+    int deleteByArticleId(String articleId);
 
     int deleteByPrimaryKey(String articleId);
 
