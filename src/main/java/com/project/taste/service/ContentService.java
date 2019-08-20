@@ -9,6 +9,8 @@ public interface ContentService {
     List<Content> selectByArticleId(String articleId);
     //根据文章ID删除内容
     int deleteByArticleId(String contentArticleId);
+    //添加文章内容
+    int insertBatch(List<Content> list);
 
     int insert(Content record);
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -22,6 +23,15 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public int deleteByArticleId(String contentArticleId) {
         return contentMapper.deleteByArticleId(contentArticleId);
+    }
+    //添加文章内容
+    @Override
+    public int insertBatch(List<Content> list) {
+        for(Content content : list){
+            String id = UUID.randomUUID().toString().replaceAll("-","");
+            content.setContentId(id);
+        }
+        return contentMapper.insertBatch(list);
     }
 
     @Override

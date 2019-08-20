@@ -1,5 +1,8 @@
 package com.project.taste.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.taste.model.Content;
 import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
@@ -7,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @CrossOrigin
@@ -33,6 +39,26 @@ public class ContentController {
             }
         }catch (Exception e){
             js = new JsonResult(Constants.STATUS_ERROR,"删除异常");
+        }
+        return js;
+    }
+
+    /**
+     *
+     * @param content
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/content/insert")
+    public JsonResult insertContent(@RequestParam("content") String content){
+        JsonResult js;
+        String strlist = content;
+        List<Content> array = JSON.parseArray(strlist,Content.class);
+        try{
+            int i = contentService.insertBatch(array);
+            js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
         }
         return js;
     }
