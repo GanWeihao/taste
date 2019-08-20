@@ -7,8 +7,8 @@ import java.util.List;
 public interface ContentService {
     //根据文章ID查询内容
     List<Content> selectByArticleId(String articleId);
-
-    int deleteByPrimaryKey(String contentId);
+    //根据文章ID删除内容
+    int deleteByArticleId(String contentArticleId);
 
     int insert(Content record);
 
