@@ -28,11 +28,19 @@
     select count(*)
                   from video
                   where VIDEO_STATUS=1
-                  and VIDEO_USER_ID=#{videoId,jdbcType=VARCHAR}
+                  and VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据视频ID查询视频详情-->
+  <select id="queryVideoById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List"/>
+          from video
+          where VIDEO_ID=#{videoId,jdbcType=VARCHAR} and VIDEO_STATUS=1
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from video
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}

@@ -25,4 +25,6 @@ public interface VideoMapper {
     List<Video> queryVideoAll();
     //根据用户ID查询该用户上传的视频数量
     int queryVideoNum(String userId);
+    //根据视频ID查询视频详情
+    Video queryVideoById(String videoId);
 }

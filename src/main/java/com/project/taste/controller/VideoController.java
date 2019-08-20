@@ -66,4 +66,26 @@ public class VideoController {
         }
         return result;
     }
+
+    /**
+     * 根据视频ID查询视频详情
+     * @param videoId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/video/querybyid")
+    public Object queryVideoById(String videoId){
+        JsonResult result=null;
+        try{
+            Video video=videoService.queryVideoById(videoId);
+            if(video!=null){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",video);
+            }else {
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
 }
