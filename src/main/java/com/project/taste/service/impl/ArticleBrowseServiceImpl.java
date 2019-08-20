@@ -26,9 +26,20 @@ public class ArticleBrowseServiceImpl implements ArticleBrowseService {
         return articleBrowseMapper.selectNumByArticleId(articleBrowseArticleId);
     }
 
+    //删除浏览记录
     @Override
-    public int deleteByPrimaryKey(String articleBrowseId) {
-        return 0;
+    public int deleteByArticleBrowseId(String articleBrowseId) {
+        return articleBrowseMapper.deleteByArticleBrowseId(articleBrowseId);
+    }
+    //删除浏览记录
+    @Override
+    public int deleteByArticleBrowseId2(List<String> articleBrowseList) {
+        return articleBrowseMapper.deleteByArticleBrowseId2(articleBrowseList);
+    }
+    //删除用户所有浏览记录
+    @Override
+    public int deleteByUserId(String articleBrowseUserId) {
+        return articleBrowseMapper.deleteByUserId(articleBrowseUserId);
     }
 
     @Override
