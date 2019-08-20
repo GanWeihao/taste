@@ -33,6 +33,19 @@
     delete from content
     where CONTENT_ARTICLE_ID = #{contentArticleId,jdbcType=VARCHAR}
   </delete>
+  <!--添加文章内容-->
+  <insert id="insertBatch" >
+    insert into content (CONTENT_ID, CONTENT_TEXT, CONTENT_ARTICLE_ID,
+    CONTENT_IMGURL, CONTENT_ORDER)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.contentId,jdbcType=VARCHAR},
+      #{item.contentText,jdbcType=VARCHAR},
+      #{item.contentArticleId,jdbcType=VARCHAR},
+      #{item.contentImgurl,jdbcType=VARCHAR},
+      #{item.contentOrder,jdbcType=INTEGER})
+    </foreach>
+  </insert>
   <insert id="insert" parameterType="com.project.taste.model.Content" >
     insert into content (CONTENT_ID, CONTENT_TEXT, CONTENT_ARTICLE_ID, 
       CONTENT_IMGURL, CONTENT_ORDER)
