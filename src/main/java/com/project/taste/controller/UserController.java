@@ -126,6 +126,29 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 根据id查询用户详情
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/user/querybyid")
+    public Object queryById(String userId){
+        JsonResult result=null;
+        try{
+           User user = userService.selectById(userId);
+            if(user!=null){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",user);
+            }else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常",e.getMessage());
+        }
+        return result;
+    }
+
+
 
 
 }

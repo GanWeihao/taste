@@ -15,10 +15,10 @@ public interface UserService {
     User selectByPrimaryKey1(String userTelephone);
     //用户登入
     User selectByPrimaryKey(String userName, String userPassword);
-   //查询用户数量
-   int querynum();
-
-
+    //查询用户数量
+    int querynum();
+    //根据Id查询用户详情
+    User selectById(String userId);
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
