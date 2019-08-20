@@ -79,4 +79,10 @@ public class MessageServiceImpl implements MessageService {
         int row=messageMapper.updateMessage(messageId);
         return row;
     }
+    //查询未读信息数量
+    @Override
+    public int queryMessageNum(String userId) {
+        int num=messageMapper.queryMessageNum(userId);
+        return num;
+    }
 }

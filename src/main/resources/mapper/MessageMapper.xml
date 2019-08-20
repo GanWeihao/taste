@@ -46,6 +46,13 @@
                   where MESSAGE_ID=#{messageId,jdbcType=VARCHAR}
     </update>
 
+    <!--查询未读信息数量-->
+    <select id="queryMessageNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+      select count(*)
+                    from message
+                    where MESSAGE_STATUS=0
+    </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

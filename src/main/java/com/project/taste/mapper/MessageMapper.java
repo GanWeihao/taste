@@ -27,4 +27,6 @@ public interface MessageMapper {
     Message queryMessageByMessageId(String messageId);
     //根据消息ID更改消息状态
     int updateMessage(String messageId);
+    //查询未读信息数量
+    int queryMessageNum(String userId);
 }
