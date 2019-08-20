@@ -44,7 +44,7 @@ public class VideoCommentServiceImpl implements VideoCommentService {
     public int updateByPrimaryKey(VideoComment record) {
         return 0;
     }
-
+    //根据视频ID查询视频的所有评论
     @Override
     public List<VideoComment> queryVideoCommentByVideoId(String videoId) {
         List<VideoComment> list=videoCommentMapper.queryVideoCommentByVideoId(videoId);
