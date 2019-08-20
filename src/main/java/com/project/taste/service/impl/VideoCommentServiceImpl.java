@@ -51,4 +51,14 @@ public class VideoCommentServiceImpl implements VideoCommentService {
         return list;
     }
 
+    /**
+     * 查询所有视频评论
+     * @return
+     */
+    @Override
+    public List<VideoComment> queryVideoCommentAll() {
+        List<VideoComment> list=videoCommentMapper.queryVideoCommentAll();
+        return list;
+    }
+
 }

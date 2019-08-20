@@ -24,6 +24,13 @@
           from video_comment
           where VIDEO_COMMENT_VIDEO_ID=#{videoCommentVideoId,jdbcType=VARCHAR} and  VIDEO_COMMENT_STATUS=0
   </select>
+  <!--查询所有视频评论-->
+  <select id="queryVideoCommentAll" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List"/>
+          from video_comment
+          where VIDEO_COMMENT_STATUS=0
+  </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
