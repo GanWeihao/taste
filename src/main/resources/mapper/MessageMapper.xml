@@ -14,6 +14,16 @@
   <sql id="Base_Column_List" >
     MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_TIME, MESSAGE_USER_ID, MESSAGE_STATUS
   </sql>
+
+    <!--根据用户ID查询用户的所有已读和未读信息-->
+    <select id="queryMessageByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where MESSAGE_USER_ID=#{messageUserId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
+        ORDER BY MESSAGE_TIME asc
+    </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
