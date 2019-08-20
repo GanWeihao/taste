@@ -20,7 +20,7 @@ public class UploadFileUtil {
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
-        //保存图片
+        //保存文件
         File fileSave = new File(path, newFileName);
         file.transferTo(fileSave);
         return newFileName;
