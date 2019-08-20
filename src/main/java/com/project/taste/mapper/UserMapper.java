@@ -12,8 +12,8 @@ public interface UserMapper {
     int insert(User record);
 
     int insertSelective(User record);
-
-    User selectByPrimaryKey(String userId);
+    //用户登入
+    User selectByPrimaryKey(String userName,String userPassword);
 
     int updateByPrimaryKeySelective(User record);
 
