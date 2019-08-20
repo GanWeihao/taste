@@ -6,7 +6,9 @@ import com.project.taste.service.ArticleBrowseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ArticleBrowseServiceImpl implements ArticleBrowseService {
@@ -26,18 +28,33 @@ public class ArticleBrowseServiceImpl implements ArticleBrowseService {
         return articleBrowseMapper.selectNumByArticleId(articleBrowseArticleId);
     }
 
+    //删除浏览记录
     @Override
-    public int deleteByPrimaryKey(String articleBrowseId) {
-        return 0;
+    public int deleteByArticleBrowseId(String articleBrowseId) {
+        return articleBrowseMapper.deleteByArticleBrowseId(articleBrowseId);
+    }
+    //删除浏览记录
+    @Override
+    public int deleteByArticleBrowseId2(List<String> articleBrowseList) {
+        return articleBrowseMapper.deleteByArticleBrowseId2(articleBrowseList);
+    }
+    //删除用户所有浏览记录
+    @Override
+    public int deleteByUserId(String articleBrowseUserId) {
+        return articleBrowseMapper.deleteByUserId(articleBrowseUserId);
+    }
+
+    //添加浏览记录
+    @Override
+    public int insertSelective(ArticleBrowse record) {
+        String id = UUID.randomUUID().toString().replaceAll("-","");
+        record.setArticleBrowseId(id);
+        record.setArticleBrowseTime(new Date());
+        return articleBrowseMapper.insertSelective(record);
     }
 
     @Override
     public int insert(ArticleBrowse record) {
-        return 0;
-    }
-
-    @Override
-    public int insertSelective(ArticleBrowse record) {
         return 0;
     }
 

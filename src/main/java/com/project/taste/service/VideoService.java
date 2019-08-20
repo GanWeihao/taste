@@ -25,4 +25,7 @@ public interface VideoService {
 
     //根据视频ID查询视频详情
     Video queryVideoById(String videoId);
+
+    //根据用户id查询用户上传所有视频
+    List<Video> queryVideoAllByid(String userId);
 }

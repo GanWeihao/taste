@@ -27,25 +27,25 @@
     from article_browse
     where ARTICLE_BROWSE_ARTICLE_ID = #{articleBrowseArticleId,jdbcType=VARCHAR}
   </select>
-
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from article_browse
-    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <!--删除浏览记录-->
+  <delete id="deleteByArticleBrowseId" parameterType="java.lang.String" >
     delete from article_browse
     where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.project.taste.model.ArticleBrowse" >
-    insert into article_browse (ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, 
-      ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
-      )
-    values (#{articleBrowseId,jdbcType=VARCHAR}, #{articleBrowseUserId,jdbcType=VARCHAR}, 
-      #{articleBrowseArticleId,jdbcType=VARCHAR}, #{articleBrowseTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+  <!--删除浏览记录-->
+  <delete id="deleteByArticleBrowseId2" parameterType="com.project.taste.model.ArticleBrowse" >
+    delete from article_browse
+    where ARTICLE_BROWSE_ID in
+    <foreach item="articleBrowseList" collection="list" open="(" separator="," close=")">
+      #{articleBrowseList,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <!--删除用户浏览记录-->
+  <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from article_browse
+    where ARTICLE_BROWSE_USER_ID = #{articleBrowseUserId,jdbcType=VARCHAR}
+  </delete>
+  <!--添加文章浏览记录-->
   <insert id="insertSelective" parameterType="com.project.taste.model.ArticleBrowse" >
     insert into article_browse
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -77,6 +77,22 @@
       </if>
     </trim>
   </insert>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article_browse
+    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.project.taste.model.ArticleBrowse" >
+    insert into article_browse (ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, 
+      ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
+      )
+    values (#{articleBrowseId,jdbcType=VARCHAR}, #{articleBrowseUserId,jdbcType=VARCHAR}, 
+      #{articleBrowseArticleId,jdbcType=VARCHAR}, #{articleBrowseTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.ArticleBrowse" >
     update article_browse
     <set >

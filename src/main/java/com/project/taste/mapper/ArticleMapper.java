@@ -17,17 +17,15 @@ public interface ArticleMapper {
     Article selectByPrimaryKey(String articleId);
     //根据ID删除文章
     int deleteByArticleId(String articleId);
-
+    //添加文章
+    int insertSelective(Article record);
 
 
     int deleteByPrimaryKey(String articleId);
 
     int insert(Article record);
 
-    int insertSelective(Article record);
-
-
-
+    //修改文章
     int updateByPrimaryKeySelective(Article record);
 
     int updateByPrimaryKey(Article record);

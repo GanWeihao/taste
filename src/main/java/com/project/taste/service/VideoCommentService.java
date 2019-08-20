@@ -2,6 +2,8 @@ package com.project.taste.service;
 
 import com.project.taste.model.VideoComment;
 
+import java.util.List;
+
 public interface VideoCommentService {
     int deleteByPrimaryKey(String videoCommentId);
 
@@ -14,4 +16,7 @@ public interface VideoCommentService {
     int updateByPrimaryKeySelective(VideoComment record);
 
     int updateByPrimaryKey(VideoComment record);
+
+    //根据视频ID查询视频的所有评论
+    List<VideoComment> queryVideoCommentByVideoId(String videoId);
 }

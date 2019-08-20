@@ -18,12 +18,16 @@
     USER_ID, USER_NAME, USER_TELPHONE, USER_EMAIL, USER_PASSWORD, USER_HEADURL, USER_TIME, 
     USER_RANK, USER_STATUS
   </sql>
+
+    <!--用户登入-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from user
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    where USER_NAME= #{userName,jdbcType=VARCHAR} and USER_PASSWORD= #{userPassword,jdbcType=VARCHAR}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user
     where USER_ID = #{userId,jdbcType=VARCHAR}

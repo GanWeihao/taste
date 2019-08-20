@@ -18,10 +18,10 @@ public class ContentServiceImpl implements ContentService {
     public List<Content> selectByArticleId(String articleId) {
         return contentMapper.selectByArticleId(articleId);
     }
-
+    //根据文章ID删除内容
     @Override
-    public int deleteByPrimaryKey(String contentId) {
-        return 0;
+    public int deleteByArticleId(String contentArticleId) {
+        return contentMapper.deleteByArticleId(contentArticleId);
     }
 
     @Override

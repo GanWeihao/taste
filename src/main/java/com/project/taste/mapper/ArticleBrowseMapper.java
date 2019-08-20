@@ -13,12 +13,16 @@ public interface ArticleBrowseMapper {
     List<ArticleBrowse> selectByUserId(String articleBrowseUserId);
     //根据文章ID查询浏览数量
     int selectNumByArticleId(String articleBrowseArticleId);
-
-    int deleteByPrimaryKey(String articleBrowseId);
+    //删除浏览记录
+    int deleteByArticleBrowseId(String articleBrowseId);
+    int deleteByArticleBrowseId2(List<String> articleBrowseList);
+    //删除用户所有浏览记录
+    int deleteByUserId(String articleBrowseUserId);
+    //添加文章浏览记录
+    int insertSelective(ArticleBrowse record);
 
     int insert(ArticleBrowse record);
 
-    int insertSelective(ArticleBrowse record);
 
     ArticleBrowse selectByPrimaryKey(String articleBrowseId);
 
