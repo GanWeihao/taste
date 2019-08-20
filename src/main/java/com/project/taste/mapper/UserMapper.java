@@ -10,20 +10,30 @@ import java.util.Date;
 @Component("UserMapper")
 public interface UserMapper {
     int deleteByPrimaryKey(String userId);
-   // 注册用户
-    int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime,Integer userRank ,Integer userStatus);
+
+    // 注册用户
+    int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime, Integer userRank, Integer userStatus);
+
     //添加用户2
     int insertSelective(User record);
+
     //用户登入
-    User selectByPrimaryKey(String userName,String userPassword);
+    User selectByPrimaryKey(String userName, String userPassword);
+
     //短信登入
     User selectByPrimaryKey1(String userTelephone);
+
     //查询用户数量
     int querynum();
+
     //根据ID查询用户详情
     User selectById(String userId);
+
     //根据用户名 手机号 邮箱查询用户
-    User queryAlltiaojian(String userName,String userTelphone,String userEmail);
+    User queryAlltiaojian(String userName, String userTelphone, String userEmail);
+
+    //恢复或者禁封用户
+    int updateByStatus(String userId, Integer userStatus);
 
     int updateByPrimaryKeySelective(User record);
 
