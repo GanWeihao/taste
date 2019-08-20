@@ -39,6 +39,14 @@
           where VIDEO_ID=#{videoId,jdbcType=VARCHAR} and VIDEO_STATUS=1
   </select>
 
+  <!--根据用户id查询用户上传所有视频-->
+  <select id="queryVideoAllByid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List"/>
+          from video
+          where VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR} and VIDEO_STATUS=1
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
