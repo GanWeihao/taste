@@ -46,5 +46,28 @@ public class VideoCommentController {
         return result;
     }
 
+    /**
+     * 查询所有视频评论
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/videocomment/querybyid")
+    public Object queryVideoCommentAll(@Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize){
+        JsonResult result=null;
+        try{
+            PageHelper.startPage(pageNum,pageSize);
+            List<VideoComment> list = videoCommentService.queryVideoCommentAll();
+            if(list.size()>0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
 
 }

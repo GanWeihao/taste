@@ -22,4 +22,6 @@ public interface VideoCommentMapper {
     int updateByPrimaryKey(VideoComment record);
     //根据视频ID查询视频的所有评论
     List<VideoComment> queryVideoCommentByVideoId(String videoId);
+    //查询所有视频评论
+    List<VideoComment> queryVideoCommentAll();
 }
