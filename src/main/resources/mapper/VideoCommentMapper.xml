@@ -16,6 +16,11 @@
     VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID, 
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
   </sql>
+
+  <select id="">
+
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

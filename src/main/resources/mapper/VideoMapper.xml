@@ -20,14 +20,14 @@
   <select id="queryVideoAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from video where VIDEO_STATUS=1
+    from video where VIDEO_STATUS=0
   </select>
 
   <!--根据用户ID查询该用户上传的视频数量-->
   <select id="queryVideoNum" parameterType="java.lang.String" resultType="java.lang.Integer">
     select count(*)
                   from video
-                  where VIDEO_STATUS=1
+                  where VIDEO_STATUS=0
                   and VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR}
   </select>
 
@@ -36,7 +36,7 @@
     select
           <include refid="Base_Column_List"/>
           from video
-          where VIDEO_ID=#{videoId,jdbcType=VARCHAR} and VIDEO_STATUS=1
+          where VIDEO_ID=#{videoId,jdbcType=VARCHAR} and VIDEO_STATUS=0
   </select>
 
   <!--根据用户id查询用户上传所有视频-->
@@ -44,7 +44,7 @@
     select
           <include refid="Base_Column_List"/>
           from video
-          where VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR} and VIDEO_STATUS=1
+          where VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR} and VIDEO_STATUS=0
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
