@@ -10,11 +10,9 @@ public class Article_Content {
 
     private String articleTitle;
 
-    private String articleStatus;
+    private Integer articleStatus;
 
     private String articleUserId;
-
-    private String articleContentId;
 
     private String articleCategoryId;
 
@@ -22,12 +20,11 @@ public class Article_Content {
 
     private List<Content> list;
 
-    public Article_Content(String articleId, String articleTitle, String articleStatus, String articleUserId, String articleContentId, String articleCategoryId, Date articleTime, List<Content> list) {
+    public Article_Content(String articleId, String articleTitle, Integer articleStatus, String articleUserId, String articleCategoryId, Date articleTime, List<Content> list) {
         this.articleId = articleId;
         this.articleTitle = articleTitle;
         this.articleStatus = articleStatus;
         this.articleUserId = articleUserId;
-        this.articleContentId = articleContentId;
         this.articleCategoryId = articleCategoryId;
         this.articleTime = articleTime;
         this.list = list;
@@ -53,12 +50,12 @@ public class Article_Content {
         this.articleTitle = articleTitle == null ? null : articleTitle.trim();
     }
 
-    public String getArticleStatus() {
+    public Integer getArticleStatus() {
         return articleStatus;
     }
 
-    public void setArticleStatus(String articleStatus) {
-        this.articleStatus = articleStatus == null ? null : articleStatus.trim();
+    public void setArticleStatus(Integer articleStatus) {
+        this.articleStatus = articleStatus;
     }
 
     public String getArticleUserId() {
@@ -67,14 +64,6 @@ public class Article_Content {
 
     public void setArticleUserId(String articleUserId) {
         this.articleUserId = articleUserId == null ? null : articleUserId.trim();
-    }
-
-    public String getArticleContentId() {
-        return articleContentId;
-    }
-
-    public void setArticleContentId(String articleContentId) {
-        this.articleContentId = articleContentId == null ? null : articleContentId.trim();
     }
 
     public String getArticleCategoryId() {

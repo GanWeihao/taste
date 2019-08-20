@@ -92,7 +92,6 @@ public class ArticleController {
                 Article_Content article_content = new Article_Content();
                 article_content.setArticleId(article.getArticleId());
                 article_content.setArticleCategoryId(article.getArticleCategoryId());
-                article_content.setArticleContentId(article.getArticleContentId());
                 article_content.setArticleStatus(article.getArticleStatus());
                 article_content.setArticleTime(article.getArticleTime());
                 article_content.setArticleTitle(article.getArticleTitle());
@@ -126,6 +125,26 @@ public class ArticleController {
             }
         }catch (Exception e){
             js = new JsonResult(Constants.STATUS_ERROR,"删除异常");
+        }
+        return js;
+    }
+
+    /**
+     * 添加文章
+     */
+    @ResponseBody
+    @RequestMapping("/article/insert")
+    public JsonResult insertArticle(Article article){
+        JsonResult js;
+        try{
+            int i = articleService.insertSelective(article);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
         }
         return js;
     }
