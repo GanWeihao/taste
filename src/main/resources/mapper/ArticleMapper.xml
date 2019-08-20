@@ -40,6 +40,7 @@
         from article
         where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
     </select>
+    <!--根据ID删除文章-->
     <update id="deleteByArticleId" parameterType="java.lang.String">
         update article
         set ARTICLE_STATUS=1
