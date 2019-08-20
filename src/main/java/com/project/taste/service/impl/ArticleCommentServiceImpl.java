@@ -47,4 +47,8 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public List<ArticleComment>  queryUserByIdComment(String articleCommentUserId){
         return  articleCommentMapper.queryUserByIdComment(articleCommentUserId);
     }
+    //根据文章ID查询评论数量
+    public int queryCommentNumber(String articleCommentArticleId){
+        return  articleCommentMapper.queryCommentNumber(articleCommentArticleId);
+    }
 }
