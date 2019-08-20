@@ -24,13 +24,13 @@ public class Duanxin {
     //随机数
     private static final String NONCE="123456";
     //短信模板ID
-    private static final String TEMPLATEID="14793693";
+    private static final String TEMPLATEID="14793696";
     //手机号
-    private static final String MOBILE="17609976784";
+//    private static final String MOBILE="17609976784";
     //验证码长度，范围4～10，默认为4
     private static final String CODELEN="6";
 
-    public static void main(String[] args) throws Exception {
+    public Object  duanxin (String telephone) throws Exception {
 
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(SERVER_URL);
@@ -55,19 +55,19 @@ public class Duanxin {
          * 3.params是根据你模板里面有几个参数，那里面的参数也是jsonArray格式
          */
         nvps.add(new BasicNameValuePair("templateid", TEMPLATEID));
-        nvps.add(new BasicNameValuePair("mobile", "18290605616"));
+        nvps.add(new BasicNameValuePair("mobile", telephone));
         nvps.add(new BasicNameValuePair("codeLen", CODELEN));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
-
+        JsonResult result=null;
         // 执行请求
         HttpResponse response = httpClient.execute(httpPost);
         /*
          * 1.打印执行结果，打印结果一般会200、315、403、404、413、414、500
          * 2.具体的code有问题的可以参考官网的Code状态表
          */
-        System.out.println(EntityUtils.toString(response.getEntity(), "utf-8"));
-
-        }
+        Object s= EntityUtils.toString(response.getEntity(), "utf-8");
+        return s;
+    }
 
 }
