@@ -9,6 +9,7 @@ public interface UserService {
 
     int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime);
 
+    //添加用户2
     int insertSelective(User record);
 
     User selectByPrimaryKey1(String userTelephone);

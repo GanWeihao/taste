@@ -12,7 +12,7 @@ public interface UserMapper {
     int deleteByPrimaryKey(String userId);
    // 注册用户
     int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime,Integer userRank ,Integer userStatus);
-
+    //添加用户2
     int insertSelective(User record);
     //用户登入
     User selectByPrimaryKey(String userName,String userPassword);
