@@ -35,5 +35,23 @@ public class ArticleCommentController {
         return  result;
     }
 
+    //根据用户ID查文章评论
+    @ResponseBody
+    @RequestMapping("/articlecomment/query/userid")
+    public Object queryUserByIdComment(String articleCommentUserId){
+        JsonResult result=null;
+        try{
+            List<ArticleComment> list=articleCommentService.queryUserByIdComment(articleCommentUserId);
+            if(list.size()>0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list);
+            }else{
+                result=new JsonResult(Constants.STATUS_ERROR,"失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            result=new JsonResult(Constants.STATUS_ERROR,"异常");
+        }
+        return  result;
+    }
 
 }
