@@ -53,4 +53,10 @@ public class VideoBrowseServiceImpl implements VideoBrowseService {
         List<VideoBrowse> list=videoBrowseMapper.queryVideoBrowseByUserId(userId);
         return list;
     }
+    //根据用户ID查询用户浏览视频数量
+    @Override
+    public int queryVideoBrowseNum(String userId) {
+        int num=videoBrowseMapper.queryVideoBrowseNum(userId);
+        return num;
+    }
 }

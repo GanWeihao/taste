@@ -21,6 +21,15 @@
   <sql id="Base_Column_List" >
     VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID, VIDEO_BROWSE_USER_ID, VIDEO_BROWSE_TIME
   </sql>
+
+  <!--根据用户ID查询用户浏览视频数量-->
+  <select id="queryVideoBrowseNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+      select
+            count(*)
+            from video_browse
+            where VIDEO_BROWSE_USER_ID=#{videoBrowseUserId,jdbcType=VARCHAR}
+  </select>
+
   <!--根据用户ID查询用户浏览视频记录-->
   <select id="queryVideoBrowseByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
       select * from video_browse
