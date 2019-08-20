@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 @Component("ArticleCommentMapper")
 public interface ArticleCommentMapper {
+    //删除文章评论
     int deleteByPrimaryKey(String articleCommentId);
 
     int insert(ArticleComment record);

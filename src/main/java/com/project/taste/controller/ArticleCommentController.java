@@ -89,5 +89,24 @@ public class ArticleCommentController {
         }
         return  result;
     }
+    //删除文章评论
+    @ResponseBody
+    @RequestMapping("/articlecomment/delete")
+    public Object deleteByPrimaryKey(String articleCommentId){
+        JsonResult result=null;
+        try{
+            int  ac=articleCommentService.deleteByPrimaryKey(articleCommentId);
+            if(ac!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",ac);
+            }else{
+                result=new JsonResult(Constants.STATUS_ERROR,"失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            result=new JsonResult(Constants.STATUS_ERROR,"异常");
+        }
+        return  result;
+    }
+
 
 }

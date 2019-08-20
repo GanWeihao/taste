@@ -23,6 +23,7 @@
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
   </select>
 
+  <!--删除评论-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from article_comment
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}

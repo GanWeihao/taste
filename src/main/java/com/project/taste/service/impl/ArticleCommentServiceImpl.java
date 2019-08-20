@@ -12,9 +12,10 @@ import java.util.List;
 public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Autowired
     ArticleCommentMapper articleCommentMapper;
+    //删除文章评论
     @Override
     public int deleteByPrimaryKey(String articleCommentId) {
-        return 0;
+        return articleCommentMapper.deleteByPrimaryKey(articleCommentId);
     }
     @Override
     public int insert(ArticleComment record) {
