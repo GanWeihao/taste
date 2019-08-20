@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
        User user=userMapper.selectByPrimaryKey1(userTelephone);
        return  user;
     }
+    //根据id查询用户详情
+    @Override
+    public User selectById(String userId){
+        return  userMapper.selectById(userId);
+    }
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
