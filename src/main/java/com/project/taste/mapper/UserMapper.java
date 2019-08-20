@@ -18,7 +18,8 @@ public interface UserMapper {
     User selectByPrimaryKey(String userName,String userPassword);
     //短信登入
     User selectByPrimaryKey1(String userTelephone);
-
+    //查询用户数量
+  int querynum();
 
     int updateByPrimaryKeySelective(User record);
 

@@ -104,6 +104,27 @@ public class UserController {
     }
 
 
+    /**
+     * 查询用户数量
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/user/querynum")
+    public Object querynum(){
+        JsonResult result=null;
+        try{
+            int  s = userService.querynum();
+            if(s!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",s);
+            }else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常",e.getMessage());
+        }
+        return result;
+    }
 
 
 

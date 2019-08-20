@@ -19,7 +19,11 @@ public class UserServiceImpl implements UserService {
     public int deleteByPrimaryKey(String userId) {
         return 0;
     }
-
+    //查询用户数量
+    @Override
+    public int querynum(){
+       return  userMapper.querynum();
+    }
     //用户注册
     @Override
     public int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime) {
