@@ -17,6 +17,10 @@
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
   </sql>
 
+  <select id="queryVideoCommentNum" resultMap="java.lang.Integer">
+
+  </select>
+
   <!--根据视频ID查询视频的所有评论-->
   <select id="queryVideoCommentByVideoId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
