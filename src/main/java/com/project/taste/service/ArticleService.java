@@ -9,14 +9,14 @@ public interface ArticleService {
     List<Article> selectAll();
     //根据类别ID查文章（带分页）
     List <Article> selectByCategoryId(String articleCategoryId);
+    //根据文章ID查询文章
+    Article selectByPrimaryKey(String articleId);
 
     int deleteByPrimaryKey(String articleId);
 
     int insert(Article record);
 
     int insertSelective(Article record);
-
-    Article selectByPrimaryKey(String articleId);
 
     int updateByPrimaryKeySelective(Article record);
 
