@@ -135,5 +135,7 @@
     where a.ARTICLE_COMMENT_USER_ID=#{articleCommentUserId,jdbcType=VARCHAR}
   </select>
   <!--根据文章ID查询评论数量-->
-  <!--<select id="queryCommentNumber"-->
+  <!--<select id="queryCommentNumber">-->
+    <!---->
+  <!--</select>-->
 </mapper>
