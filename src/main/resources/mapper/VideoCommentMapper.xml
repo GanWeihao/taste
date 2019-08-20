@@ -17,8 +17,12 @@
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
   </sql>
 
-  <select id="">
-
+  <!--根据视频ID查询视频的所有评论-->
+  <select id="queryVideoCommentByVideoId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List"/>
+          from video_comment
+          where VIDEO_COMMENT_VIDEO_ID=#{videoCommentVideoId,jdbcType=VARCHAR} and  VIDEO_COMMENT_STATUS=0
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

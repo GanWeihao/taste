@@ -4,6 +4,8 @@ import com.project.taste.model.VideoComment;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component("VideoCommentMapper")
 public interface VideoCommentMapper {
@@ -18,4 +20,6 @@ public interface VideoCommentMapper {
     int updateByPrimaryKeySelective(VideoComment record);
 
     int updateByPrimaryKey(VideoComment record);
+    //根据视频ID查询视频的所有评论
+    List<VideoComment> queryVideoCommentByVideoId(String videoId);
 }
