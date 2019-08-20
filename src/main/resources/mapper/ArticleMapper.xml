@@ -5,15 +5,14 @@
         <constructor>
             <idArg column="ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ARTICLE_TITLE" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="ARTICLE_STATUS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ARTICLE_STATUS" jdbcType="INTEGER" javaType="java.lang.String"/>
             <arg column="ARTICLE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="ARTICLE_CONTENT_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ARTICLE_CATEGORY_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ARTICLE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, ARTICLE_USER_ID, ARTICLE_CONTENT_ID, ARTICLE_CATEGORY_ID, 
+    ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, ARTICLE_USER_ID, ARTICLE_CATEGORY_ID,
     ARTICLE_TIME
   </sql>
     <!--查询所有文章（带分页）-->
@@ -46,19 +45,7 @@
         set ARTICLE_STATUS=1
         where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
     </update>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from article
-    where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
-  </delete>
-    <insert id="insert" parameterType="com.project.taste.model.Article">
-    insert into article (ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, 
-      ARTICLE_USER_ID, ARTICLE_CONTENT_ID, ARTICLE_CATEGORY_ID, 
-      ARTICLE_TIME)
-    values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleStatus,jdbcType=VARCHAR}, 
-      #{articleUserId,jdbcType=VARCHAR}, #{articleContentId,jdbcType=VARCHAR}, #{articleCategoryId,jdbcType=VARCHAR}, 
-      #{articleTime,jdbcType=TIMESTAMP})
-  </insert>
+    <!--添加文章-->
     <insert id="insertSelective" parameterType="com.project.taste.model.Article">
         insert into article
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,9 +60,6 @@
             </if>
             <if test="articleUserId != null">
                 ARTICLE_USER_ID,
-            </if>
-            <if test="articleContentId != null">
-                ARTICLE_CONTENT_ID,
             </if>
             <if test="articleCategoryId != null">
                 ARTICLE_CATEGORY_ID,
@@ -92,13 +76,10 @@
                 #{articleTitle,jdbcType=VARCHAR},
             </if>
             <if test="articleStatus != null">
-                #{articleStatus,jdbcType=VARCHAR},
+                #{articleStatus,jdbcType=INTEGER},
             </if>
             <if test="articleUserId != null">
                 #{articleUserId,jdbcType=VARCHAR},
-            </if>
-            <if test="articleContentId != null">
-                #{articleContentId,jdbcType=VARCHAR},
             </if>
             <if test="articleCategoryId != null">
                 #{articleCategoryId,jdbcType=VARCHAR},
@@ -108,6 +89,20 @@
             </if>
         </trim>
     </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from article
+    where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.project.taste.model.Article">
+    insert into article (ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, 
+      ARTICLE_USER_ID, ARTICLE_CATEGORY_ID,
+      ARTICLE_TIME)
+    values (#{articleId,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleStatus,jdbcType=INTEGER},
+      #{articleUserId,jdbcType=VARCHAR}, #{articleCategoryId,jdbcType=VARCHAR},
+      #{articleTime,jdbcType=TIMESTAMP})
+  </insert>
+    <!--修改文章-->
     <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Article">
         update article
         <set>
@@ -115,13 +110,10 @@
                 ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
             </if>
             <if test="articleStatus != null">
-                ARTICLE_STATUS = #{articleStatus,jdbcType=VARCHAR},
+                ARTICLE_STATUS = #{articleStatus,jdbcType=INTEGER},
             </if>
             <if test="articleUserId != null">
                 ARTICLE_USER_ID = #{articleUserId,jdbcType=VARCHAR},
-            </if>
-            <if test="articleContentId != null">
-                ARTICLE_CONTENT_ID = #{articleContentId,jdbcType=VARCHAR},
             </if>
             <if test="articleCategoryId != null">
                 ARTICLE_CATEGORY_ID = #{articleCategoryId,jdbcType=VARCHAR},
@@ -135,9 +127,8 @@
     <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Article">
     update article
     set ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
-      ARTICLE_STATUS = #{articleStatus,jdbcType=VARCHAR},
+      ARTICLE_STATUS = #{articleStatus,jdbcType=INTEGER},
       ARTICLE_USER_ID = #{articleUserId,jdbcType=VARCHAR},
-      ARTICLE_CONTENT_ID = #{articleContentId,jdbcType=VARCHAR},
       ARTICLE_CATEGORY_ID = #{articleCategoryId,jdbcType=VARCHAR},
       ARTICLE_TIME = #{articleTime,jdbcType=TIMESTAMP}
     where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}

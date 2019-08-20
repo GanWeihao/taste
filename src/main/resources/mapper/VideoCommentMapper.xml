@@ -16,6 +16,37 @@
     VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID, 
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
   </sql>
+
+  <!--根据用户ID查询所有评论-->
+  <select id="queryVideoCommentByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+          <include refid="Base_Column_List"/>
+          from video_comment
+          where VIDEO_COMMENT_USER_ID=#{videoCommentUserId,jdbcType=VARCHAR} and VIDEO_COMMENT_STATUS=0
+  </select>
+
+  <!--查询视频评论数量-->
+  <select id="queryVideoCommentNum" resultType="java.lang.Integer">
+    select count(*)
+           from video_comment
+           where VIDEO_COMMENT_STATUS=0
+  </select>
+
+  <!--根据视频ID查询视频的所有评论-->
+  <select id="queryVideoCommentByVideoId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List"/>
+          from video_comment
+          where VIDEO_COMMENT_VIDEO_ID=#{videoCommentVideoId,jdbcType=VARCHAR} and  VIDEO_COMMENT_STATUS=0
+  </select>
+  <!--查询所有视频评论-->
+  <select id="queryVideoCommentAll" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List"/>
+          from video_comment
+          where VIDEO_COMMENT_STATUS=0
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

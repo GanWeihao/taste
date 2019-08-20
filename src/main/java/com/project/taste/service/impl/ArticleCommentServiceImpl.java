@@ -4,24 +4,29 @@ import com.project.taste.model.ArticleComment;
 import com.project.taste.service.ArticleCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Autowired
     ArticleCommentMapper articleCommentMapper;
+    //删除文章评论
     @Override
     public int deleteByPrimaryKey(String articleCommentId) {
-        return 0;
+        return articleCommentMapper.deleteByPrimaryKey(articleCommentId);
     }
     @Override
     public int insert(ArticleComment record) {
         return 0;
     }
-
+    //添加文章评论
     @Override
     public int insertSelective(ArticleComment record) {
-        return 0;
+        record.setArticleCommentStatus(0);
+        record.setArticleCommentTime(new Date());
+        return articleCommentMapper.insertSelective(record);
     }
 
     @Override
@@ -38,7 +43,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public int updateByPrimaryKey(ArticleComment record) {
         return 0;
     }
-
     //根据文章ID查询文章评论
     @Override
     public List<ArticleComment> queryByIdComment(String articleCommentArticleId){
@@ -47,5 +51,9 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     //根据用户ID查询文章评论
     public List<ArticleComment>  queryUserByIdComment(String articleCommentUserId){
         return  articleCommentMapper.queryUserByIdComment(articleCommentUserId);
+    }
+    //根据文章ID查询评论数量
+    public int queryCommentNumber(String articleCommentArticleId){
+        return  articleCommentMapper.queryCommentNumber(articleCommentArticleId);
     }
 }

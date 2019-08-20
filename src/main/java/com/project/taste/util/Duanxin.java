@@ -55,7 +55,7 @@ public class Duanxin {
          * 3.params是根据你模板里面有几个参数，那里面的参数也是jsonArray格式
          */
         nvps.add(new BasicNameValuePair("templateid", TEMPLATEID));
-        nvps.add(new BasicNameValuePair("mobile", MOBILE));
+        nvps.add(new BasicNameValuePair("mobile", "18290605616"));
         nvps.add(new BasicNameValuePair("codeLen", CODELEN));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
