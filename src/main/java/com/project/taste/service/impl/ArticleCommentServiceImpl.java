@@ -38,7 +38,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public int updateByPrimaryKey(ArticleComment record) {
         return 0;
     }
-
     //根据文章ID查询文章评论
     @Override
     public List<ArticleComment> queryByIdComment(String articleCommentArticleId){
