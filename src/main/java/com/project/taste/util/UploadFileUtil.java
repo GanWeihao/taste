@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+
 /**
  * 上传文件工具类
  */
@@ -20,7 +21,7 @@ public class UploadFileUtil {
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
-        //保存图片
+        //保存文件
         File fileSave = new File(path, newFileName);
         file.transferTo(fileSave);
         return newFileName;
