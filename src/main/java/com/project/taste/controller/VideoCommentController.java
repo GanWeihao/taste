@@ -92,7 +92,7 @@ public class VideoCommentController {
     }
 
     /**
-     * 根据用户ID查询所有评论
+     * 根据用户ID查询所有视频评论
      * @param userId
      * @return
      */
