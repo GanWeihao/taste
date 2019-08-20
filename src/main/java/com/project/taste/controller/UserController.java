@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Controller
 @CrossOrigin
 public class UserController {
@@ -62,6 +65,31 @@ public class UserController {
 
         return result;
     }
+
+    /**
+     * 注册用户
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/user/insert")
+    public Object insert(String userName,String userTelphone,String userEmail,String userPassword,String userHeadurl){
+        JsonResult result=null;
+        try{
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            int s1 = userService.insert(uuid,userName,userTelphone,userEmail,userPassword,userHeadurl,new Date());
+            if(s1==1){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",s1);
+            }else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常",e.getMessage());
+        }
+        return result;
+    }
+
+
 
 
 

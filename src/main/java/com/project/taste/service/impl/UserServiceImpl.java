@@ -6,6 +6,8 @@ import com.project.taste.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -17,9 +19,11 @@ public class UserServiceImpl implements UserService {
         return 0;
     }
 
+    //用户注册
     @Override
-    public int insert(User record) {
-        return 0;
+    public int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime) {
+        int s=userMapper.insert(userId,userName,userTelphone,userEmail,userPassword,userHeadurl,userTime,1,1);
+        return s;
     }
 
     @Override

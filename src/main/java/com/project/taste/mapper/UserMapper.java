@@ -4,12 +4,14 @@ import com.project.taste.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Mapper
 @Component("UserMapper")
 public interface UserMapper {
     int deleteByPrimaryKey(String userId);
-
-    int insert(User record);
+   // 注册用户
+    int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime,Integer userRank ,Integer userStatus);
 
     int insertSelective(User record);
     //用户登入

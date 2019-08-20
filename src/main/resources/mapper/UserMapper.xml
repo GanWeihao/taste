@@ -40,6 +40,8 @@
     delete from user
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </delete>
+
+  <!--注册用户-->
   <insert id="insert" parameterType="com.project.taste.model.User" >
     insert into user (USER_ID, USER_NAME, USER_TELPHONE, 
       USER_EMAIL, USER_PASSWORD, USER_HEADURL, 
@@ -50,6 +52,8 @@
       #{userTime,jdbcType=TIMESTAMP}, #{userRank,jdbcType=INTEGER}, #{userStatus,jdbcType=INTEGER}
       )
   </insert>
+
+
   <insert id="insertSelective" parameterType="com.project.taste.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
