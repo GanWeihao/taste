@@ -33,6 +33,13 @@ public class UserServiceImpl implements UserService {
        return  user;
     }
 
+    //短信登入
+    @Override
+    public User selectByPrimaryKey1(String userTelephone){
+       User user=userMapper.selectByPrimaryKey1(userTelephone);
+       return  user;
+    }
+
     @Override
     public int updateByPrimaryKeySelective(User record) {
         return 0;

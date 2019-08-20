@@ -53,5 +53,60 @@ public class ArticleCommentController {
         }
         return  result;
     }
+    //根据文章ID查询评论数量
+    @ResponseBody
+    @RequestMapping("/articlecomment/querynum")
+    public Object queryCommentNumber(String articleCommentArticleId){
+        JsonResult result=null;
+        try{
+            int  ac=articleCommentService.queryCommentNumber(articleCommentArticleId);
+            if(ac!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",ac);
+            }else{
+                result=new JsonResult(Constants.STATUS_ERROR,"失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            result=new JsonResult(Constants.STATUS_ERROR,"异常");
+        }
+        return  result;
+    }
+    //添加文章评论
+    @ResponseBody
+    @RequestMapping("/articlecomment/insert")
+    public Object insertSelective(ArticleComment record){
+        JsonResult result=null;
+        try{
+            int  ac=articleCommentService.insertSelective(record);
+            if(ac!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",ac);
+            }else{
+                result=new JsonResult(Constants.STATUS_ERROR,"失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            result=new JsonResult(Constants.STATUS_ERROR,"异常");
+        }
+        return  result;
+    }
+    //删除文章评论
+    @ResponseBody
+    @RequestMapping("/articlecomment/delete")
+    public Object deleteByPrimaryKey(String articleCommentId){
+        JsonResult result=null;
+        try{
+            int  ac=articleCommentService.deleteByPrimaryKey(articleCommentId);
+            if(ac!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",ac);
+            }else{
+                result=new JsonResult(Constants.STATUS_ERROR,"失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            result=new JsonResult(Constants.STATUS_ERROR,"异常");
+        }
+        return  result;
+    }
+
 
 }

@@ -23,6 +23,7 @@
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
   </select>
 
+  <!--删除评论-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from article_comment
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
@@ -37,6 +38,7 @@
       #{articleCommentArticleId,jdbcType=VARCHAR}, #{articleCommentTouserId,jdbcType=VARCHAR}, 
       #{articleCommentStatus,jdbcType=INTEGER})
   </insert>
+  <!--添加文章评论-->
   <insert id="insertSelective" parameterType="com.project.taste.model.ArticleComment" >
     insert into article_comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -135,7 +137,10 @@
     where a.ARTICLE_COMMENT_USER_ID=#{articleCommentUserId,jdbcType=VARCHAR}
   </select>
   <!--根据文章ID查询评论数量-->
-  <!--<select id="queryCommentNumber">-->
-    <!---->
-  <!--</select>-->
+  <select id="queryCommentNumber" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(ARTICLE_COMMENT_ARTICLE_ID) as 评论数量
+    from  article_comment  a
+    where a.ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
+    and a.ARTICLE_COMMENT_STATUS=0
+  </select>
 </mapper>

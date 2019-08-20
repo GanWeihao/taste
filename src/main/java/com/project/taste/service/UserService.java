@@ -9,7 +9,10 @@ public interface UserService {
 
     int insertSelective(User record);
 
+    User selectByPrimaryKey1(String userTelephone);
+
     User selectByPrimaryKey(String userName, String userPassword);
+
 
     int updateByPrimaryKeySelective(User record);
 
