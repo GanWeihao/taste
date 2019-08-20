@@ -11,9 +11,9 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/taste?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=Hongkong
+    url: jdbc:mysql://106.13.207.98:3306/taste?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=Hongkong
     username: root
-    password: 123456
+    password: Gwh0921.
 mvc:
   static-path-pattern: /static/**
 resources:
