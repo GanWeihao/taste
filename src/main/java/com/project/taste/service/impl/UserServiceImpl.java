@@ -62,6 +62,12 @@ public class UserServiceImpl implements UserService {
     public User selectById(String userId){
         return  userMapper.selectById(userId);
     }
+    //根据用户名 用户邮箱 用户电话 查询用户信息
+
+    @Override
+    public User queryAlltiaojian(String userName,String userTelphone,String userEmail){
+        return  userMapper.queryAlltiaojian(userName,userTelphone,userEmail);
+    }
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
