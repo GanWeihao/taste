@@ -108,4 +108,26 @@ public class ArticleController {
         return js;
     }
 
+    /**
+     * 根据文章ID删除文章（修改状态）
+     * @param articleId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/article/delete")
+    public JsonResult deleteArticle(String articleId){
+        JsonResult js;
+        try{
+            int i = articleService.deleteByArticleId(articleId);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"删除成功",i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"删除失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"删除异常");
+        }
+        return js;
+    }
+
 }
