@@ -75,4 +75,15 @@ public class VideoServiceImpl implements VideoService {
         Video video=videoMapper.queryVideoById(videoId);
         return video;
     }
+
+    /**
+     * 根据用户id查询用户上传所有视频
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Video> queryVideoAllByid(String userId) {
+        List<Video> list=videoMapper.queryVideoAllByid(userId);
+        return list;
+    }
 }

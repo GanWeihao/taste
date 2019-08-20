@@ -9,8 +9,11 @@ public interface ArticleBrowseService {
     List<ArticleBrowse> selectByUserId(String articleBrowseUserId);
     //根据文章ID查询浏览数量
     int selectNumByArticleId(String articleBrowseArticleId);
-
-    int deleteByPrimaryKey(String articleBrowseId);
+    //删除浏览记录
+    int deleteByArticleBrowseId(String articleBrowseId);
+    int deleteByArticleBrowseId2(List<String> articleBrowseList);
+    //删除用户所有浏览记录
+    int deleteByUserId(String articleBrowseUserId);
 
     int insert(ArticleBrowse record);
 

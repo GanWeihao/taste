@@ -27,6 +27,24 @@
     from article_browse
     where ARTICLE_BROWSE_ARTICLE_ID = #{articleBrowseArticleId,jdbcType=VARCHAR}
   </select>
+  <!--删除浏览记录-->
+  <delete id="deleteByArticleBrowseId" parameterType="java.lang.String" >
+    delete from article_browse
+    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
+  </delete>
+  <!--删除浏览记录-->
+  <delete id="deleteByArticleBrowseId2" parameterType="com.project.taste.model.ArticleBrowse" >
+    delete from article_browse
+    where ARTICLE_BROWSE_ID in
+    <foreach item="articleBrowseList" collection="list" open="(" separator="," close=")">
+      #{articleBrowseList,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  <!--删除用户浏览记录-->
+  <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from article_browse
+    where ARTICLE_BROWSE_USER_ID = #{articleBrowseUserId,jdbcType=VARCHAR}
+  </delete>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -34,10 +52,6 @@
     from article_browse
     where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from article_browse
-    where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
-  </delete>
   <insert id="insert" parameterType="com.project.taste.model.ArticleBrowse" >
     insert into article_browse (ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, 
       ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
