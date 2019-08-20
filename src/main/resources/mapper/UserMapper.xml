@@ -71,7 +71,28 @@
       )
   </insert>
 
-    <!--根据手机号注册用户-->
+  <!--根据用户名 手机号  邮箱查询用户 -->
+  <select id="queryAlltiaojian" parameterType="com.project.taste.model.User" resultMap="BaseResultMap">
+
+    select * from user
+    <where>
+      <if test="userName!=null and userName!=''" >
+        and USER_NAME=#{userName,jdbcType=VARCHAR}
+      </if>
+
+      <if test="userTelphone!=null and userTelphone!=''">
+        and USER_TELPHONE=#{userTelphone,jdbcType=VARCHAR}
+      </if>
+
+      <if test="userEmail!=null and userEmail!=''">
+        and USER_EMAIL=#{userEmail,jdbcType=VARCHAR}
+      </if>
+    </where>
+
+  </select>
+
+
+  <!--根据手机号注册用户-->
   <insert id="insertSelective" parameterType="com.project.taste.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >

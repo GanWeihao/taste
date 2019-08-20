@@ -19,6 +19,8 @@ public interface UserService {
     int querynum();
     //根据Id查询用户详情
     User selectById(String userId);
+    //根据用户名 手机号 用户邮箱查询用户
+    User queryAlltiaojian(String userName,String userTelphone,String userEmail);
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);

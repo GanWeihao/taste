@@ -147,6 +147,27 @@ public class UserController {
         }
         return result;
     }
+    /**
+     * 根据用户名 用户邮箱 用户电话查询用户
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/user/querybyname")
+    public Object queryAlltiaojian(String userName,String userTelphone,String userEmail){
+        JsonResult result=null;
+        try{
+            User user = userService.queryAlltiaojian(userName,userTelphone,userEmail);
+            if(user!=null){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",user);
+            }else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常",e.getMessage());
+        }
+        return result;
+    }
 
 
 
