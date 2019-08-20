@@ -37,4 +37,22 @@ public class ArticleBrowseController {
         }
         return js;
     }
+
+    /**
+     * 根据文章ID查询浏览数量
+     * @param articleBrowseArticleId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/articlebrowse/querynum")
+    public JsonResult queryNumByArticleId(String articleBrowseArticleId){
+        JsonResult js;
+        try{
+            int i = articleBrowseService.selectNumByArticleId(articleBrowseArticleId);
+            js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",i);
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
 }

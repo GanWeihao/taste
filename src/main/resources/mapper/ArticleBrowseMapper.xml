@@ -20,6 +20,13 @@
     where ARTICLE_BROWSE_USER_ID = #{articleBrowseUserId,jdbcType=VARCHAR}
     order by ARTICLE_BROWSE_TIME desc
   </select>
+  <!--根据ID查询浏览数量-->
+  <select id="selectNumByArticleId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select
+    count(ARTICLE_BROWSE_ID)
+    from article_browse
+    where ARTICLE_BROWSE_ARTICLE_ID = #{articleBrowseArticleId,jdbcType=VARCHAR}
+  </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

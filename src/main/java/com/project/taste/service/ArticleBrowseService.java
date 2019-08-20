@@ -7,7 +7,8 @@ import java.util.List;
 public interface ArticleBrowseService {
     //根据用户ID查询文章浏览记录
     List<ArticleBrowse> selectByUserId(String articleBrowseUserId);
-
+    //根据文章ID查询浏览数量
+    int selectNumByArticleId(String articleBrowseArticleId);
 
     int deleteByPrimaryKey(String articleBrowseId);
 

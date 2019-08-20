@@ -20,6 +20,12 @@ public class ArticleBrowseServiceImpl implements ArticleBrowseService {
         return articleBrowseMapper.selectByUserId(articleBrowseUserId);
     }
 
+    //根据文章ID查询浏览数量
+    @Override
+    public int selectNumByArticleId(String articleBrowseArticleId) {
+        return articleBrowseMapper.selectNumByArticleId(articleBrowseArticleId);
+    }
+
     @Override
     public int deleteByPrimaryKey(String articleBrowseId) {
         return 0;
