@@ -4,6 +4,8 @@ import com.project.taste.model.VideoBrowse;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component("VideoBrowseMapper")
 public interface VideoBrowseMapper {
@@ -18,4 +20,7 @@ public interface VideoBrowseMapper {
     int updateByPrimaryKeySelective(VideoBrowse record);
 
     int updateByPrimaryKey(VideoBrowse record);
+
+    //根据用户ID查询用户浏览视频记录
+    List<VideoBrowse> queryVideoBrowseByUserId(String userId);
 }

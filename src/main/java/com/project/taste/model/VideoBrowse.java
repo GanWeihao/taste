@@ -11,6 +11,16 @@ public class VideoBrowse {
 
     private Date videoBrowseTime;
 
+    Video video;
+
+    public Video getVideo() {
+        return video;
+    }
+
+    public void setVideo(Video video) {
+        this.video = video;
+    }
+
     public VideoBrowse(String videoBrowseId, String videoBrowseVideoId, String videoBrowseUserId, Date videoBrowseTime) {
         this.videoBrowseId = videoBrowseId;
         this.videoBrowseVideoId = videoBrowseVideoId;

@@ -8,10 +8,26 @@
       <arg column="VIDEO_BROWSE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="VIDEO_BROWSE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
+      <association property="video" javaType="com.project.taste.model.Video">
+        <id column="VIDEO_ID" property="videoId" jdbcType="VARCHAR"/>
+        <result column="VIDEO_USER_ID" property="videoUserId" jdbcType="VARCHAR"/>
+        <result column="VIDEO_URL" property="videoUrl" jdbcType="VARCHAR"/>
+        <result column="VIDEO_TITLE" property="videoTitle" jdbcType="VARCHAR"/>
+        <result column="VIDEO__CONTENT" property="videoContent" jdbcType="VARCHAR"/>
+        <result column="VIDEO_TIME" property="videoTime" jdbcType="TIMESTAMP"/>
+        <result column="VIDEO_STATUS" property="videoStatus" jdbcType="INTEGER"/>
+      </association>
   </resultMap>
   <sql id="Base_Column_List" >
     VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID, VIDEO_BROWSE_USER_ID, VIDEO_BROWSE_TIME
   </sql>
+  <!--根据用户ID查询用户浏览视频记录-->
+  <select id="queryVideoBrowseByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from video_browse
+					left join video on VIDEO_BROWSE_VIDEO_ID=VIDEO_ID
+					WHERE video_browse.VIDEO_BROWSE_USER_ID=#{videoBrowseUserId,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

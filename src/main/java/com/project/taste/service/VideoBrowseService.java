@@ -2,6 +2,8 @@ package com.project.taste.service;
 
 import com.project.taste.model.VideoBrowse;
 
+import java.util.List;
+
 public interface VideoBrowseService {
     int deleteByPrimaryKey(String videoBrowseId);
 
@@ -14,4 +16,6 @@ public interface VideoBrowseService {
     int updateByPrimaryKeySelective(VideoBrowse record);
 
     int updateByPrimaryKey(VideoBrowse record);
+    //根据用户ID查询用户浏览视频记录
+    List<VideoBrowse> queryVideoBrowseByUserId(String userId);
 }
