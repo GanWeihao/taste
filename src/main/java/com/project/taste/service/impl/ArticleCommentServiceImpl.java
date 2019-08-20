@@ -4,6 +4,8 @@ import com.project.taste.model.ArticleComment;
 import com.project.taste.service.ArticleCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,10 +20,12 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public int insert(ArticleComment record) {
         return 0;
     }
-
+    //添加文章评论
     @Override
     public int insertSelective(ArticleComment record) {
-        return 0;
+        record.setArticleCommentStatus(0);
+        record.setArticleCommentTime(new Date());
+        return articleCommentMapper.insertSelective(record);
     }
 
     @Override

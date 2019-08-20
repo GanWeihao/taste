@@ -12,7 +12,7 @@ public interface ArticleCommentMapper {
     int deleteByPrimaryKey(String articleCommentId);
 
     int insert(ArticleComment record);
-
+    //添加文章评论
     int insertSelective(ArticleComment record);
 
     ArticleComment selectByPrimaryKey(String articleCommentId);
