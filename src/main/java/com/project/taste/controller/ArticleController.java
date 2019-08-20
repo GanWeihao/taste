@@ -149,4 +149,21 @@ public class ArticleController {
         return js;
     }
 
+    @ResponseBody
+    @RequestMapping("/article/update")
+    public JsonResult updateArticle(Article article){
+        JsonResult js;
+        try{
+            int i = articleService.updateByPrimaryKeySelective(article);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"修改成功",i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"修改失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"修改异常");
+        }
+        return js;
+    }
+
 }

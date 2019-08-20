@@ -20,6 +20,7 @@ public interface ArticleService {
 
     int insert(Article record);
 
+    //修改文章
     int updateByPrimaryKeySelective(Article record);
 
     int updateByPrimaryKey(Article record);

@@ -60,9 +60,10 @@ public class ArticleServiceImpl implements ArticleService {
         return 0;
     }
 
+    //修改文章
     @Override
     public int updateByPrimaryKeySelective(Article record) {
-        return 0;
+        return articleMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override

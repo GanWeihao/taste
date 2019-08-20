@@ -102,7 +102,7 @@
       #{articleUserId,jdbcType=VARCHAR}, #{articleCategoryId,jdbcType=VARCHAR},
       #{articleTime,jdbcType=TIMESTAMP})
   </insert>
-
+    <!--修改文章-->
     <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Article">
         update article
         <set>
