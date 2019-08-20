@@ -91,4 +91,26 @@ public class VideoCommentController {
         return result;
     }
 
+    /**
+     * 根据用户ID查询所有评论
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/videocomment/query/userid")
+    public Object queryVideoCommentByUserId(String userId){
+        JsonResult result=null;
+        try{
+            List<VideoComment> list = videoCommentService.queryVideoCommentByUserId(userId);
+            if(list.size()>0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
+
 }

@@ -8055,3 +8055,65 @@ Unconditional classes:
 2019-八月-20 18:56:26.650 WARN  [main] o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
 2019-八月-20 18:56:26.936 INFO  [main] c.p.t.TasteApplication - Started TasteApplication in 4.306 seconds (JVM running for 6.083)
 2019-八月-20 18:56:26.940 DEBUG [main] c.p.t.TasteApplication - --Application Started--
+2019-八月-20 19:21:30.791 INFO  [main] c.p.t.TasteApplication - Starting TasteApplication on RFV0HFLC9WSJD5V with PID 11900 (D:\taste\target\classes started by Administrator in D:\taste)
+2019-八月-20 19:21:30.794 DEBUG [main] c.p.t.TasteApplication - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-八月-20 19:21:30.795 INFO  [main] c.p.t.TasteApplication - The following profiles are active: dev
+2019-八月-20 19:21:30.817 DEBUG [background-preinit] o.h.v.m.ResourceBundleMessageInterpolator - Loaded expression factory via original TCCL
+2019-八月-20 19:21:30.840 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-八月-20 19:21:30.841 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-八月-20 19:21:30.841 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-八月-20 19:21:30.841 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-八月-20 19:21:30.843 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-八月-20 19:21:33.792 DEBUG [main] o.h.v.i.e.r.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-八月-20 19:21:33.793 DEBUG [main] o.h.v.m.ResourceBundleMessageInterpolator - Loaded expression factory via original TCCL
+2019-八月-20 19:21:33.797 DEBUG [main] o.h.v.i.e.r.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-八月-20 19:21:33.798 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+2019-八月-20 19:21:33.798 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom ConstraintValidatorFactory of type org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory
+2019-八月-20 19:21:33.799 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom ParameterNameProvider of type org.springframework.validation.beanvalidation.LocalValidatorFactoryBean$1
+2019-八月-20 19:21:33.800 DEBUG [main] o.h.v.i.x.c.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+2019-八月-20 19:21:33.800 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via user class loader
+2019-八月-20 19:21:33.800 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+2019-八月-20 19:21:33.801 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+2019-八月-20 19:21:33.801 DEBUG [main] o.h.v.i.x.c.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+2019-八月-20 19:21:33.805 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-八月-20 19:21:33.805 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-八月-20 19:21:33.805 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-八月-20 19:21:33.805 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-八月-20 19:21:33.805 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-八月-20 19:21:34.312 WARN  [main] o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2019-八月-20 19:21:34.613 INFO  [main] c.p.t.TasteApplication - Started TasteApplication in 4.557 seconds (JVM running for 7.053)
+2019-八月-20 19:21:34.618 DEBUG [main] c.p.t.TasteApplication - --Application Started--
+2019-八月-20 19:22:17.259 DEBUG [http-nio-9090-exec-4] c.p.t.m.V.queryVideoCommentByUserId - ==>  Preparing: select VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID, VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS from video_comment where VIDEO_COMMENT_USER_ID=? and VIDEO_COMMENT_STATUS=0 
+2019-八月-20 19:22:17.277 DEBUG [http-nio-9090-exec-4] c.p.t.m.V.queryVideoCommentByUserId - ==> Parameters: 1(String)
+2019-八月-20 19:22:17.354 DEBUG [http-nio-9090-exec-4] c.p.t.m.V.queryVideoCommentByUserId - <==      Total: 1
+2019-八月-20 19:22:24.106 DEBUG [http-nio-9090-exec-2] c.p.t.m.V.queryVideoCommentByUserId - ==>  Preparing: select VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID, VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS from video_comment where VIDEO_COMMENT_USER_ID=? and VIDEO_COMMENT_STATUS=0 
+2019-八月-20 19:22:24.107 DEBUG [http-nio-9090-exec-2] c.p.t.m.V.queryVideoCommentByUserId - ==> Parameters: 2(String)
+2019-八月-20 19:22:24.170 DEBUG [http-nio-9090-exec-2] c.p.t.m.V.queryVideoCommentByUserId - <==      Total: 1
+2019-八月-20 19:23:10.812 DEBUG [background-preinit] o.h.v.m.ResourceBundleMessageInterpolator - Loaded expression factory via original TCCL
+2019-八月-20 19:23:10.822 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-八月-20 19:23:10.824 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-八月-20 19:23:10.824 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-八月-20 19:23:10.824 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-八月-20 19:23:10.824 DEBUG [background-preinit] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-八月-20 19:23:10.891 INFO  [main] c.p.t.TasteApplication - Starting TasteApplication on RFV0HFLC9WSJD5V with PID 13132 (D:\taste\target\classes started by Administrator in D:\taste)
+2019-八月-20 19:23:10.892 DEBUG [main] c.p.t.TasteApplication - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-八月-20 19:23:10.893 INFO  [main] c.p.t.TasteApplication - The following profiles are active: dev
+2019-八月-20 19:23:13.345 DEBUG [main] o.h.v.i.e.r.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-八月-20 19:23:13.346 DEBUG [main] o.h.v.m.ResourceBundleMessageInterpolator - Loaded expression factory via original TCCL
+2019-八月-20 19:23:13.350 DEBUG [main] o.h.v.i.e.r.TraversableResolvers - Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-八月-20 19:23:13.351 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+2019-八月-20 19:23:13.352 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom ConstraintValidatorFactory of type org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory
+2019-八月-20 19:23:13.353 DEBUG [main] o.h.v.i.e.ConfigurationImpl - Setting custom ParameterNameProvider of type org.springframework.validation.beanvalidation.LocalValidatorFactoryBean$1
+2019-八月-20 19:23:13.354 DEBUG [main] o.h.v.i.x.c.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+2019-八月-20 19:23:13.355 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via user class loader
+2019-八月-20 19:23:13.355 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+2019-八月-20 19:23:13.356 DEBUG [main] o.h.v.i.x.c.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+2019-八月-20 19:23:13.356 DEBUG [main] o.h.v.i.x.c.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+2019-八月-20 19:23:13.362 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-八月-20 19:23:13.362 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-八月-20 19:23:13.363 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-八月-20 19:23:13.363 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-八月-20 19:23:13.363 DEBUG [main] o.h.v.i.e.ValidatorFactoryImpl - HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-八月-20 19:23:13.883 WARN  [main] o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2019-八月-20 19:23:14.170 INFO  [main] c.p.t.TasteApplication - Started TasteApplication in 3.879 seconds (JVM running for 8.683)
+2019-八月-20 19:23:14.173 DEBUG [main] c.p.t.TasteApplication - --Application Started--

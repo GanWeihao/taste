@@ -26,4 +26,6 @@ public interface VideoCommentMapper {
     List<VideoComment> queryVideoCommentAll();
     //查询视频评论数量
     int queryVideoCommentNum();
+    //根据用户ID查询所有评论
+    List<VideoComment> queryVideoCommentByUserId(String userId);
 }
