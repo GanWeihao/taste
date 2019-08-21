@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 @Component("CategoryMapper")
 public interface CategoryMapper {
-
+    //查询所有类别
     List<Category> queryAll();
 
     int deleteByPrimaryKey(String categoryId);

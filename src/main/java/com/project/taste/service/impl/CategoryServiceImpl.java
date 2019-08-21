@@ -43,6 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
         return 0;
     }
 
+    //查询所有类别
     @Override
     public List<Category> queryAll() {
         return categoryMapper.queryAll();
