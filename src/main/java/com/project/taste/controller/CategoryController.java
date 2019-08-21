@@ -40,7 +40,7 @@ public class CategoryController {
         return js;
     }
     /**
-     * 添加类别
+     * 添加类别1
      */
     @ResponseBody
     @RequestMapping("/category/insert")

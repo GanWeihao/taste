@@ -14,7 +14,7 @@ public interface CategoryMapper {
     List<Category> queryAll();
 
     int deleteByPrimaryKey(String categoryId);
-
+     //添加类别
     int insert(Category record);
 
     int insertSelective(Category record);
