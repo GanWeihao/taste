@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
         return 0;
     }
 
-    //添加类别的
+    //添加类别
     @Override
     public int insertSelective(Category record) {
         String id = UUID.randomUUID().toString().replaceAll("-","");
