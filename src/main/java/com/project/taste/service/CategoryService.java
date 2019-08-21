@@ -2,6 +2,8 @@ package com.project.taste.service;
 
 import com.project.taste.model.Category;
 
+import java.util.List;
+
 public interface CategoryService {
     int deleteByPrimaryKey(String categoryId);
 
@@ -14,4 +16,6 @@ public interface CategoryService {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    List<Category> queryAll();
 }
