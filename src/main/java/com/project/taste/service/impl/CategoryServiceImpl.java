@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -23,9 +24,14 @@ public class CategoryServiceImpl implements CategoryService {
         return 0;
     }
 
+    //添加类别
     @Override
     public int insertSelective(Category record) {
-        return 0;
+        String id = UUID.randomUUID().toString().replaceAll("-","");
+        record.setCategoryId(id);
+        record.setCategoryStatus(0);
+//        record.setCategoryName();
+        return categoryMapper.insertSelective(record);
     }
 
     @Override
@@ -47,4 +53,5 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> queryAll() {
         return categoryMapper.queryAll();
     }
+
 }

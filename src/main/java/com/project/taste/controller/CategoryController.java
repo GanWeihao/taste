@@ -42,4 +42,20 @@ public class CategoryController {
     /**
      * 添加类别
      */
+    @ResponseBody
+    @RequestMapping("/category/insert")
+    public JsonResult insertArticle(Category category){
+        JsonResult js;
+        try{
+            int i = categoryService.insertSelective(category);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
+        }
+        return js;
+    }
 }
