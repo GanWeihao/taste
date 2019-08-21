@@ -42,7 +42,6 @@ public class CategoryServiceImpl implements CategoryService {
     public int updateByPrimaryKey(Category record) {
         return 0;
     }
-
     //查询所有类别
     @Override
     public List<Category> queryAll() {
