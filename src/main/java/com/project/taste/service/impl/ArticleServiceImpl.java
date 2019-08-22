@@ -3,9 +3,12 @@ package com.project.taste.service.impl;
 import com.project.taste.mapper.ArticleMapper;
 import com.project.taste.model.Article;
 import com.project.taste.service.ArticleService;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +18,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     ArticleMapper articleMapper;
+    @Autowired
+    private SolrClient solrClient;
 
     //查询所有文章（带分页）
     @Override
@@ -42,11 +47,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     //添加文章
     @Override
-    public int insertSelective(Article record) {
+    public int insertSelective(Article record) throws IOException, SolrServerException {
         String id = UUID.randomUUID().toString().replaceAll("-","");
         record.setArticleId(id);
         record.setArticleStatus(0);
         record.setArticleTime(new Date());
+        solrClient.addBean(record);
+        solrClient.commit();
         return articleMapper.insertSelective(record);
     }
 

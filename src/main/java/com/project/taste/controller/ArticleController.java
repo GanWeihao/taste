@@ -9,6 +9,7 @@ import com.project.taste.service.ArticleService;
 import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import org.apache.solr.client.solrj.SolrClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
     ContentService contentService;
+
 
     /**
      * 查询所有文章（带分页）
@@ -139,16 +141,22 @@ public class ArticleController {
         try{
             int i = articleService.insertSelective(article);
             if(i!=0){
+
                 js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常"+e.getMessage());
         }
         return js;
     }
 
+    /**
+     * 修改文章
+     * @param article
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/article/update")
     public JsonResult updateArticle(Article article){

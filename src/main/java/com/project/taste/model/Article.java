@@ -1,18 +1,22 @@
 package com.project.taste.model;
 
+import org.apache.solr.client.solrj.beans.Field;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
+public class Article implements Serializable {
+    @Field("articleId")
     private String articleId;
-
+    @Field("articleTitle")
     private String articleTitle;
-
+    @Field("articleStatus")
     private Integer articleStatus;
-
+    @Field("articleUserId")
     private String articleUserId;
-
+    @Field("articleCategoryId")
     private String articleCategoryId;
-
+    @Field("articleTime")
     private Date articleTime;
 
     public Article(String articleId, String articleTitle, Integer articleStatus, String articleUserId, String articleCategoryId, Date articleTime) {
