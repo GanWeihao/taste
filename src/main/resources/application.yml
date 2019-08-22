@@ -10,7 +10,7 @@ spring:
     name: solr
   data:
     solr:
-      host: http://localhost:8080/solr/taste
+      host: http://106.13.207.98:9091/solr/taste
   profiles:
     active: dev
   datasource:

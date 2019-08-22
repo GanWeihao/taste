@@ -34,10 +34,10 @@ public class ArticleController {
     SolrClient solrClient;
 
     //增量
-    String deltaImport = "http://localhost:8080/solr/taste/dataimport?command=delta-import&verbose=false&clean=false&commit=true&optimize=false&core=taste&name=dataimport";
+    String deltaImport = "http://106.13.207.98:9091/solr/taste/dataimport?command=delta-import&verbose=false&clean=false&commit=true&optimize=false&core=taste&name=dataimport";
 
     //全量
-    String fullImport = "http://localhost:8080/solr/taste/dataimport?command=full-import&verbose=false&clean=true&commit=true&optimize=false&core=taste&name=dataimport";
+    String fullImport = "http://106.13.207.98:9091/solr/taste/dataimport?command=full-import&verbose=false&clean=true&commit=true&optimize=false&core=taste&name=dataimport";
 
     /**
      * 查询所有文章（带分页）
@@ -53,6 +53,8 @@ public class ArticleController {
             String update = HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery("*:*");
+            solrQuery.setStart(pageNum);
+            solrQuery.setRows(pageSize);
             QueryResponse response = solrClient.query(solrQuery);
             PageHelper.startPage(pageNum,pageSize);
             SolrDocumentList results = response.getResults();
@@ -83,6 +85,8 @@ public class ArticleController {
             HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery("articleTitle:"+article.getArticleTitle());
+            solrQuery.setStart(pageNum);
+            solrQuery.setRows(pageSize);
             solrQuery.setHighlight(true);
             solrQuery.addHighlightField("articleTitle");
             solrQuery.setHighlightSimplePre("<font color='blue'>");
