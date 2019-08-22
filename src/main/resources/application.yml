@@ -6,6 +6,11 @@ server:
     max-connections: 20000
 
 spring:
+  application:
+    name: solr
+  data:
+    solr:
+      host: http://localhost:8080/solr/taste
   profiles:
     active: dev
   datasource:

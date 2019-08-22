@@ -1,7 +1,9 @@
 package com.project.taste.service;
 
 import com.project.taste.model.Article;
+import org.apache.solr.client.solrj.SolrServerException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ArticleService {
@@ -14,7 +16,7 @@ public interface ArticleService {
     //根据ID删除文章
     int deleteByArticleId(String articleId);
     //添加文章
-    int insertSelective(Article record);
+    int insertSelective(Article record) throws IOException, SolrServerException;
 
     int deleteByPrimaryKey(String articleId);
 
