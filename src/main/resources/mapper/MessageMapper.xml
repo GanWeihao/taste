@@ -24,6 +24,35 @@
         ORDER BY MESSAGE_TIME asc
     </select>
 
+  <!--据消息ID查询消息详情-->
+    <select id="queryMessageByMessageId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+              <include refid="Base_Column_List"/>
+              from message
+              where MESSAGE_ID=#{messageId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
+    </select>
+
+    <!--根据消息ID更改消息状态-->
+    <update id="updateMessage" parameterType="java.lang.String">
+        update message
+                  <set>
+                      <if test="messageStatus=0">
+                          MESSAGE_STATUS=1,
+                      </if>
+                    <if test="messageStatus=1">
+                      MESSAGE_STATUS=1,
+                    </if>
+                  </set>
+                  where MESSAGE_ID=#{messageId,jdbcType=VARCHAR}
+    </update>
+
+    <!--查询未读信息数量-->
+    <select id="queryMessageNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+      select count(*)
+                    from message
+                    where MESSAGE_STATUS=0
+    </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

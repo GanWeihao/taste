@@ -44,9 +44,45 @@ public class MessageServiceImpl implements MessageService {
         return 0;
     }
 
+    /**
+     * 根据用户ID查询用户的所有已读和未读信息
+     * @param userId
+     * @return
+     */
     @Override
     public List<Message> queryMessageByUserId(String userId) {
         List<Message> list=messageMapper.queryMessageByUserId(userId);
         return list;
+    }
+
+    /**
+     * 据消息ID查询消息详情
+     * @param messageId
+     * @return
+     */
+    @Override
+    public Message queryMessageByMessageId(String messageId) {
+        Message message = messageMapper.queryMessageByMessageId(messageId);
+        if(message!=null){
+            updateMessage(messageId);
+        }
+        return message;
+    }
+
+    /**
+     * 根据消息ID更改消息状态
+     * @param messageId
+     * @return
+     */
+    @Override
+    public int updateMessage(String messageId) {
+        int row=messageMapper.updateMessage(messageId);
+        return row;
+    }
+    //查询未读信息数量
+    @Override
+    public int queryMessageNum(String userId) {
+        int num=messageMapper.queryMessageNum(userId);
+        return num;
     }
 }

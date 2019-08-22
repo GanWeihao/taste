@@ -44,4 +44,48 @@ public class MessageController {
         }
         return result;
     }
+
+    /**
+     * 根据消息ID查询消息详情
+     * @param messageId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/message/querybyid")
+    public Object queryMessageByMessageId(String messageId){
+        JsonResult result=null;
+        try{
+            Message message=messageService.queryMessageByMessageId(messageId);
+            if(message!=null){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",message);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+                result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
+
+    /**
+     *查询未读信息数量
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/message/querynum")
+    public Object queryMessageNum(String userId){
+        JsonResult result=null;
+        try{
+            int num=messageService.queryMessageNum(userId);
+            if(num!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",num);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
 }

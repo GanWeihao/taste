@@ -23,4 +23,10 @@ public interface MessageMapper {
 
     //根据用户ID查询用户的所有已读和未读信息
     List<Message> queryMessageByUserId(String userId);
+    //根据消息ID查询消息详情
+    Message queryMessageByMessageId(String messageId);
+    //根据消息ID更改消息状态
+    int updateMessage(String messageId);
+    //查询未读信息数量
+    int queryMessageNum(String userId);
 }
