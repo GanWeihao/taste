@@ -71,7 +71,7 @@ public class ArticleController {
     }
 
     /**
-     * 根据文章标题查询文章
+     * 根据文章标题查询文章（带分页）
      * @param article
      * @param pageNum
      * @param pageSize
