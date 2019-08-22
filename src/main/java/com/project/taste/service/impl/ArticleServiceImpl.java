@@ -52,8 +52,6 @@ public class ArticleServiceImpl implements ArticleService {
         record.setArticleId(id);
         record.setArticleStatus(0);
         record.setArticleTime(new Date());
-        solrClient.addBean(record);
-        solrClient.commit();
         return articleMapper.insertSelective(record);
     }
 

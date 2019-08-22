@@ -8,8 +8,13 @@ import com.project.taste.model.Content;
 import com.project.taste.service.ArticleService;
 import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
+import com.project.taste.util.HttpClientHelper;
 import com.project.taste.util.JsonResult;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +30,14 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
     ContentService contentService;
+    @Autowired
+    SolrClient solrClient;
 
+    //增量
+    String deltaImport = "http://localhost:8080/solr/taste/dataimport?command=delta-import&verbose=false&clean=false&commit=true&optimize=false&core=taste&name=dataimport";
+
+    //全量
+    String fullImport = "http://localhost:8080/solr/taste/dataimport?command=full-import&verbose=false&clean=true&commit=true&optimize=false&core=taste&name=dataimport";
 
     /**
      * 查询所有文章（带分页）
@@ -38,10 +50,48 @@ public class ArticleController {
     public JsonResult queryAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult js;
         try{
-            PageHelper.startPage(pageNum, pageSize);
-            List<Article> list = articleService.selectAll();
-            PageInfo pageInfo = new PageInfo(list);
-            if(list.size()>0){
+            String update = HttpClientHelper.sendPost(deltaImport);
+            SolrQuery solrQuery = new SolrQuery();
+            solrQuery.setQuery("*:*");
+            QueryResponse response = solrClient.query(solrQuery);
+            PageHelper.startPage(pageNum,pageSize);
+            SolrDocumentList results = response.getResults();
+            PageInfo pageInfo = new PageInfo(results);
+            if(results.size()>0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常"+e.getMessage());
+        }
+        return js;
+    }
+
+    /**
+     * 根据文章标题查询文章
+     * @param article
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/article/querybytitle")
+    public JsonResult queryByTitle(Article article, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
+        JsonResult js;
+        try{
+            HttpClientHelper.sendPost(deltaImport);
+            SolrQuery solrQuery = new SolrQuery();
+            solrQuery.setQuery("articleTitle:"+article.getArticleTitle());
+            solrQuery.setHighlight(true);
+            solrQuery.addHighlightField("articleTitle");
+            solrQuery.setHighlightSimplePre("<font color='blue'>");
+            solrQuery.setHighlightSimplePost("</font>");
+            QueryResponse response = solrClient.query(solrQuery);
+            PageHelper.startPage(pageNum,pageSize);
+            SolrDocumentList results = response.getResults();
+            PageInfo pageInfo = new PageInfo(results);
+            if(results.size()>0){
                 js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
@@ -141,8 +191,8 @@ public class ArticleController {
         try{
             int i = articleService.insertSelective(article);
             if(i!=0){
-
                 js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
+
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
             }

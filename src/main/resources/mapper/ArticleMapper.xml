@@ -5,7 +5,7 @@
         <constructor>
             <idArg column="ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ARTICLE_TITLE" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="ARTICLE_STATUS" jdbcType="INTEGER" javaType="java.lang.String"/>
+            <arg column="ARTICLE_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="ARTICLE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ARTICLE_CATEGORY_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ARTICLE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>

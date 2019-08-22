@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 @SpringBootApplication
 public class TasteApplication {
     private static final Logger logger = LoggerFactory.getLogger(TasteApplication.class);

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Article implements Serializable {
-    @Field("articleId")
+    @Field("id")
     private String articleId;
     @Field("articleTitle")
     private String articleTitle;
