@@ -60,7 +60,7 @@ public class CategoryController {
         return js;
     }
 
-    //修改类别
+    //修改类别1
     @ResponseBody
     @RequestMapping("/category/updatebyid")
     public JsonResult updatebyid(Category category){
