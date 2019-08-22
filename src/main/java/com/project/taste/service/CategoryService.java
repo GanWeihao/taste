@@ -17,6 +17,7 @@ public interface CategoryService {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
     //查询所有类别
     List<Category> queryAll();
 
