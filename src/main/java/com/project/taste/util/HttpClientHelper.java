@@ -8,6 +8,9 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 
 import java.io.IOException;
 
+/**
+ * 发送http请求
+ */
 public class HttpClientHelper {
     public static String sendPost(String urlParam) throws HttpException, IOException {
         // 创建httpClient实例对象

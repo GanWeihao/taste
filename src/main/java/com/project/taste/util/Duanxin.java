@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 发送验证码
+ */
 public class Duanxin {
     //发送验证码的请求路径URL
     private static final String
