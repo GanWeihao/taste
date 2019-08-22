@@ -1,6 +1,7 @@
 package com.project.taste.controller;
 
 import com.project.taste.model.Category;
+import com.project.taste.model.User;
 import com.project.taste.service.CategoryService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
@@ -17,7 +18,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     /**
-     * 查询所有文章（
+     * 查询所有类别
      * @return
      */
     @ResponseBody
@@ -58,4 +59,24 @@ public class CategoryController {
         }
         return js;
     }
+
+    //修改类别
+    @ResponseBody
+    @RequestMapping("/category/updatebyid")
+    public JsonResult updatebyid(Category category){
+        JsonResult js;
+        try{
+            int i = categoryService.updateByPrimaryKeySelective(category);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"修改成功",i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"修改失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"修改异常"+e.getMessage());
+        }
+        return js;
+    }
+
+
 }

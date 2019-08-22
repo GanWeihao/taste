@@ -60,6 +60,7 @@
       </if>
     </trim>
   </insert>
+    <!--修改类别-->
   <update id="updateByPrimaryKeySelective" parameterType="com.project.taste.model.Category" >
     update category
     <set >
