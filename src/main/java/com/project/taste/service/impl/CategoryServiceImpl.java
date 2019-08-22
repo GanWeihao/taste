@@ -2,9 +2,13 @@ package com.project.taste.service.impl;
 
 import com.project.taste.mapper.CategoryMapper;
 import com.project.taste.model.Category;
+import com.project.taste.model.User;
 import com.project.taste.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,9 +43,10 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
+    //修改类别
     @Override
     public int updateByPrimaryKeySelective(Category record) {
-        return 0;
+        return categoryMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
@@ -53,5 +58,6 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> queryAll() {
         return categoryMapper.queryAll();
     }
+
 
 }
