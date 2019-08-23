@@ -1,8 +1,10 @@
 package com.project.taste.controller;
 
+import com.project.taste.model.Attention;
 import com.project.taste.service.impl.AttentionServiceImpl;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@CrossOrigin
+@RequestMapping("/attention")
+@Api(tags = "用户关注控制器")
 public class AttentionController {
     @Autowired
     AttentionServiceImpl attentionService;
@@ -21,7 +24,7 @@ public class AttentionController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/attention/querynum")
+    @RequestMapping("/querynum")
     public Object queryNum(String userId) {
         JsonResult result = null;
         try {
@@ -80,7 +83,7 @@ public class AttentionController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/attention/insert")
+    @RequestMapping("/insert")
     public Object insert(String attentionUserId,String attentionTouserId) {
         JsonResult result = null;
         try {
@@ -106,14 +109,13 @@ public class AttentionController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/attention/delete")
-    public Object deleteByPrimaryKey (String attentionUserId,String attentionTouserId) {
+    @RequestMapping("/delete")
+    public Object deleteByPrimaryKey (Attention attention) {
         JsonResult result = null;
         try {
-            int s = attentionService.insert(attentionUserId,attentionTouserId);
+            int s = attentionService.deleteByPrimaryKey(attention);
             if (s != 0) {
                 result = new JsonResult(Constants.STATUS_SUCCESS, "取消关注",s);
-
             }
             else {
                 result = new JsonResult(Constants.STATUS_FAIL, "取消关注失败");

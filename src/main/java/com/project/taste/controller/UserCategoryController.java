@@ -4,12 +4,17 @@ import com.project.taste.model.UserCategory;
 import com.project.taste.service.UserCategoryService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@Controller
+@RequestMapping("/usercategory")
+@Api(tags = "用户喜好控制器")
 public class UserCategoryController {
     @Autowired
     UserCategoryService userCategoryService;
@@ -19,7 +24,7 @@ public class UserCategoryController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/usercategory/querybyid")
+    @RequestMapping("/querybyid")
     public JsonResult queryAll(String userCategoryUserId){
         JsonResult js;
         try{
@@ -39,7 +44,7 @@ public class UserCategoryController {
      * 添加喜好
      */
     @ResponseBody
-    @RequestMapping("/usercategory/insert")
+    @RequestMapping("/insert")
     public JsonResult insertArticle(UserCategory userCategory){
         JsonResult js;
         try{
@@ -50,7 +55,7 @@ public class UserCategoryController {
                 js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常"+e.getMessage());
         }
         return js;
     }
@@ -62,7 +67,7 @@ public class UserCategoryController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/usercategory/delete")
+    @RequestMapping("/delete")
     public Object deleteByPrimaryKey(String userCategoryId) {
         JsonResult result = null;
         int s = userCategoryService.deleteByPrimaryKey(userCategoryId);

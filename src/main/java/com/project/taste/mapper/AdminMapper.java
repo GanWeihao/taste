@@ -23,5 +23,5 @@ public interface AdminMapper {
     //管理员添加
     int AdminAdd(Admin admin);
     //管理员删除
-    int AdminDel (String adminName,String adminPassword);
+    int AdminDel (String adminId);
 }

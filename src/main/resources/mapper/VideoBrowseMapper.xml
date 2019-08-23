@@ -8,15 +8,15 @@
       <arg column="VIDEO_BROWSE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="VIDEO_BROWSE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
-      <association property="video" javaType="com.project.taste.model.Video">
-        <id column="VIDEO_ID" property="videoId" jdbcType="VARCHAR"/>
-        <result column="VIDEO_USER_ID" property="videoUserId" jdbcType="VARCHAR"/>
-        <result column="VIDEO_URL" property="videoUrl" jdbcType="VARCHAR"/>
-        <result column="VIDEO_TITLE" property="videoTitle" jdbcType="VARCHAR"/>
-        <result column="VIDEO__CONTENT" property="videoContent" jdbcType="VARCHAR"/>
-        <result column="VIDEO_TIME" property="videoTime" jdbcType="TIMESTAMP"/>
-        <result column="VIDEO_STATUS" property="videoStatus" jdbcType="INTEGER"/>
-      </association>
+    <association property="video" javaType="com.project.taste.model.Video">
+      <id column="VIDEO_ID" property="videoId" jdbcType="VARCHAR"/>
+      <result column="VIDEO_USER_ID" property="videoUserId" jdbcType="VARCHAR"/>
+      <result column="VIDEO_URL" property="videoUrl" jdbcType="VARCHAR"/>
+      <result column="VIDEO_TITLE" property="videoTitle" jdbcType="VARCHAR"/>
+      <result column="VIDEO__CONTENT" property="videoContent" jdbcType="VARCHAR"/>
+      <result column="VIDEO_TIME" property="videoTime" jdbcType="TIMESTAMP"/>
+      <result column="VIDEO_STATUS" property="videoStatus" jdbcType="INTEGER"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
     VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID, VIDEO_BROWSE_USER_ID, VIDEO_BROWSE_TIME
@@ -38,21 +38,28 @@
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from video_browse
     where VIDEO_BROWSE_ID = #{videoBrowseId,jdbcType=VARCHAR}
   </select>
+
+  <!--删除视频浏览记录-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from video_browse
     where VIDEO_BROWSE_ID = #{videoBrowseId,jdbcType=VARCHAR}
   </delete>
+
+  <!--添加视频浏览记录-->
   <insert id="insert" parameterType="com.project.taste.model.VideoBrowse" >
-    insert into video_browse (VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID, 
+    insert into video_browse (VIDEO_BROWSE_ID, VIDEO_BROWSE_VIDEO_ID,
       VIDEO_BROWSE_USER_ID, VIDEO_BROWSE_TIME)
-    values (#{videoBrowseId,jdbcType=VARCHAR}, #{videoBrowseVideoId,jdbcType=VARCHAR}, 
+    values (#{videoBrowseId,jdbcType=VARCHAR}, #{videoBrowseVideoId,jdbcType=VARCHAR},
       #{videoBrowseUserId,jdbcType=VARCHAR}, #{videoBrowseTime,jdbcType=TIMESTAMP})
   </insert>
+
+
+
   <insert id="insertSelective" parameterType="com.project.taste.model.VideoBrowse" >
     insert into video_browse
     <trim prefix="(" suffix=")" suffixOverrides="," >

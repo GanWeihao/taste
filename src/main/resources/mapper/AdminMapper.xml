@@ -25,8 +25,9 @@
     values (#{adminId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR})
   </insert>
   <!--  管理员删除-->
-  <delete id="AdminDel">
-    delete from admin where ADMIN_NAME=#{adminName,jdbcType=VARCHAR} and ADMIN_PASSWORD=#{adminPassword,jdbcType=VARCHAR}
+  <delete id="AdminDel" parameterType="java.lang.String">
+    delete from admin
+    where ADMIN_ID=#{adminId,jdbcType=VARCHAR}
   </delete>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select

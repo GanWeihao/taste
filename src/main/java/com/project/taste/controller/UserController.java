@@ -1,23 +1,25 @@
 package com.project.taste.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.project.taste.model.User;
 import com.project.taste.service.impl.UserServiceImpl;
 import com.project.taste.util.Constants;
 import com.project.taste.util.Duanxin;
 import com.project.taste.util.JsonResult;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
-@CrossOrigin
+@RequestMapping("/user")
+@Api(tags = "用户控制器")
 public class UserController {
     @Autowired
     UserServiceImpl userService;
@@ -30,13 +32,13 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/login")
-    public Object selectByPrimaryKey(String userName, String userPassword) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public JsonResult selectByPrimaryKey(User user) {
         JsonResult result = null;
         try {
-            User user = userService.selectByPrimaryKey(userName, userPassword);
-            if (user != null) {
-                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", user);
+            User user1 = userService.selectByPrimaryKey(user);
+            if (user1 != null) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", user1);
             } else {
                 result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
             }
@@ -47,39 +49,51 @@ public class UserController {
     }
 
     /**
-     * 短信登入
+     * 手机号码登录添加用户
+     */
+    @ResponseBody
+    @RequestMapping(value = "/telphone/insert", method = RequestMethod.POST)
+    public JsonResult insertFromTelphone(String userTelephone){
+        JsonResult js;
+        try{
+            User user = userService.selectByPrimaryKey1(userTelephone);
+            if (user != null) {
+                js = new JsonResult(Constants.STATUS_SUCCESS, "登录成功", user);
+            } else {
+                User user1 = new User();
+                user1.setUserTelphone(userTelephone);
+                int i = userService.insertSelective(user1);
+                User user2 = userService.selectByPrimaryKey1(userTelephone);
+                if (i != 0) {
+                    js = new JsonResult(Constants.STATUS_SUCCESS, "注册成功", user2);
+                } else {
+                    js = new JsonResult(Constants.STATUS_FAIL, "注册失败");
+                }
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR, "注册异常"+e.getMessage());
+        }
+        return js;
+    }
+
+    /**
+     * 发送短信
      *
      * @param userTelephone
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/login1")
-    public Object selectByPrimaryKey1(String userTelephone) throws Exception {
+    @RequestMapping(value = "/login1", method = RequestMethod.POST)
+    public JsonResult selectByPrimaryKey1(String userTelephone) {
         JsonResult result = null;
         try {
             Duanxin s = new Duanxin();
-            User user = userService.selectByPrimaryKey1(userTelephone);
-            if (user != null) {
-                String s1 = s.duanxin(userTelephone).toString();
-                String s11 = s1.replaceAll("\"", "");
-                result = new JsonResult(Constants.STATUS_SUCCESS, "登录成功", s11);
-            } else {
-                User user1 = new User();
-                user1.setUserTelphone(userTelephone);
-                int i = userService.insertSelective(user1);
-                if (i != 0) {
-                    String s1 = s.duanxin(userTelephone).toString();
-                    String s11 = s1.replaceAll("\"", "");
-                    result = new JsonResult(Constants.STATUS_SUCCESS, "登录成功", s11);
-                } else {
-                    result = new JsonResult(Constants.STATUS_FAIL, "登录失败");
-                }
-            }
-
+            String s1 = s.duanxin(userTelephone).toString();
+            String s11 = s1.replaceAll("\"", "");
+            result = new JsonResult(Constants.STATUS_SUCCESS, "发送成功", JSON.parse(s11));
         } catch (Exception e) {
-            result = new JsonResult(Constants.STATUS_ERROR, "异常");
+            result = new JsonResult(Constants.STATUS_ERROR, "发送异常");
         }
-
         return result;
     }
 
@@ -90,19 +104,23 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/insert")
-    public Object insert(String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl) {
+    @RequestMapping("/insert")
+    public JsonResult insert(User user) {
         JsonResult result = null;
         try {
-            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            int s1 = userService.insert(uuid, userName, userTelphone, userEmail, userPassword, userHeadurl, new Date());
-            if (s1 == 1) {
-                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", s1);
-            } else {
-                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            User user1 = userService.queryAlltiaojian(user);
+            if(user1 == null){
+                int s1 = userService.insertSelective(user);
+                if (s1 == 1) {
+                    result = new JsonResult(Constants.STATUS_SUCCESS, "添加成功", s1);
+                } else {
+                    result = new JsonResult(Constants.STATUS_FAIL, "添加失败");
+                }
+            }else{
+                result = new JsonResult(Constants.STATUS_FAIL, "用户名、手机号码或邮箱已存在");
             }
         } catch (Exception e) {
-            result = new JsonResult(Constants.STATUS_ERROR, "查询异常", e.getMessage());
+            result = new JsonResult(Constants.STATUS_ERROR, "添加异常", e.getMessage());
         }
         return result;
     }
@@ -115,8 +133,8 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/querynum")
-    public Object querynum() {
+    @RequestMapping("/querynum")
+    public JsonResult querynum() {
         JsonResult result = null;
         try {
             int s = userService.querynum();
@@ -143,8 +161,8 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/querybyid")
-    public Object queryById(String userId) {
+    @RequestMapping("/querybyid")
+    public JsonResult queryById(String userId) {
         JsonResult result = null;
         try {
             User user = userService.selectById(userId);
@@ -166,18 +184,18 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/querybyname")
-    public Object queryAlltiaojian(String userName, String userTelphone, String userEmail) {
+    @RequestMapping("/querybyname")
+    public JsonResult queryAlltiaojian(User user) {
         JsonResult result = null;
         try {
-            User user = userService.queryAlltiaojian(userName, userTelphone, userEmail);
-            if (user != null) {
-                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", user);
+            User user1 = userService.queryAlltiaojian(user);
+            if (user1 != null) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", user1);
             } else {
                 result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
             }
         } catch (Exception e) {
-            result = new JsonResult(Constants.STATUS_ERROR, "查询异常", e.getMessage());
+            result = new JsonResult(Constants.STATUS_ERROR, "查询异常");
         }
         return result;
     }
@@ -189,26 +207,27 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/user/delete")
-    public Object updateByStatus(String userId) {
+    @RequestMapping("/delete")
+    public JsonResult updateByStatus(String userId) {
         JsonResult result = null;
-        User user = userService.selectById(userId);
-        Integer s = user.getUserStatus();
         try {
+            User user = userService.selectById(userId);
+            Integer s = user.getUserStatus();
+            System.out.println(user.getUserStatus());
             if (s == 0) {
-                int s1 = userService.updateByStatus(userId, 1);
-                result = new JsonResult(Constants.STATUS_SUCCESS, "禁封该用户", s1);
-                return result;
-            }else if (s == 1) {
-                int s1 = userService.updateByStatus(userId, 0);
-                result = new JsonResult(Constants.STATUS_SUCCESS, "恢复该用户", s1);
-                return result;
-
+                user.setUserStatus(1);
+                int s1 = userService.updateByStatus(user);
+                result = new JsonResult(Constants.STATUS_SUCCESS, "已禁封该用户", s1);
+            }else if (s != 0) {
+                user.setUserStatus(0);
+                int s1 = userService.updateByStatus(user);
+                result = new JsonResult(Constants.STATUS_SUCCESS, "已恢复该用户", s1);
             } else {
                 result = new JsonResult(Constants.STATUS_FAIL, "操作失败");
             }
         } catch (Exception e) {
-            result = new JsonResult(Constants.STATUS_ERROR, "操作异常", e.getMessage());
+            e.printStackTrace();
+            result = new JsonResult(Constants.STATUS_ERROR, "操作异常");
         }
         return result;
     }
@@ -221,7 +240,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/attention/query/userid")
-    public Object attention(String userId) {
+    public JsonResult attention(String userId) {
         JsonResult result = null;
         List<User> list = userService.attention(userId);
         try {
@@ -246,7 +265,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/fensi/query/toserid")
-    public Object attention1(String userId) {
+    public JsonResult attention1(String userId) {
         JsonResult result = null;
         List<User> list = userService.attention1(userId);
         try {

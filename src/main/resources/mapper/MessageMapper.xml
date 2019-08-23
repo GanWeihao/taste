@@ -15,46 +15,46 @@
     MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_TIME, MESSAGE_USER_ID, MESSAGE_STATUS
   </sql>
 
-    <!--根据用户ID查询用户的所有已读和未读信息-->
-    <select id="queryMessageByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from message
-        where MESSAGE_USER_ID=#{messageUserId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
-        ORDER BY MESSAGE_TIME asc
-    </select>
+  <!--根据用户ID查询用户的所有已读和未读信息-->
+  <select id="queryMessageByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from message
+    where MESSAGE_USER_ID=#{messageUserId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
+    ORDER BY MESSAGE_TIME asc
+  </select>
 
   <!--据消息ID查询消息详情-->
-    <select id="queryMessageByMessageId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-              <include refid="Base_Column_List"/>
-              from message
-              where MESSAGE_ID=#{messageId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
-    </select>
+  <select id="queryMessageByMessageId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from message
+    where MESSAGE_ID=#{messageId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
+  </select>
 
-    <!--根据消息ID更改消息状态-->
-    <update id="updateMessage" parameterType="java.lang.String">
-        update message
-                  <set>
-                      <if test="messageStatus=0">
-                          MESSAGE_STATUS=1,
-                      </if>
-                    <if test="messageStatus=1">
-                      MESSAGE_STATUS=1,
-                    </if>
-                  </set>
-                  where MESSAGE_ID=#{messageId,jdbcType=VARCHAR}
-    </update>
+  <!--根据消息ID更改消息状态-->
+  <update id="updateMessage" parameterType="java.lang.String">
+    update message
+    <set>
+      <if test="messageStatus=0">
+        MESSAGE_STATUS=1,
+      </if>
+      <if test="messageStatus=1">
+        MESSAGE_STATUS=1,
+      </if>
+    </set>
+    where MESSAGE_ID=#{messageId,jdbcType=VARCHAR}
+  </update>
 
-    <!--查询未读信息数量-->
-    <select id="queryMessageNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+  <!--查询未读信息数量-->
+  <select id="queryMessageNum" parameterType="java.lang.String" resultType="java.lang.Integer">
       select count(*)
                     from message
                     where MESSAGE_STATUS=0
     </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from message
     where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
@@ -63,11 +63,13 @@
     delete from message
     where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
   </delete>
+
+  <!--添加消息-->
   <insert id="insert" parameterType="com.project.taste.model.Message" >
-    insert into message (MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, 
+    insert into message (MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT,
       MESSAGE_TIME, MESSAGE_USER_ID, MESSAGE_STATUS
       )
-    values (#{messageId,jdbcType=VARCHAR}, #{messageTitle,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR}, 
+    values (#{messageId,jdbcType=VARCHAR}, #{messageTitle,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR},
       #{messageTime,jdbcType=TIMESTAMP}, #{messageUserId,jdbcType=VARCHAR}, #{messageStatus,jdbcType=INTEGER}
       )
   </insert>
@@ -135,13 +137,12 @@
     </set>
     where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
   </update>
+
+  <!--删除消息-->
   <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Message" >
     update message
-    set MESSAGE_TITLE = #{messageTitle,jdbcType=VARCHAR},
-      MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
-      MESSAGE_TIME = #{messageTime,jdbcType=TIMESTAMP},
-      MESSAGE_USER_ID = #{messageUserId,jdbcType=VARCHAR},
-      MESSAGE_STATUS = #{messageStatus,jdbcType=INTEGER}
+    set
+      MESSAGE_STATUS = 2
     where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
   </update>
 </mapper>

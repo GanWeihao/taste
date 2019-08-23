@@ -4,6 +4,10 @@ import com.project.taste.model.Admin;
 import com.project.taste.service.AdminService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@CrossOrigin
+@RequestMapping("/admin")
+@Api(tags = "管理员控制器")
 public class AdminController {
     @Autowired
     AdminService adminService;
@@ -20,7 +25,12 @@ public class AdminController {
     /**
      * 管理员登陆
      */
-    @RequestMapping(value = "/admin/login" ,method = RequestMethod.GET)
+    @ApiOperation(value = "管理员登录",httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "adminName",value = "登录账号"),
+            @ApiImplicitParam(name = "adminPassword",value = "登录密码")
+    })
+    @RequestMapping(value = "/login" ,method = RequestMethod.POST)
     @ResponseBody
     public JsonResult Adminlogin(Admin admin){
         JsonResult js;
@@ -40,7 +50,7 @@ public class AdminController {
     /**
      * 管理员添加
      */
-    @RequestMapping(value = "/admin/insert" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/insert" ,method = RequestMethod.POST)
     @ResponseBody
     public JsonResult AdminAdd(Admin admin){
         JsonResult js;
@@ -60,13 +70,13 @@ public class AdminController {
     /**
      * 管理员删除
      */
-    @RequestMapping(value = "/admin/delete" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/delete" ,method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult AdminDel(String adminName, String adminPassword){
+    public JsonResult AdminDel(String adminId){
         JsonResult js;
         try{
-            int i =adminService.AdminDel(adminName,adminPassword);
-            if(i>0){
+            int i =adminService.AdminDel(adminId);
+            if(i!=0){
                 js=new JsonResult(Constants.STATUS_SUCCESS,"删除成功",i);
             }else {
                 js=new JsonResult(Constants.STATUS_NOT_FOUND,"删除失败");

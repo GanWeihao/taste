@@ -5,9 +5,10 @@ import com.project.taste.model.Message;
 import java.util.List;
 
 public interface MessageService {
+    //删除消息
     int deleteByPrimaryKey(String messageId);
-
-    int insert(Message record);
+    //添加消息
+    int insert(String messageContent,String messageTitle,String messageUserId);
 
     int insertSelective(Message record);
 

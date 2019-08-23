@@ -9,17 +9,20 @@ import java.util.List;
 @Mapper
 @Component("VideoMapper")
 public interface VideoMapper {
+    //根据类别查询视频
+    List<Video> selectAllByCategoryId(String videoCategoryId);
+
     int deleteByPrimaryKey(String videoId);
 
     int insert(Video record);
-
+    //添加视频
     int insertSelective(Video record);
-
-    Video selectByPrimaryKey(String videoId);
+    //根据视频标题查询视频
+    Video selectByPrimaryKey(String videoTitle);
 
     int updateByPrimaryKeySelective(Video record);
-
-    int updateByPrimaryKey(Video record);
+    //删除视频
+    int updateByPrimaryKey(String videoId);
 
     //查询所有视频
     List<Video> queryVideoAll();

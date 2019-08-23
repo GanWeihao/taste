@@ -14,8 +14,8 @@ public class AttentionServiceImpl implements AttentionService {
     AttentionMapper attentionMapper;
     //取消关注
     @Override
-    public int deleteByPrimaryKey(String attentionUserId,String attentionTouserId) {
-        return attentionMapper.deleteByPrimaryKey(attentionUserId,attentionTouserId);
+    public int deleteByPrimaryKey(Attention attention) {
+        return attentionMapper.deleteByPrimaryKey(attention);
     }
     //添加关注
     @Override

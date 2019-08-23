@@ -49,7 +49,7 @@ public class ArticleCollectServiceImpl implements ArticleCollectService {
      * 根据用户id查询所有文章收藏
      */
     @Override
-    public List<Article> selectArticleByUId(String articleCollectUserId) {
+    public List<ArticleCollect> selectArticleByUId(String articleCollectUserId) {
         return articleCollectMapper.selectArticleByUId(articleCollectUserId);
     }
     /**
@@ -77,8 +77,8 @@ public class ArticleCollectServiceImpl implements ArticleCollectService {
      * 删除文章收藏
      */
     @Override
-    public int deleteCollect(String articleCollectId, String articleCollectUserId){
-        return  articleCollectMapper.deleteCollect(articleCollectId,articleCollectUserId);
+    public int deleteCollect(String articleCollectId){
+        return  articleCollectMapper.deleteCollect(articleCollectId);
     }
 
 }

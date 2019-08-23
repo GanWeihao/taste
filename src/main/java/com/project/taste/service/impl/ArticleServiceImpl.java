@@ -3,7 +3,6 @@ package com.project.taste.service.impl;
 import com.project.taste.mapper.ArticleMapper;
 import com.project.taste.model.Article;
 import com.project.taste.service.ArticleService;
-import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     ArticleMapper articleMapper;
-    @Autowired
-    private SolrClient solrClient;
 
     //查询所有文章（带分页）
     @Override

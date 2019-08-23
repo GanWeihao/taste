@@ -17,7 +17,17 @@ public class Video {
 
     private Integer videoStatus;
 
-    public Video(String videoId, String videoUserId, String videoUrl, String videoTitle, String videoContent, Date videoTime, Integer videoStatus) {
+    private  String videoCategoryId;
+
+    public String getVideoCategoryId() {
+        return videoCategoryId;
+    }
+
+    public void setVideoCategoryId(String videoCategoryId) {
+        this.videoCategoryId = videoCategoryId;
+    }
+
+    public Video(String videoId, String videoUserId, String videoUrl, String videoTitle, String videoContent, Date videoTime, Integer videoStatus, String videoCategoryId) {
         this.videoId = videoId;
         this.videoUserId = videoUserId;
         this.videoUrl = videoUrl;
@@ -25,6 +35,7 @@ public class Video {
         this.videoContent = videoContent;
         this.videoTime = videoTime;
         this.videoStatus = videoStatus;
+        this.videoCategoryId=videoCategoryId;
     }
 
     public Video() {

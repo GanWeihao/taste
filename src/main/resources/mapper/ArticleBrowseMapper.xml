@@ -79,16 +79,16 @@
   </insert>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from article_browse
     where ARTICLE_BROWSE_ID = #{articleBrowseId,jdbcType=VARCHAR}
   </select>
   <insert id="insert" parameterType="com.project.taste.model.ArticleBrowse" >
-    insert into article_browse (ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, 
+    insert into article_browse (ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID,
       ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
       )
-    values (#{articleBrowseId,jdbcType=VARCHAR}, #{articleBrowseUserId,jdbcType=VARCHAR}, 
+    values (#{articleBrowseId,jdbcType=VARCHAR}, #{articleBrowseUserId,jdbcType=VARCHAR},
       #{articleBrowseArticleId,jdbcType=VARCHAR}, #{articleBrowseTime,jdbcType=TIMESTAMP}
       )
   </insert>

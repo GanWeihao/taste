@@ -5,9 +5,10 @@ import com.project.taste.model.VideoBrowse;
 import java.util.List;
 
 public interface VideoBrowseService {
+    //删除视频浏览记录
     int deleteByPrimaryKey(String videoBrowseId);
-
-    int insert(VideoBrowse record);
+    //添加视频浏览记录
+    int insert(String videoBroweUserId,String VideoBroweVideoId);
 
     int insertSelective(VideoBrowse record);
 

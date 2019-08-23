@@ -4,7 +4,7 @@ import com.project.taste.model.Attention;
 
 public interface AttentionService {
     //取消关注
-    int deleteByPrimaryKey(String attentionUserId,String attentionTouserId);
+    int deleteByPrimaryKey(Attention attention);
     //添加关注
     int insert(String attentionUserId,String attentionTouserId);
     //查询用户关注人数

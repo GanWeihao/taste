@@ -4,6 +4,7 @@ package com.project.taste.controller;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import com.project.taste.util.UploadFileUtil;
+import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Controller
+@RequestMapping("/upload")
+@Api(tags = "文件上传控制器")
 public class FileController {
 
     /**
@@ -25,7 +28,7 @@ public class FileController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/upload/image", method = RequestMethod.POST)
+    @RequestMapping(value = "/image", method = RequestMethod.POST)
     public JsonResult upload(@RequestParam("file") MultipartFile file) {
         JsonResult js;
         try {
@@ -60,8 +63,8 @@ public class FileController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/upload/images", method = RequestMethod.POST)
-    public JsonResult upload(@RequestParam("file") MultipartFile[] files) {
+    @RequestMapping(value = "/images", method = RequestMethod.POST)
+    public JsonResult upload(@RequestParam("files") MultipartFile[] files) {
         JsonResult js;
         try {
             //判断文件是否为空
@@ -97,7 +100,7 @@ public class FileController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/upload/video", method = RequestMethod.POST)
+    @RequestMapping(value = "/video", method = RequestMethod.POST)
     public JsonResult uploadVideo(@RequestParam("file") MultipartFile file){
         JsonResult js;
         try{

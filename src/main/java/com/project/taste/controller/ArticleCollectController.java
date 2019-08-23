@@ -5,6 +5,7 @@ import com.project.taste.model.ArticleCollect;
 import com.project.taste.service.ArticleCollectService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@CrossOrigin
+@RequestMapping("/articlecollect")
+@Api(tags = "文章收藏控制器")
 public class ArticleCollectController {
     @Autowired
     ArticleCollectService articleCollectService;
@@ -23,12 +25,12 @@ public class ArticleCollectController {
     /**
      * 根据用户id查询所有文章收藏
      */
-    @RequestMapping(value = "/articlecollect/queryall" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/queryall" ,method = RequestMethod.GET)
     @ResponseBody
-    public JsonResult selectArticleByUId(String userId){
+    public JsonResult selectArticleByUId(String articleCollectUserId){
         JsonResult js;
         try{
-            List<Article> list=articleCollectService.selectArticleByUId(userId);
+            List<ArticleCollect> list=articleCollectService.selectArticleByUId(articleCollectUserId);
             if(list.size()>0){
                 js=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
             }else {
@@ -43,7 +45,7 @@ public class ArticleCollectController {
     /**
      * 根据文章ID查收藏数量
      */
-    @RequestMapping(value = "/articlecollect/querynum" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/querynum" ,method = RequestMethod.GET)
     @ResponseBody
     public JsonResult selectCount(String articleId){
         JsonResult js;
@@ -63,7 +65,7 @@ public class ArticleCollectController {
     /**
      * 添加文章收藏
      */
-    @RequestMapping(value = "/articlecollect/insert" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/insert" ,method = RequestMethod.POST)
     @ResponseBody
     public JsonResult insertCollect(ArticleCollect articleCollect){
         JsonResult js;
@@ -83,12 +85,12 @@ public class ArticleCollectController {
     /**
      * 删除文章收藏
      */
-    @RequestMapping(value = "/articlecollect/delete" )
+    @RequestMapping(value = "/delete" )
     @ResponseBody
-    public JsonResult deleteCollect(String articleCollectId,String articleCollectUserId){
+    public JsonResult deleteCollect(String articleCollectId){
         JsonResult result;
         try{
-            int i=articleCollectService.deleteCollect(articleCollectId,articleCollectUserId);
+            int i=articleCollectService.deleteCollect(articleCollectId);
             if(i!=0){
                 result=new JsonResult(Constants.STATUS_SUCCESS,"取消收藏成功",i);
             }else {

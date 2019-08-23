@@ -45,6 +45,18 @@ public class VideoCollectServiceImpl implements VideoCollectService {
     public int updateByPrimaryKey(VideoCollect record) {
         return 0;
     }
+
+
+    /**
+     * 根据用户ID查视频收藏
+     * @param videoCollectUserId
+     * @return
+     */
+    @Override
+    public List<VideoCollect> selectByUserId(String videoCollectUserId) {
+        return videoCollectMapper.selectByUserId(videoCollectUserId);
+    }
+
     /**
      * 添加视频收藏
      */
@@ -59,13 +71,6 @@ public class VideoCollectServiceImpl implements VideoCollectService {
         return videoCollectMapper.insertVideoCollect(video);
     }
     /**
-     * 根据用户id查询所有收藏视频
-     */
-    @Override
-    public List<Video> selectVideoByUId(String videoCollectUserId){
-        return videoCollectMapper.selectVideoByUId(videoCollectUserId);
-    }
-    /**
      * 根据视频ID查收藏数量
      */
     @Override
@@ -76,7 +81,7 @@ public class VideoCollectServiceImpl implements VideoCollectService {
      * 删除视频收藏
      */
     @Override
-    public int deleteVideoCollect(String videoCollectVideoId,String videoCollectUserId){
-        return  videoCollectMapper.deleteVideoCollect(videoCollectVideoId,videoCollectUserId);
+    public int deleteVideoCollect(String videoCollectId){
+        return  videoCollectMapper.deleteVideoCollect(videoCollectId);
     }
 }

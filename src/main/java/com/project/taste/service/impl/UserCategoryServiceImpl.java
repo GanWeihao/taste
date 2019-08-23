@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserCategoryServiceImpl implements UserCategoryService {
@@ -21,7 +22,7 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 
     @Override
     public int deleteByPrimaryKey(String userCategoryId) {
-        return 0;
+        return userCategoryMapper.deleteByPrimaryKey(userCategoryId);
     }
 
     @Override
@@ -29,9 +30,12 @@ public class UserCategoryServiceImpl implements UserCategoryService {
         return 0;
     }
 
+    //添加喜好
     @Override
     public int insertSelective(UserCategory record) {
-        return 0;
+        String id = UUID.randomUUID().toString().replaceAll("-","");
+        record.setUserCategoryId(id);
+        return userCategoryMapper.insertSelective(record);
     }
 
     @Override

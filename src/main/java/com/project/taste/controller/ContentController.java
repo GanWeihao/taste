@@ -6,6 +6,7 @@ import com.project.taste.model.Content;
 import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@CrossOrigin
+@RequestMapping("/content")
+@Api(tags = "文章内容控制器")
 public class ContentController {
     @Autowired
     ContentService contentService;
@@ -27,7 +29,7 @@ public class ContentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/content/delete")
+    @RequestMapping("/delete")
     public JsonResult deleteContent(String contentArticleId){
         JsonResult js;
         try{
@@ -49,7 +51,7 @@ public class ContentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/content/insert")
+    @RequestMapping("/insert")
     public JsonResult insertContent(@RequestParam("content") String content){
         JsonResult js;
         String strlist = content;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ArticleCommentServiceImpl implements ArticleCommentService {
@@ -29,6 +30,8 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     //添加文章评论
     @Override
     public int insertSelective(ArticleComment record) {
+        String id = UUID.randomUUID().toString().replaceAll("-","");
+        record.setArticleCommentId(id);
         record.setArticleCommentStatus(0);
         record.setArticleCommentTime(new Date());
         return articleCommentMapper.insertSelective(record);

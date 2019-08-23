@@ -10,11 +10,20 @@
       <arg column="VIDEO__CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="VIDEO_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="VIDEO_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="VIDEO_CATEGORY_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, VIDEO_STATUS
+    VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, VIDEO_STATUS, VIDEO_CATEGORY_ID
   </sql>
+
+  <!--根据类别查视频-->
+  <select id="selectAllByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from video
+    where VIDEO_CATEGORY_ID = #{videoCategoryId,jdbcType=VARCHAR}
+  </select>
 
   <!--查询所有视频-->
   <select id="queryVideoAll" resultMap="BaseResultMap">
@@ -34,24 +43,24 @@
   <!--根据视频ID查询视频详情-->
   <select id="queryVideoById" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-          <include refid="Base_Column_List"/>
-          from video
-          where VIDEO_ID=#{videoId,jdbcType=VARCHAR} and VIDEO_STATUS=0
+    <include refid="Base_Column_List"/>
+    from video
+    where VIDEO_ID=#{videoId,jdbcType=VARCHAR} and VIDEO_STATUS=0
   </select>
 
   <!--根据用户id查询用户上传所有视频-->
   <select id="queryVideoAllByid" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-          <include refid="Base_Column_List"/>
-          from video
-          where VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR} and VIDEO_STATUS=0
+    <include refid="Base_Column_List"/>
+    from video
+    where VIDEO_USER_ID=#{videoUserId,jdbcType=VARCHAR} and VIDEO_STATUS=0
   </select>
-
+  <!--根据视频标题查询视频-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from video
-    where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
+    where VIDEO_TITLE = #{videoTitle,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -59,14 +68,18 @@
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </delete>
 
+
+  <!--添加视频-->
   <insert id="insert" parameterType="com.project.taste.model.Video" >
-    insert into video (VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, 
-      VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, 
-      VIDEO_STATUS)
-    values (#{videoId,jdbcType=VARCHAR}, #{videoUserId,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR}, 
-      #{videoTitle,jdbcType=VARCHAR}, #{videoContent,jdbcType=VARCHAR}, #{videoTime,jdbcType=TIMESTAMP}, 
-      #{videoStatus,jdbcType=INTEGER})
+    insert into video (VIDEO_ID, VIDEO_USER_ID, VIDEO_URL,
+      VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME,
+      VIDEO_STATUS,VIDEO_CATEGORY_ID)
+    values (#{videoId,jdbcType=VARCHAR}, #{videoUserId,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR},
+      #{videoTitle,jdbcType=VARCHAR}, #{videoContent,jdbcType=VARCHAR}, #{videoTime,jdbcType=TIMESTAMP},
+      #{videoStatus,jdbcType=INTEGER},#{videoCategoryId,jdbcType=VARCHAR})
   </insert>
+
+
 
   <insert id="insertSelective" parameterType="com.project.taste.model.Video" >
     insert into video
@@ -92,6 +105,9 @@
       <if test="videoStatus != null" >
         VIDEO_STATUS,
       </if>
+      <if test="videoCategoryId != null">
+        VIDEO_CATEGORY_ID
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="videoId != null" >
@@ -114,6 +130,9 @@
       </if>
       <if test="videoStatus != null" >
         #{videoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="videoCategoryId != null">
+        #{videoCategoryId,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -139,19 +158,21 @@
       <if test="videoStatus != null" >
         VIDEO_STATUS = #{videoStatus,jdbcType=INTEGER},
       </if>
+      <if test="videoCategoryId != null">
+        VIDEO_CATEGORY_ID = #{videoCategoryId,jdbcType=VARCHAR}
+      </if>
     </set>
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </update>
 
+
+  <!--删除视频-->
   <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Video" >
     update video
-    set VIDEO_USER_ID = #{videoUserId,jdbcType=VARCHAR},
-      VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
-      VIDEO_TITLE = #{videoTitle,jdbcType=VARCHAR},
-      VIDEO__CONTENT = #{videoContent,jdbcType=VARCHAR},
-      VIDEO_TIME = #{videoTime,jdbcType=TIMESTAMP},
-      VIDEO_STATUS = #{videoStatus,jdbcType=INTEGER}
+    set
+      VIDEO_STATUS =1
     where VIDEO_ID = #{videoId,jdbcType=VARCHAR}
   </update>
+
 
 </mapper>

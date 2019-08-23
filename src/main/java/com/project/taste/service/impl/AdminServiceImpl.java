@@ -62,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
      * 管理员删除
      */
     @Override
-    public int AdminDel(String adminName, String adminPassword) {
-        return adminMapper.AdminDel(adminName,adminPassword);
+    public int AdminDel(String adminId) {
+        return adminMapper.AdminDel(adminId);
     }
 }

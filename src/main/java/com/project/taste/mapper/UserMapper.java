@@ -19,7 +19,7 @@ public interface UserMapper {
     int insertSelective(User record);
 
     //用户登入
-    User selectByPrimaryKey(String userName, String userPassword);
+    User selectByPrimaryKey(User user);
 
     //短信登入
     User selectByPrimaryKey1(String userTelephone);
@@ -31,10 +31,10 @@ public interface UserMapper {
     User selectById(String userId);
 
     //根据用户名 手机号 邮箱查询用户
-    User queryAlltiaojian(String userName, String userTelphone, String userEmail);
+    User queryAlltiaojian(User user);
 
     //恢复或者禁封用户
-    int updateByStatus(String userId, Integer userStatus);
+    int updateByStatus(User user);
     //根据id查询所有关注的人
     List<User> attention(String userId);
     //根据id查询所有粉丝

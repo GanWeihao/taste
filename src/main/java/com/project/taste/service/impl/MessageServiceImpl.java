@@ -6,22 +6,33 @@ import com.project.taste.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
     MessageMapper messageMapper;
-
+    //删除消息
     @Override
     public int deleteByPrimaryKey(String messageId) {
-        return 0;
+        return messageMapper.deleteByPrimaryKey(messageId);
     }
 
+    //添加消息
     @Override
-    public int insert(Message record) {
-        return 0;
+    public int insert(String messageContent,String messageTitle,String messageUserId) {
+        Message record=new Message();
+        String id= UUID.randomUUID().toString().replaceAll("-","");
+        record.setMessageId(id);
+        record.setMessageStatus(0);
+        record.setMessageTime(new Date());
+        record.setMessageContent(messageContent);
+        record.setMessageTitle(messageTitle);
+        record.setMessageUserId(messageUserId);
+        return messageMapper.insert(record);
     }
 
     @Override

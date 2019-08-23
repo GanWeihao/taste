@@ -6,21 +6,30 @@ import com.project.taste.service.VideoBrowseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VideoBrowseServiceImpl implements VideoBrowseService {
     @Autowired
     VideoBrowseMapper videoBrowseMapper;
-
+    //删除视频浏览记录
     @Override
     public int deleteByPrimaryKey(String videoBrowseId) {
-        return 0;
+        return videoBrowseMapper.deleteByPrimaryKey(videoBrowseId);
     }
 
+    //添加视频浏览记录
     @Override
-    public int insert(VideoBrowse record) {
-        return 0;
+    public int insert(String videoBroweUserId,String VideoBroweVideoId) {
+        VideoBrowse record=new VideoBrowse();
+        String  id = UUID.randomUUID().toString().replaceAll("-","");
+        record.setVideoBrowseId(id);
+        record.setVideoBrowseTime(new Date());
+        record.setVideoBrowseUserId(videoBroweUserId);
+        record.setVideoBrowseVideoId(VideoBroweVideoId);
+        return videoBrowseMapper.insert(record);
     }
 
     @Override

@@ -6,17 +6,20 @@ import com.project.taste.service.VideoCommentService;
 import com.project.taste.service.impl.VideoCommentServiceImpl;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
-@CrossOrigin
+@RequestMapping("/videocomment")
+@Api(tags = "视频评论控制器")
 public class VideoCommentController {
     @Autowired
     VideoCommentServiceImpl videoCommentService;
@@ -24,41 +27,14 @@ public class VideoCommentController {
     /**
      * 根据视频ID查询视频的所有评论
      * @param videoId
-     * @param pageNum
-     * @param pageSize
      * @return
      */
     @ResponseBody
-    @RequestMapping("/videocomment/query/videoid")
-    public  Object queryVideoCommentByVideoId(@Param("videoId") String videoId,@Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize){
+    @RequestMapping("/query/videoid")
+    public  Object queryVideoCommentByVideoId(@Param("videoId") String videoId){
         JsonResult result=null;
         try{
-            PageHelper.startPage(pageNum,pageSize);
             List<VideoComment> list=videoCommentService.queryVideoCommentByVideoId(videoId);
-            if(list.size()>0){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
-            }else{
-                result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
-            }
-        }catch(Exception e){
-            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
-        }
-        return result;
-    }
-
-    /**
-     * 查询所有视频评论
-     * @param pageNum
-     * @param pageSize
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("/videocomment/querybyid")
-    public Object queryVideoCommentAll(@Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize){
-        JsonResult result=null;
-        try{
-            PageHelper.startPage(pageNum,pageSize);
-            List<VideoComment> list = videoCommentService.queryVideoCommentAll();
             if(list.size()>0){
                 result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
             }else{
@@ -75,11 +51,11 @@ public class VideoCommentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/videocomment/querynum")
-    public Object queryVideoCommentNum(){
+    @RequestMapping("/querynum")
+    public Object queryVideoCommentNum(String videoCommentVideoId){
         JsonResult result=null;
         try{
-            int num=videoCommentService.queryVideoCommentNum();
+            int num=videoCommentService.queryVideoCommentNum(videoCommentVideoId);
             if(num!=0){
                 result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",num);
             }else{
@@ -97,7 +73,7 @@ public class VideoCommentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/videocomment/query/userid")
+    @RequestMapping("/query/userid")
     public Object queryVideoCommentByUserId(String userId){
         JsonResult result=null;
         try{
@@ -109,6 +85,47 @@ public class VideoCommentController {
             }
         }catch(Exception e){
             result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return result;
+    }
+
+    /**
+     * 添加视频评论
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/insert")
+    public Object  insert(VideoComment videoComment){
+        JsonResult result=null;
+        try{
+            int num=videoCommentService.insertSelective(videoComment);
+            if(num!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"添加成功",num);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"添加失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"添加异常");
+        }
+        return result;
+    }
+
+    /**删除视频评论
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/delete")
+    public Object  updateByPrimaryKey(String videoCommentId){
+        JsonResult result=null;
+        try{
+            int num=videoCommentService.updateByPrimaryKey(videoCommentId);
+            if(num!=0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"删除成功",num);
+            }else{
+                result=new JsonResult(Constants.STATUS_FAIL,"删除失败");
+            }
+        }catch(Exception e){
+            result=new JsonResult(Constants.STATUS_ERROR,"删除异常");
         }
         return result;
     }

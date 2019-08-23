@@ -4,6 +4,7 @@ import com.project.taste.model.ArticleComment;
 import com.project.taste.service.impl.ArticleCommentServiceImpl;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,13 +13,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequestMapping("/articlecomment")
+@Api(tags = "文章评论控制器")
 public class ArticleCommentController {
     @Autowired
     ArticleCommentServiceImpl articleCommentService;
 
     //根据文章id查询文章评论
     @ResponseBody
-    @RequestMapping("/articlecomment/query/articleid")
+    @RequestMapping("/query/articleid")
     public Object queryByIdComment(String articleCommentArticleId){
         JsonResult result=null;
         try{
@@ -37,7 +40,7 @@ public class ArticleCommentController {
 
     //根据用户ID查文章评论
     @ResponseBody
-    @RequestMapping("/articlecomment/query/userid")
+    @RequestMapping("/query/userid")
     public Object queryUserByIdComment(String articleCommentUserId){
         JsonResult result=null;
         try{
@@ -55,7 +58,7 @@ public class ArticleCommentController {
     }
     //根据文章ID查询评论数量
     @ResponseBody
-    @RequestMapping("/articlecomment/querynum")
+    @RequestMapping("/querynum")
     public Object queryCommentNumber(String articleCommentArticleId){
         JsonResult result=null;
         try{
@@ -73,7 +76,7 @@ public class ArticleCommentController {
     }
     //添加文章评论
     @ResponseBody
-    @RequestMapping("/articlecomment/insert")
+    @RequestMapping("/insert")
     public Object insertSelective(ArticleComment record){
         JsonResult result=null;
         try{
@@ -91,7 +94,7 @@ public class ArticleCommentController {
     }
     //删除文章评论
     @ResponseBody
-    @RequestMapping("/articlecomment/delete")
+    @RequestMapping("/delete")
     public Object deleteArticleComment(String articleCommentId){
         JsonResult result=null;
         try{

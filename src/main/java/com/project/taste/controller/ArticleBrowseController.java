@@ -1,10 +1,13 @@
 package com.project.taste.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.project.taste.model.Article;
 import com.project.taste.model.ArticleBrowse;
+import com.project.taste.model.Content;
 import com.project.taste.service.ArticleBrowseService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Controller
+@RequestMapping("/articlebrowse")
+@Api(tags = "文章浏览记录控制器")
 public class ArticleBrowseController {
     @Autowired
     ArticleBrowseService articleBrowseService;
@@ -25,7 +31,7 @@ public class ArticleBrowseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/articlebrowse/querybyid")
+    @RequestMapping("/querybyid")
     public JsonResult queryArticleBrowseByUserId(String articleBrowseUserId){
         JsonResult js;
         try{
@@ -47,7 +53,7 @@ public class ArticleBrowseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/articlebrowse/querynum")
+    @RequestMapping("/querynum")
     public JsonResult queryNumByArticleId(String articleBrowseArticleId){
         JsonResult js;
         try{
@@ -64,7 +70,7 @@ public class ArticleBrowseController {
      *
      */
     @ResponseBody
-    @RequestMapping("/articlebrowse/delete")
+    @RequestMapping("/delete")
     public JsonResult articleBrowseDelete(String articleBrowseId){
         JsonResult js;
         try{
@@ -83,18 +89,13 @@ public class ArticleBrowseController {
      * 删除浏览记录（循环）
      */
     @ResponseBody
-    @RequestMapping("/articlebrowse/article/deleteall")
-    public JsonResult articleBrowseDelete2(@RequestParam("ariticleBrowse") List<String> ariticleBrowses){
-        List<String> articleBrowseList = new ArrayList<>();
-        for(String u : ariticleBrowses){
-            String u1 = u.replaceAll("\\[","");
-            String u2 = u1.replaceAll("\\]","");
-            String u3 = u2.replaceAll("\"","");
-            articleBrowseList.add(u3);
-        }
+    @RequestMapping("/article/deleteall")
+    public JsonResult articleBrowseDelete2(@RequestParam("ariticleBrowseId") String ariticleBrowseId){
+        String strlist = ariticleBrowseId;
+        List<String> array = JSON.parseArray(strlist,String.class);
         JsonResult js;
         try{
-            int i = articleBrowseService.deleteByArticleBrowseId2(articleBrowseList);
+            int i = articleBrowseService.deleteByArticleBrowseId2(array);
             if(i!=0){
                 js = new JsonResult(Constants.STATUS_SUCCESS,"删除成功",i);
             }else{
@@ -109,7 +110,7 @@ public class ArticleBrowseController {
      * 删除用户所有浏览记录
      */
     @ResponseBody
-    @RequestMapping("/articlebrowse/userid/deleteall")
+    @RequestMapping("/userid/deleteall")
     public JsonResult deleteAllByUserId(String articleBrowseUserId){
         JsonResult js;
         try{
@@ -129,7 +130,7 @@ public class ArticleBrowseController {
      * 添加浏览记录
      */
     @ResponseBody
-    @RequestMapping("/articlebrowse/insert")
+    @RequestMapping("/insert")
     public JsonResult insertArticleBrowse(ArticleBrowse articleBrowse){
         JsonResult js;
         try{

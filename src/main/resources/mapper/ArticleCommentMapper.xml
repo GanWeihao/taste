@@ -131,21 +131,23 @@
   <select id="queryByIdComment"  parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from  article_comment  a
-    where a.ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
+    from  article_comment
+    where ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
+    and ARTICLE_COMMENT_STATUS=0
   </select>
   <!--根据用户ID查询文章评论-->
   <select id="queryUserByIdComment" parameterType="java.lang.String"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from article_comment  a
-    where a.ARTICLE_COMMENT_USER_ID=#{articleCommentUserId,jdbcType=VARCHAR}
+    from article_comment
+    where ARTICLE_COMMENT_USER_ID=#{articleCommentUserId,jdbcType=VARCHAR}
+    and ARTICLE_COMMENT_STATUS=0
   </select>
   <!--根据文章ID查询评论数量-->
   <select id="queryCommentNumber" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select count(ARTICLE_COMMENT_ARTICLE_ID) as 评论数量
-    from  article_comment  a
-    where a.ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
-    and a.ARTICLE_COMMENT_STATUS=0
+    select count(ARTICLE_COMMENT_ARTICLE_ID)
+    from  article_comment
+    where ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
+    and ARTICLE_COMMENT_STATUS=0
   </select>
 </mapper>

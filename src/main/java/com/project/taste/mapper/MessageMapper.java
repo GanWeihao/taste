@@ -9,8 +9,9 @@ import java.util.List;
 @Mapper
 @Component("MessageMapper")
 public interface MessageMapper {
+    //删除消息
     int deleteByPrimaryKey(String messageId);
-
+    //添加消息
     int insert(Message record);
 
     int insertSelective(Message record);

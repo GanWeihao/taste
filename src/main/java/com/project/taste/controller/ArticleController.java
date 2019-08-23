@@ -10,6 +10,7 @@ import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.HttpClientHelper;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequestMapping("/article")
+@Api(tags = "文章控制器")
 public class ArticleController {
     @Autowired
     ArticleService articleService;
@@ -78,7 +81,7 @@ public class ArticleController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/article/querybytitle")
+    @RequestMapping("/querybytitle")
     public JsonResult queryByTitle(Article article, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult js;
         try{
@@ -114,7 +117,7 @@ public class ArticleController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/article/query/categoryid")
+    @RequestMapping("/query/categoryid")
     public JsonResult selectByCategory(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize, String articleCategoryId){
         JsonResult js;
         try{
@@ -138,7 +141,7 @@ public class ArticleController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/article/query/articleid")
+    @RequestMapping("/query/articleid")
     public JsonResult selectByArticleid(String articleId){
         JsonResult js;
         try {
@@ -169,7 +172,7 @@ public class ArticleController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/article/delete")
+    @RequestMapping("/delete")
     public JsonResult deleteArticle(String articleId){
         JsonResult js;
         try{
@@ -189,7 +192,7 @@ public class ArticleController {
      * 添加文章
      */
     @ResponseBody
-    @RequestMapping("/article/insert")
+    @RequestMapping("/insert")
     public JsonResult insertArticle(Article article){
         JsonResult js;
         try{
@@ -212,7 +215,7 @@ public class ArticleController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/article/update")
+    @RequestMapping("/update")
     public JsonResult updateArticle(Article article){
         JsonResult js;
         try{

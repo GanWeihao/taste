@@ -9,8 +9,11 @@ import java.util.List;
 @Mapper
 @Component("VideoBrowseMapper")
 public interface VideoBrowseMapper {
+
+    //删除视频浏览记录
     int deleteByPrimaryKey(String videoBrowseId);
 
+    //添加视频浏览记录
     int insert(VideoBrowse record);
 
     int insertSelective(VideoBrowse record);

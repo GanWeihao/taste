@@ -39,7 +39,9 @@ public class UserServiceImpl implements UserService {
     public int insertSelective(User record) {
         String id = UUID.randomUUID().toString().replaceAll("-", "");
         record.setUserId(id);
-        record.setUserName(record.getUserTelphone());
+        if(record.getUserName()==null){
+            record.setUserName(record.getUserTelphone());
+        }
         record.setUserTime(new Date());
         record.setUserStatus(0);
         record.setUserRank(1);
@@ -49,9 +51,9 @@ public class UserServiceImpl implements UserService {
 
     //用户登入
     @Override
-    public User selectByPrimaryKey(String userName, String userPassword) {
-        User user = userMapper.selectByPrimaryKey(userName, userPassword);
-        return user;
+    public User selectByPrimaryKey(User user) {
+        User user1 = userMapper.selectByPrimaryKey(user);
+        return user1;
     }
 
     //短信登入
@@ -66,18 +68,18 @@ public class UserServiceImpl implements UserService {
     public User selectById(String userId) {
         return userMapper.selectById(userId);
     }
-    //根据用户名 用户邮箱 用户电话 查询用户信息
 
+    //根据用户名 用户邮箱 用户电话 查询用户信息
     @Override
-    public User queryAlltiaojian(String userName, String userTelphone, String userEmail) {
-        return userMapper.queryAlltiaojian(userName, userTelphone, userEmail);
+    public User queryAlltiaojian(User user) {
+        return userMapper.queryAlltiaojian(user);
     }
 
     //恢复或禁封用户
 
     @Override
-    public int updateByStatus(String userId, Integer userStatus) {
-        return userMapper.updateByStatus(userId, userStatus);
+    public int updateByStatus(User user) {
+        return userMapper.updateByStatus(user);
     }
     //根据用户id查询所有关注
     @Override

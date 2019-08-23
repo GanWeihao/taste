@@ -9,17 +9,18 @@
       <arg column="VIDEO_COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
-  <resultMap id="VideoResultMap" type="com.project.taste.model.Video" >
-    <constructor >
-      <idArg column="VIDEO_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="VIDEO_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="VIDEO_URL" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="VIDEO_TITLE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="VIDEO__CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="VIDEO_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="VIDEO_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
-    </constructor>
-  </resultMap>
+
+  <sql id="Base_Column_List" >
+    VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID, VIDEO_COLLECT_USER_ID, VIDEO_COLLECT_TIME
+  </sql>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from video_collect
+    where VIDEO_COLLECT_USER_ID = #{videoCollectUserId,jdbcType=VARCHAR}
+  </select>
+
   <!--  添加视频收藏-->
   <insert id="insertVideoCollect" parameterType="com.project.taste.model.VideoCollect" >
     insert into video_collect (VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID,
@@ -27,28 +28,17 @@
     values (#{videoCollectId,jdbcType=VARCHAR}, #{videoCollectVideoId,jdbcType=VARCHAR},
       #{videoCollectUserId,jdbcType=VARCHAR}, #{videoCollectTime,jdbcType=TIMESTAMP})
   </insert>
-  <!--  根据用户id查询所有收藏视频-->
-  <select id="selectVideoByUId" resultMap="VideoResultMap" parameterType="string">
-    SELECT
-      *
-    FROM
-        video
-        LEFT JOIN ( SELECT video_collect.VIDEO_COLLECT_VIDEO_ID FROM video_collect WHERE video_collect.VIDEO_COLLECT_USER_ID = #{videoCollectUserId,jdbcType=VARCHAR} ) a
-        ON video.VIDEO_ID = a.VIDEO_COLLECT_VIDEO_ID
-        WHERE a.VIDEO_COLLECT_VIDEO_ID  is not null
-  </select>
   <!--  根据视频ID查收藏数量-->
   <select id="selectVideoCount" parameterType="java.lang.String" resultType="int">
-    SELECT COUNT(*) FROM video_collect WHERE video_collect.VIDEO_COLLECT_VIDEO_ID=#{videoCollectVideoId,jdbcType=VARCHAR}
+    SELECT COUNT(VIDEO_COLLECT_VIDEO_ID)
+    FROM video_collect
+    WHERE VIDEO_COLLECT_VIDEO_ID=#{videoCollectVideoId,jdbcType=VARCHAR}
   </select>
   <!--删除视频收藏-->
   <delete id="deleteVideoCollect" parameterType="java.lang.String">
     delete from video_collect
-    where VIDEO_COLLECT_VIDEO_ID=#{videoCollectVideoId,jdbcType=VARCHAR} and VIDEO_COLLECT_USER_ID=#{videoCollectUserId,jdbcType=VARCHAR}
+    where VIDEO_COLLECT_ID=#{videoCollectId,jdbcType=VARCHAR}
   </delete>
-  <sql id="Base_Column_List" >
-    VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID, VIDEO_COLLECT_USER_ID, VIDEO_COLLECT_TIME
-  </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
@@ -60,9 +50,9 @@
     where VIDEO_COLLECT_ID = #{videoCollectId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.project.taste.model.VideoCollect" >
-    insert into video_collect (VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID, 
+    insert into video_collect (VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID,
       VIDEO_COLLECT_USER_ID, VIDEO_COLLECT_TIME)
-    values (#{videoCollectId,jdbcType=VARCHAR}, #{videoCollectVideoId,jdbcType=VARCHAR}, 
+    values (#{videoCollectId,jdbcType=VARCHAR}, #{videoCollectVideoId,jdbcType=VARCHAR},
       #{videoCollectUserId,jdbcType=VARCHAR}, #{videoCollectTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.project.taste.model.VideoCollect" >

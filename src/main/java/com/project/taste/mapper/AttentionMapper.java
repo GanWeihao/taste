@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public interface AttentionMapper {
 
     //取消关注
-    int deleteByPrimaryKey(String attentionUserId,String attentionTouserId);
+    int deleteByPrimaryKey(Attention attention);
     //添加关注
     int insert(Attention record);
     //查询用户关注人数

@@ -18,7 +18,7 @@ public interface UserService {
     User selectByPrimaryKey1(String userTelephone);
 
     //用户登入
-    User selectByPrimaryKey(String userName, String userPassword);
+    User selectByPrimaryKey(User user);
 
     //查询用户数量
     int querynum();
@@ -27,10 +27,10 @@ public interface UserService {
     User selectById(String userId);
 
     //根据用户名 手机号 用户邮箱查询用户
-    User queryAlltiaojian(String userName, String userTelphone, String userEmail);
+    User queryAlltiaojian(User user);
 
     //恢复或禁封用户
-    int updateByStatus(String userId, Integer userStatus);
+    int updateByStatus(User user);
     //根据用户Id 查询所有的关注
     List<User> attention(String userId);
     //根据用户Id 查询所有的粉丝

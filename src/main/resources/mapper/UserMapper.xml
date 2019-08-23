@@ -34,11 +34,15 @@
   </sql>
 
     <!--用户登入-->
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.project.taste.model.User">
         select
         <include refid="Base_Column_List"/>
         from user
-        where USER_NAME= #{userName,jdbcType=VARCHAR} and USER_PASSWORD= #{userPassword,jdbcType=VARCHAR}
+        where USER_NAME= #{userName,jdbcType=VARCHAR}
+        or USER_TELPHONE= #{userName,jdbcType=VARCHAR}
+        or USER_EMAIL= #{userName,jdbcType=VARCHAR}
+
+        and USER_PASSWORD= #{userPassword,jdbcType=VARCHAR}
         and USER_STATUS=0
     </select>
 
@@ -86,7 +90,9 @@
     <!--根据用户名 手机号  邮箱查询用户 -->
     <select id="queryAlltiaojian" parameterType="com.project.taste.model.User" resultMap="BaseResultMap">
 
-        select * from user
+        select
+        <include refid="Base_Column_List"/>
+        from user
         <where>
             <if test="userName!=null and userName!=''">
                 and USER_NAME=#{userName,jdbcType=VARCHAR}
@@ -100,13 +106,13 @@
                 and USER_EMAIL=#{userEmail,jdbcType=VARCHAR}
             </if>
         </where>
-
+        and USER_STATUS=0
     </select>
 
     <!--禁封或恢复用户-->
     <update id="updateByStatus" parameterType="com.project.taste.model.User">
     update user
-    set USER_STATUS=#{userStatus,jdbcType=VARCHAR}
+    set USER_STATUS=#{userStatus,jdbcType=INTEGER}
     WHERE
     USER_ID=#{userId,jdbcType=VARCHAR}
   </update>

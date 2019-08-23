@@ -9,33 +9,22 @@
       <arg column="ARTICLE_COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
-  <resultMap id="ArticleResultMap" type="com.project.taste.model.Article" >
-    <constructor >
-      <idArg column="ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg  column="ARTICLE_TITLE" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ARTICLE_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-      <arg column="ARTICLE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ARTICLE_CATEGORY_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ARTICLE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-    </constructor>
-  </resultMap>
   <sql id="Base_Column_List" >
     ARTICLE_COLLECT_ID, ARTICLE_COLLECT_USER_ID, ARTICLE_COLLECT_ARTICLE_ID, ARTICLE_COLLECT_TIME
   </sql>
   <!-- 根据用户id查询所有文章收藏-->
-  <select id="selectArticleByUId" resultMap="ArticleResultMap" parameterType="string">
+  <select id="selectArticleByUId" resultMap="BaseResultMap" parameterType="java.lang.String">
     SELECT
-	    article.*
+    <include refid="Base_Column_List"/>
     FROM
-        article
-    LEFT JOIN
-    (SELECT article_collect.ARTICLE_COLLECT_ARTICLE_ID FROM article_collect WHERE article_collect.ARTICLE_COLLECT_USER_ID = #{articleCollectUserId,jdbcType=VARCHAR}) a
-    ON article.ARTICLE_ID = a.ARTICLE_COLLECT_ARTICLE_ID
-    WHERE a.ARTICLE_COLLECT_ARTICLE_ID  is not null
+    article_collect
+    where ARTICLE_COLLECT_USER_ID = #{articleCollectUserId,jdbcType=VARCHAR}
   </select>
   <!--  根据文章ID查收藏数量-->
   <select id="selectCount" parameterType="java.lang.String" resultType="int">
-    SELECT COUNT(*) FROM article_collect WHERE article_collect.ARTICLE_COLLECT_ARTICLE_ID=#{articleCollectArticleId,jdbcType=VARCHAR}
+    SELECT COUNT(*)
+    FROM article_collect
+    WHERE article_collect.ARTICLE_COLLECT_ARTICLE_ID=#{articleCollectArticleId,jdbcType=VARCHAR}
   </select>
   <!--  添加文章收藏-->
   <insert id="insertCollect" parameterType="com.project.taste.model.ArticleCollect" >
@@ -49,7 +38,7 @@
   <!--  删除文章收藏-->
   <delete id="deleteCollect" parameterType="java.lang.String">
     delete from article_collect
-    where ARTICLE_COLLECT_ID = #{articleCollectId,jdbcType=VARCHAR} and ARTICLE_COLLECT_USER_ID=#{articleCollectUserId,jdbcType=VARCHAR}
+    where ARTICLE_COLLECT_ID = #{articleCollectId,jdbcType=VARCHAR}
   </delete>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select

@@ -17,12 +17,12 @@ public interface VideoCollectService {
     int updateByPrimaryKeySelective(VideoCollect record);
 
     int updateByPrimaryKey(VideoCollect record);
+    //根据用户ID查视频收藏
+    List<VideoCollect> selectByUserId(String videoCollectUserId);
     //添加视频收藏
     int insertVideoCollect(VideoCollect record);
-    //根据用户id查询所有收藏视频
-    List<Video> selectVideoByUId(String videoCollectUserId);
     // 根据视频ID查收藏数量
     int selectVideoCount(String videoCollectVideoId);
     //删除视频收藏
-    int deleteVideoCollect(String videoCollectVideoId,String videoCollectUserId);
+    int deleteVideoCollect(String videoCollectId);
 }

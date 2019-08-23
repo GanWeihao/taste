@@ -5,6 +5,7 @@ import com.project.taste.model.User;
 import com.project.taste.service.CategoryService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,16 +14,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequestMapping("/category")
+@Api(tags = "类别控制器")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
     /**
-     * 查询所有类别
+     * 查询所有类别（状态为0）
      * @return
      */
     @ResponseBody
-    @RequestMapping("/category/queryall")
+    @RequestMapping("/queryall")
     public JsonResult queryAll(){
         JsonResult js;
         try{
@@ -44,7 +47,7 @@ public class CategoryController {
      * 添加类别
      */
     @ResponseBody
-    @RequestMapping("/category/insert")
+    @RequestMapping("/insert")
     public JsonResult insertArticle(Category category){
         JsonResult js;
         try{
@@ -62,7 +65,7 @@ public class CategoryController {
 
     //修改类别
     @ResponseBody
-    @RequestMapping("/category/updatebyid")
+    @RequestMapping("/updatebyid")
     public JsonResult updatebyid(Category category){
         JsonResult js;
         try{
@@ -85,7 +88,7 @@ public class CategoryController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/category/deletebyid")
+    @RequestMapping("/deletebyid")
 
     public Object updateByPrimaryKey(String categoryId) {
         JsonResult result = null;

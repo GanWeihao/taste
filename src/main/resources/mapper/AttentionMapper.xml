@@ -30,10 +30,10 @@
   </select>
 
   <!--取消关注-->
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="com.project.taste.model.Attention" >
     delete from attention
-    where ATTENTION_USER_ID=#{attentionUserId,jdbcType=VARCHAR} and  ATTENTION_TOUSER_ID= #{attentionTouserId,jdbcType=VARCHAR}
+    where ATTENTION_USER_ID=#{attentionUserId,jdbcType=VARCHAR}
+    and  ATTENTION_TOUSER_ID= #{attentionTouserId,jdbcType=VARCHAR}
   </delete>
 
   <!--添加关注-->

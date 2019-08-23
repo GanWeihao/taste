@@ -21,7 +21,7 @@ public interface ArticleCollectService {
     /**
      * 根据用户id查询所有文章收藏
      */
-    List<Article> selectArticleByUId(String articleCollectUserId);
+    List<ArticleCollect> selectArticleByUId(String articleCollectUserId);
 
     /**
      * 根据文章ID查收藏数量
@@ -35,5 +35,5 @@ public interface ArticleCollectService {
     /**
      * 删除文章收藏
      */
-    int deleteCollect(String articleCollectId,String articleCollectUserId);
+    int deleteCollect(String articleCollectId);
 }
