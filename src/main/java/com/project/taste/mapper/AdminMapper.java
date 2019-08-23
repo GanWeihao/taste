@@ -19,7 +19,7 @@ public interface AdminMapper {
 
     int updateByPrimaryKey(Admin record);
     //管理员登录
-    Admin Adminlogin(String adminName,String adminPassword);
+    Admin Adminlogin(Admin admin);
     //管理员添加
     int AdminAdd(Admin admin);
     //管理员删除

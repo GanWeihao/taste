@@ -12,8 +12,12 @@
     ADMIN_ID, ADMIN_NAME, ADMIN_PASSWORD
   </sql>
   <!--  管理员登录-->
-  <select id="Adminlogin" resultMap="BaseResultMap">
-    select *from admin where ADMIN_NAME=#{adminName,jdbcType=VARCHAR} and ADMIN_PASSWORD=#{adminPassword,jdbcType=VARCHAR}
+  <select id="Adminlogin" resultMap="BaseResultMap" parameterType="com.project.taste.model.Admin">
+    select
+    <include refid="Base_Column_List"/>
+    from admin
+    where ADMIN_NAME=#{adminName,jdbcType=VARCHAR}
+    and ADMIN_PASSWORD=#{adminPassword,jdbcType=VARCHAR}
   </select>
   <!--  管理员添加-->
   <insert id="AdminAdd" parameterType="com.project.taste.model.Admin">

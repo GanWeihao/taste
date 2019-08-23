@@ -46,8 +46,8 @@ public class AdminServiceImpl implements AdminService {
      * 管理员登录
      */
     @Override
-    public Admin Adminlogin(String adminName,String adminPassword){
-        return adminMapper.Adminlogin(adminName,adminPassword);
+    public Admin Adminlogin(Admin admin){
+        return adminMapper.Adminlogin(admin);
     }
     /**
      * 管理员添加

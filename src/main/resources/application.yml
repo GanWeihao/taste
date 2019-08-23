@@ -15,9 +15,9 @@ spring:
     active: dev
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.13.207.98:3306/taste?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=Hongkong
+    url: jdbc:mysql://182.61.12.214:8066/TESTDB
     username: root
-    password: Gwh0921.
+    password: 123456
   servlet:
     multipart:
       enabled: true

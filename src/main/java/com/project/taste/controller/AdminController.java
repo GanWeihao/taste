@@ -22,12 +22,12 @@ public class AdminController {
      */
     @RequestMapping(value = "/admin/login" ,method = RequestMethod.GET)
     @ResponseBody
-    public JsonResult Adminlogin(String adminName, String adminPassword){
+    public JsonResult Adminlogin(Admin admin){
         JsonResult js;
         try{
-            Admin admin=adminService.Adminlogin(adminName,adminPassword);
-            if(admin!=null){
-                js=new JsonResult(Constants.STATUS_SUCCESS,"登录成功",admin);
+            Admin admin1=adminService.Adminlogin(admin);
+            if(admin1!=null){
+                js=new JsonResult(Constants.STATUS_SUCCESS,"登录成功",admin1);
             }else {
                 js=new JsonResult(Constants.STATUS_NOT_FOUND,"登录失败");
             }
