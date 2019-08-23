@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ArticleCommentService {
     //删除文章评论
+    int deleteArticleComment(String articleCommentId);
     int deleteByPrimaryKey(String articleCommentId);
 
     int insert(ArticleComment record);

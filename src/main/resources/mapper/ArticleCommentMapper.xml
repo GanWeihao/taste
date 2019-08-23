@@ -17,13 +17,18 @@
     ARTICLE_COMMENT_ARTICLE_ID, ARTICLE_COMMENT_TOUSER_ID, ARTICLE_COMMENT_STATUS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from article_comment
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
   </select>
+  <!--删除文章评论-->
+  <update id="deleteArticleComment" parameterType="java.lang.String">
+    update article_comment
+    set ARTICLE_COMMENT_STATUS=1
+    where ARTICLE_COMMENT_ID=#{articleCommentId,jdbcType=VARCHAR}
+  </update>
 
-  <!--删除评论-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from article_comment
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}

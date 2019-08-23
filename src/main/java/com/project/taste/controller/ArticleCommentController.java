@@ -26,7 +26,7 @@ public class ArticleCommentController {
             if(list.size()>0){
                 result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list);
             }else{
-               result=new JsonResult(Constants.STATUS_ERROR,"失败");
+                result=new JsonResult(Constants.STATUS_ERROR,"失败");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -92,10 +92,10 @@ public class ArticleCommentController {
     //删除文章评论
     @ResponseBody
     @RequestMapping("/articlecomment/delete")
-    public Object deleteByPrimaryKey(String articleCommentId){
+    public Object deleteArticleComment(String articleCommentId){
         JsonResult result=null;
         try{
-            int  ac=articleCommentService.deleteByPrimaryKey(articleCommentId);
+            int  ac=articleCommentService.deleteArticleComment(articleCommentId);
             if(ac!=0){
                 result=new JsonResult(Constants.STATUS_SUCCESS,"成功",ac);
             }else{
@@ -107,6 +107,5 @@ public class ArticleCommentController {
         }
         return  result;
     }
-
 
 }
