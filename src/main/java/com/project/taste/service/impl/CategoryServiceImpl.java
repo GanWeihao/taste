@@ -48,10 +48,10 @@ public class CategoryServiceImpl implements CategoryService {
     public int updateByPrimaryKeySelective(Category record) {
         return categoryMapper.updateByPrimaryKeySelective(record);
     }
-
+    //删除类别
     @Override
-    public int updateByPrimaryKey(Category record) {
-        return 0;
+    public int updateByPrimaryKey(String categoryId) {
+        return categoryMapper.updateByPrimaryKey(categoryId);
     }
     //查询所有类别
     @Override

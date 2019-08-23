@@ -20,7 +20,7 @@
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from category
     where CATEGORY_ID = #{categoryId,jdbcType=VARCHAR}
@@ -73,10 +73,10 @@
     </set>
     where CATEGORY_ID = #{categoryId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.project.taste.model.Category" >
+  <!--删除类别-->
+  <update id="updateByPrimaryKey" parameterType="java.lang.String" >
     update category
-    set CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
-      CATEGORY_STATUS = #{categoryStatus,jdbcType=INTEGER}
+    set CATEGORY_STATUS=1
     where CATEGORY_ID = #{categoryId,jdbcType=VARCHAR}
   </update>
 </mapper>

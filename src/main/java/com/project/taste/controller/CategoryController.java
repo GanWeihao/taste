@@ -78,5 +78,28 @@ public class CategoryController {
         return js;
     }
 
+    /**
+     * 删除类别
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/category/deletebyid")
+
+    public Object updateByPrimaryKey(String categoryId) {
+        JsonResult result = null;
+        int s = categoryService.updateByPrimaryKey(categoryId);
+        try {
+            if (s == 1) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "删除成功", s);
+            } else {
+                result = new JsonResult(Constants.STATUS_FAIL, "删除失败");
+            }
+        } catch (Exception e) {
+            result = new JsonResult(Constants.STATUS_ERROR, "删除异常", e.getMessage());
+        }
+        return result;
+    }
 
 }

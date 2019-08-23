@@ -16,7 +16,8 @@ public interface CategoryService {
     //修改类别
     int updateByPrimaryKeySelective(Category record);
 
-    int updateByPrimaryKey(Category record);
+    //删除类别
+    int updateByPrimaryKey(String categoryId);
 
     //查询所有类别
     List<Category> queryAll();

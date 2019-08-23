@@ -24,5 +24,6 @@ public interface CategoryMapper {
     //更新类别
     int updateByPrimaryKeySelective(Category record);
 
-    int updateByPrimaryKey(Category record);
+    //删除类别
+    int updateByPrimaryKey(String categoryId);
 }
