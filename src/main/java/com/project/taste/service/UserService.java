@@ -3,6 +3,7 @@ package com.project.taste.service;
 import com.project.taste.model.User;
 
 import java.util.Date;
+import java.util.List;
 
 public interface UserService {
     int deleteByPrimaryKey(String userId);
@@ -30,6 +31,10 @@ public interface UserService {
 
     //恢复或禁封用户
     int updateByStatus(String userId, Integer userStatus);
+    //根据用户Id 查询所有的关注
+    List<User> attention(String userId);
+    //根据用户Id 查询所有的粉丝
+    List<User> attention1(String userId);
 
     int updateByPrimaryKeySelective(User record);
 

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Mapper
 @Component("UserMapper")
@@ -34,6 +35,10 @@ public interface UserMapper {
 
     //恢复或者禁封用户
     int updateByStatus(String userId, Integer userStatus);
+    //根据id查询所有关注的人
+    List<User> attention(String userId);
+    //根据id查询所有粉丝
+    List<User> attention1(String userId);
 
     int updateByPrimaryKeySelective(User record);
 

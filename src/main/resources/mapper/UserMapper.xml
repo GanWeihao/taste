@@ -15,9 +15,21 @@
         </constructor>
     </resultMap>
 
+    <resultMap id="BaseResultMap1" type="com.project.taste.bo.Attention_User">
+        <constructor>
+            <idArg column="USER_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="USER_TELPHONE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="USER_EMAIL" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="USER_HEADURL" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="USER_RANK" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+
+        </constructor>
+    </resultMap>
+
 
     <sql id="Base_Column_List">
-    USER_ID, USER_NAME, USER_TELPHONE, USER_EMAIL, USER_PASSWORD, USER_HEADURL, USER_TIME, 
+    USER_ID, USER_NAME, USER_TELPHONE, USER_EMAIL, USER_PASSWORD, USER_HEADURL, USER_TIME,
     USER_RANK, USER_STATUS
   </sql>
 
@@ -61,12 +73,12 @@
 
     <!--注册用户-->
     <insert id="insert" parameterType="com.project.taste.model.User">
-    insert into user (USER_ID, USER_NAME, USER_TELPHONE, 
-      USER_EMAIL, USER_PASSWORD, USER_HEADURL, 
+    insert into user (USER_ID, USER_NAME, USER_TELPHONE,
+      USER_EMAIL, USER_PASSWORD, USER_HEADURL,
       USER_TIME, USER_RANK, USER_STATUS
       )
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userTelphone,jdbcType=VARCHAR}, 
-      #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userHeadurl,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userTelphone,jdbcType=VARCHAR},
+      #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userHeadurl,jdbcType=VARCHAR},
       #{userTime,jdbcType=TIMESTAMP}, #{userRank,jdbcType=INTEGER}, #{userStatus,jdbcType=INTEGER}
       )
   </insert>
@@ -98,6 +110,30 @@
     WHERE
     USER_ID=#{userId,jdbcType=VARCHAR}
   </update>
+
+    <!--根据用户Id查询所有关注-->
+    <select id="attention" resultMap="BaseResultMap1" parameterType="java.lang.String">
+       select
+      ss2.USER_ID,ss2.USER_NAME,ss2.USER_EMAIL,ss2.USER_HEADURL,ss2.USER_TELPHONE,ss2.USER_RANK
+      FROM user s LEFT JOIN attention s1 on
+      s.USER_ID=s1.ATTENTION_USER_ID
+      LEFT JOIN  user  ss2  on
+      s1.ATTENTION_TOUSER_ID=ss2.USER_ID
+     where s1.ATTENTION_USER_ID= #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <!--根据用户Id查询所有粉丝-->
+    <select id="attention1" resultMap="BaseResultMap1" parameterType="java.lang.String">
+       select
+      ss2.USER_ID,ss2.USER_NAME,ss2.USER_EMAIL,ss2.USER_HEADURL,ss2.USER_TELPHONE,ss2.USER_RANK
+      FROM user s LEFT JOIN attention s1 on
+      s.USER_ID=s1.ATTENTION_USER_ID
+      LEFT JOIN  user  ss2  on
+      s1.ATTENTION_USER_ID=ss2.USER_ID
+     where s1.ATTENTION_TOUSER_ID= #{userId,jdbcType=VARCHAR}
+    </select>
+
+
 
 
     <!--根据手机号注册用户-->

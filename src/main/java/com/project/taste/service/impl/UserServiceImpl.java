@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -77,6 +78,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateByStatus(String userId, Integer userStatus) {
         return userMapper.updateByStatus(userId, userStatus);
+    }
+    //根据用户id查询所有关注
+    @Override
+    public List<User> attention(String userId){
+        return  userMapper.attention(userId);
+    }
+
+    //根据用户id查询所有粉丝
+    @Override
+    public List<User> attention1(String userId){
+        return  userMapper.attention1(userId);
     }
 
     @Override

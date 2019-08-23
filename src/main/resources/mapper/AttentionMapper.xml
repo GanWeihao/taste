@@ -11,16 +11,32 @@
   <sql id="Base_Column_List" >
     ATTENTION_ID, ATTENTION_USER_ID, ATTENTION_TOUSER_ID
   </sql>
+  <!--查询用户关注人数-->
+  <select id="queryNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+    	 SELECT COUNT(*) from attention where  ATTENTION_USER_ID= #{attentionId,jdbcType=VARCHAR}
+  </select>
+
+  <!--查询用户粉丝人数-->
+  <select id="queryNum1" resultType="java.lang.Integer" parameterType="java.lang.String">
+    	 SELECT COUNT(*) from attention where  ATTENTION_TOUSER_ID= #{attentionId,jdbcType=VARCHAR}
+  </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from attention
     where ATTENTION_ID = #{attentionId,jdbcType=VARCHAR}
   </select>
+
+  <!--取消关注-->
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from attention
-    where ATTENTION_ID = #{attentionId,jdbcType=VARCHAR}
+    where ATTENTION_USER_ID=#{attentionUserId,jdbcType=VARCHAR} and  ATTENTION_TOUSER_ID= #{attentionTouserId,jdbcType=VARCHAR}
   </delete>
+
+  <!--添加关注-->
   <insert id="insert" parameterType="com.project.taste.model.Attention" >
     insert into attention (ATTENTION_ID, ATTENTION_USER_ID, ATTENTION_TOUSER_ID
       )

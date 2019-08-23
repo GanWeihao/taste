@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -121,7 +122,12 @@ public class UserController {
             int s = userService.querynum();
             if (s != 0) {
                 result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", s);
-            } else {
+                return result;
+            }if (s == 0) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", s);
+                return  result;
+            }
+            else {
                 result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
             }
         } catch (Exception e) {
@@ -193,8 +199,7 @@ public class UserController {
                 int s1 = userService.updateByStatus(userId, 1);
                 result = new JsonResult(Constants.STATUS_SUCCESS, "禁封该用户", s1);
                 return result;
-            }
-            if (s == 1) {
+            }else if (s == 1) {
                 int s1 = userService.updateByStatus(userId, 0);
                 result = new JsonResult(Constants.STATUS_SUCCESS, "恢复该用户", s1);
                 return result;
@@ -208,5 +213,53 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 根据用户id查询所有关注
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/attention/query/userid")
+    public Object attention(String userId) {
+        JsonResult result = null;
+        List<User> list = userService.attention(userId);
+        try {
+            if (list.size()>0) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", list);
+                return result;
+            }
+            else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        } catch (Exception e) {
+            result = new JsonResult(Constants.STATUS_ERROR, "查询异常", e.getMessage());
+        }
+        return result;
+    }
 
+    /**
+     * 根据用户id查询所有粉丝
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/fensi/query/toserid")
+    public Object attention1(String userId) {
+        JsonResult result = null;
+        List<User> list = userService.attention1(userId);
+        try {
+            if (list.size()>0) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", list);
+                return result;
+            }
+            else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        } catch (Exception e) {
+            result = new JsonResult(Constants.STATUS_ERROR, "查询异常", e.getMessage());
+        }
+        return result;
+    }
 }

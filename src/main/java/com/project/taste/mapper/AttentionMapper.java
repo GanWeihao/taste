@@ -7,9 +7,16 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component("AttentionMapper")
 public interface AttentionMapper {
-    int deleteByPrimaryKey(String attentionId);
 
+    //取消关注
+    int deleteByPrimaryKey(String attentionUserId,String attentionTouserId);
+    //添加关注
     int insert(Attention record);
+    //查询用户关注人数
+    int queryNum(String userId);
+
+    //查询用户粉丝人数
+    int queryNum1(String userId);
 
     int insertSelective(Attention record);
 
