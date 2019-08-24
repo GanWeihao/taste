@@ -1,5 +1,6 @@
 package com.project.taste.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.project.taste.bo.Article_Content;
@@ -10,11 +11,13 @@ import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.HttpClientHelper;
 import com.project.taste.util.JsonResult;
+import com.project.taste.util.ListPageUtil;
 import io.swagger.annotations.Api;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.spring.web.json.Json;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/article")
@@ -49,26 +55,29 @@ public class ArticleController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/article/queryall")
+    @RequestMapping("/queryall")
     public JsonResult queryAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult js;
         try{
             String update = HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery("*:*");
-            solrQuery.setStart(pageNum);
-            solrQuery.setRows(pageSize);
             QueryResponse response = solrClient.query(solrQuery);
-            PageHelper.startPage(pageNum,pageSize);
+            List list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
-            PageInfo pageInfo = new PageInfo(results);
+            for (SolrDocument obj : results){
+                System.out.println(obj);
+                list.add(obj);
+            }
+            ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
             if(results.size()>0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"查询异常"+e.getMessage());
+            e.printStackTrace();
+            js = new JsonResult(Constants.STATUS_ERROR,"暂无数据");
         }
         return js;
     }
@@ -87,24 +96,34 @@ public class ArticleController {
         try{
             HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
-            solrQuery.setQuery("articleTitle:"+article.getArticleTitle());
-            solrQuery.setStart(pageNum);
-            solrQuery.setRows(pageSize);
+            solrQuery.set("q", article.getArticleTitle());
+            //默认域
+            solrQuery.set("df", "articleTitle");
+            //高亮
+            //打开开关
             solrQuery.setHighlight(true);
+            //指定高亮域
             solrQuery.addHighlightField("articleTitle");
-            solrQuery.setHighlightSimplePre("<font color='blue'>");
-            solrQuery.setHighlightSimplePost("</font>");
+            //设置前缀
+            solrQuery.setHighlightSimplePre("<span style='color:red'>");
+            //设置后缀
+            solrQuery.setHighlightSimplePost("</span>");
             QueryResponse response = solrClient.query(solrQuery);
-            PageHelper.startPage(pageNum,pageSize);
+            Map<String, Map<String, List<String>>> highlight = response.getHighlighting();
+            List<Map<String, Object>> list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
-            PageInfo pageInfo = new PageInfo(results);
-            if(results.size()>0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
+            for (SolrDocument obj : results){
+                obj.put("highlight",highlight.get(obj.get("id")));
+                list.add(obj);
+            }
+            ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            if(results.size()>0 && results!=null){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+            js = new JsonResult(Constants.STATUS_ERROR,"暂无数据");
         }
         return js;
     }

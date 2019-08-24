@@ -5,9 +5,16 @@ import com.github.pagehelper.PageInfo;
 import com.project.taste.model.Video;
 import com.project.taste.service.impl.VideoServiceImpl;
 import com.project.taste.util.Constants;
+import com.project.taste.util.HttpClientHelper;
 import com.project.taste.util.JsonResult;
+import com.project.taste.util.ListPageUtil;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/video")
@@ -23,6 +32,14 @@ import java.util.List;
 public class VideoController {
     @Autowired
     VideoServiceImpl videoService;
+    HttpSolrClient httpSolrClient = new HttpSolrClient.Builder("http://106.13.207.98:9091/solr/video").build();
+
+    //增量
+    String deltaImport = "http://106.13.207.98:9091/solr/video/dataimport?command=delta-import&verbose=false&clean=false&commit=true&optimize=false&core=taste&name=dataimport";
+
+    //全量
+    String fullImport = "http://106.13.207.98:9091/solr/video/dataimport?command=full-import&verbose=false&clean=true&commit=true&optimize=false&core=taste&name=dataimport";
+
 
     /**
      * 查询所有视频
@@ -32,14 +49,22 @@ public class VideoController {
      */
     @ResponseBody
     @RequestMapping("/queryall")
-    public Object queryVideoAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "8") Integer pageSize){
+    public Object queryVideoAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult result=null;
         try{
-            PageHelper.startPage(pageNum,pageSize);
-            List<Video> list = videoService.queryVideoAll();
-            PageInfo pageInfo = new PageInfo(list);
-            if(list.size()>0){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
+            String update = HttpClientHelper.sendPost(deltaImport);
+            SolrQuery solrQuery = new SolrQuery();
+            solrQuery.setQuery("*:*");
+            QueryResponse response = httpSolrClient.query(solrQuery);
+            List list = new ArrayList<>();
+            SolrDocumentList results = response.getResults();
+            for (SolrDocument obj : results){
+                System.out.println(obj);
+                list.add(obj);
+            }
+            ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            if(results.size()>0 && results!=null){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
             }else {
                 result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
             }
@@ -121,22 +146,44 @@ public class VideoController {
 
     /**
      * 根据视频标题查询视频
-     * @param videoTitle
+     * @param video
      * @return
      */
     @ResponseBody
     @RequestMapping("/querybytitle")
-    public Object selectByPrimaryKey(String videoTitle){
+    public Object selectByPrimaryKey(Video video, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult result=null;
         try{
-            Video video=videoService.selectByPrimaryKey(videoTitle);
-            if(video!=null){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",video);
+            HttpClientHelper.sendPost(deltaImport);
+            SolrQuery solrQuery = new SolrQuery();
+            solrQuery.set("q", video.getVideoTitle());
+            //默认域
+            solrQuery.set("df", "videoTitle");
+            //高亮
+            //打开开关
+            solrQuery.setHighlight(true);
+            //指定高亮域
+            solrQuery.addHighlightField("videoTitle,videoContent");
+            //设置前缀
+            solrQuery.setHighlightSimplePre("<span style='color:red'>");
+            //设置后缀
+            solrQuery.setHighlightSimplePost("</span>");
+            QueryResponse response = httpSolrClient.query(solrQuery);
+            Map<String, Map<String, List<String>>> highlight = response.getHighlighting();
+            List<Map<String, Object>> list = new ArrayList<>();
+            SolrDocumentList results = response.getResults();
+            for (SolrDocument obj : results){
+                obj.put("highlight",highlight.get(obj.get("id")));
+                list.add(obj);
+            }
+            ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            if(results.size()>0 && results!=null){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
             }else {
                 result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }
         }catch(Exception e){
-            result=new JsonResult(Constants.STATUS_ERROR,"查询异常");
+            result=new JsonResult(Constants.STATUS_ERROR,"暂无数据");
         }
         return result;
     }

@@ -104,7 +104,7 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/insert")
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public JsonResult insert(User user) {
         JsonResult result = null;
         try {

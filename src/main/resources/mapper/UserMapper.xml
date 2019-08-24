@@ -95,15 +95,15 @@
         from user
         <where>
             <if test="userName!=null and userName!=''">
-                and USER_NAME=#{userName,jdbcType=VARCHAR}
+                or USER_NAME=#{userName,jdbcType=VARCHAR}
             </if>
 
             <if test="userTelphone!=null and userTelphone!=''">
-                and USER_TELPHONE=#{userTelphone,jdbcType=VARCHAR}
+                or USER_TELPHONE=#{userTelphone,jdbcType=VARCHAR}
             </if>
 
             <if test="userEmail!=null and userEmail!=''">
-                and USER_EMAIL=#{userEmail,jdbcType=VARCHAR}
+                or USER_EMAIL=#{userEmail,jdbcType=VARCHAR}
             </if>
         </where>
         and USER_STATUS=0
