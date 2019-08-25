@@ -5,17 +5,21 @@ import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import com.project.taste.util.UploadFileUtil;
 import io.swagger.annotations.Api;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/upload")
 @Api(tags = "文件上传控制器")
@@ -119,6 +123,24 @@ public class FileController {
             }
         }catch (Exception e){
             js = new JsonResult(Constants.STATUS_ERROR,"上传异常");
+        }
+        return js;
+    }
+
+    /**
+     * 上传Base64图片
+     */
+    @RequestMapping("/base64")
+    @ResponseBody
+    public JsonResult saveBase64(@RequestParam(value = "img") String base64Str) throws IOException {
+        JsonResult js;
+        System.out.println(base64Str);
+
+        String fileName = UploadFileUtil.base64CodeToimage(base64Str);
+        if(fileName!=null){
+            js = new JsonResult(Constants.STATUS_SUCCESS,"上传成功",fileName);
+        }else{
+            js = new JsonResult(Constants.STATUS_FAIL,"长传失败");
         }
         return js;
     }

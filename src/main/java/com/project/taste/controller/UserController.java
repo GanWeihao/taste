@@ -7,6 +7,7 @@ import com.project.taste.util.Constants;
 import com.project.taste.util.Duanxin;
 import com.project.taste.util.JsonResult;
 
+import com.project.taste.vo.DateVo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -280,5 +282,23 @@ public class UserController {
             result = new JsonResult(Constants.STATUS_ERROR, "查询异常", e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * 根据日期查数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/select/bytime")
+    public JsonResult selectByTime(){
+        JsonResult js;
+        try{
+            List list = userService.selectNumByTime();
+            js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+        }catch (Exception e){
+            e.printStackTrace();
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
     }
 }

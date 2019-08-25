@@ -23,10 +23,15 @@
             <arg column="USER_EMAIL" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="USER_HEADURL" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="USER_RANK" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-
         </constructor>
     </resultMap>
 
+    <resultMap id="BaseResultMap2" type="com.project.taste.vo.DateVo">
+        <constructor>
+            <arg column="dates" jdbcType="DATE" javaType="java.util.Date"/>
+            <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        </constructor>
+    </resultMap>
 
     <sql id="Base_Column_List">
     USER_ID, USER_NAME, USER_TELPHONE, USER_EMAIL, USER_PASSWORD, USER_HEADURL, USER_TIME,
@@ -138,10 +143,17 @@
       s1.ATTENTION_USER_ID=ss2.USER_ID
      where s1.ATTENTION_TOUSER_ID= #{userId,jdbcType=VARCHAR}
     </select>
-
-
-
-
+    <!--根据注册时间查用户数量-->
+    <select id="selectNumByTime" resultMap="BaseResultMap2">
+    SELECT
+	DATE_FORMAT( USER_TIME, '%Y-%m-%d' ) AS dates,
+	COUNT(USER_ID) num
+FROM
+	user
+GROUP BY
+	dates
+	order by dates asc
+    </select>
     <!--根据手机号注册用户-->
     <insert id="insertSelective" parameterType="com.project.taste.model.User">
         insert into user

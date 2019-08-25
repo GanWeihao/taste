@@ -4,6 +4,7 @@ import com.project.taste.model.Article;
 import org.apache.solr.client.solrj.SolrServerException;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface ArticleService {
@@ -17,6 +18,10 @@ public interface ArticleService {
     int deleteByArticleId(String articleId);
     //添加文章
     int insertSelective(Article record) throws IOException, SolrServerException;
+    //查询所有文章数量
+    int selectArticleNum();
+    //根据日期查数量
+    List selectNumByTime() throws ParseException;
 
     int deleteByPrimaryKey(String articleId);
 

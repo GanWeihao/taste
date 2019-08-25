@@ -11,6 +11,13 @@
             <arg column="ARTICLE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
         </constructor>
     </resultMap>
+    <resultMap id="BaseResultMap2" type="com.project.taste.vo.DateVo">
+        <constructor>
+            <arg column="dates" jdbcType="DATE" javaType="java.util.Date"/>
+            <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        </constructor>
+    </resultMap>
+
     <sql id="Base_Column_List">
     ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, ARTICLE_USER_ID, ARTICLE_CATEGORY_ID,
     ARTICLE_TIME
@@ -89,6 +96,22 @@
             </if>
         </trim>
     </insert>
+    <select id="selectArticleNum" resultType="java.lang.Integer">
+        select count(ARTICLE_ID)
+        from article
+        where ARTICLE_STATUS=0
+    </select>
+    <!--根据日期查文章数量-->
+    <select id="selectNumByTime" resultMap="BaseResultMap2">
+    SELECT
+	DATE_FORMAT( ARTICLE_TIME, '%Y-%m-%d' ) AS dates,
+	COUNT(ARTICLE_ID) num
+FROM
+	article
+GROUP BY
+	dates
+	order by dates asc
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from article

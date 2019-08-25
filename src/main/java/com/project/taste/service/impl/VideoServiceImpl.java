@@ -3,12 +3,13 @@ package com.project.taste.service.impl;
 import com.project.taste.mapper.VideoMapper;
 import com.project.taste.model.Video;
 import com.project.taste.service.VideoService;
+import com.project.taste.vo.DateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -20,6 +21,26 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<Video> selectAllByCategoryId(String videoCategoryId) {
         return videoMapper.selectAllByCategoryId(videoCategoryId);
+    }
+
+    //查询视频数量
+    @Override
+    public int selectVideoNum() {
+        return videoMapper.selectVideoNum();
+    }
+
+    @Override
+    public List selectNumByTime() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        List<DateVo> list = videoMapper.selectNumByTime();
+        List list1 = new ArrayList();
+        for(DateVo dateVo : list){
+            HashMap<String, Object> hm = new HashMap<>();
+            hm.put("date",sdf.format(dateVo.getDates()));
+            hm.put("num",dateVo.getNum());
+            list1.add(hm);
+        }
+        return list1;
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.project.taste.service;
 
 import com.project.taste.model.User;
+import com.project.taste.vo.DateVo;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public interface UserService {
     List<User> attention(String userId);
     //根据用户Id 查询所有的粉丝
     List<User> attention1(String userId);
+
+    //根据时间查询用户数量
+    List selectNumByTime() throws ParseException;
 
     int updateByPrimaryKeySelective(User record);
 

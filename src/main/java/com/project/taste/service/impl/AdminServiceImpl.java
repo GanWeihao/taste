@@ -27,9 +27,10 @@ public class AdminServiceImpl implements AdminService {
         return 0;
     }
 
+    //根据ID查管理员
     @Override
     public Admin selectByPrimaryKey(String adminId) {
-        return null;
+        return adminMapper.selectByPrimaryKey(adminId);
     }
 
     @Override

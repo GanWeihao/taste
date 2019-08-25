@@ -3,14 +3,19 @@ package com.project.taste.service.impl;
 import com.project.taste.mapper.ArticleMapper;
 import com.project.taste.model.Article;
 import com.project.taste.service.ArticleService;
+import com.project.taste.vo.DateVo;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.text.ParseException;
+import java.util.*;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -45,11 +50,32 @@ public class ArticleServiceImpl implements ArticleService {
     //添加文章
     @Override
     public int insertSelective(Article record) throws IOException, SolrServerException {
-        String id = UUID.randomUUID().toString().replaceAll("-","");
+        String id = UUID.randomUUID().toString().replaceAll("-", "");
         record.setArticleId(id);
         record.setArticleStatus(0);
         record.setArticleTime(new Date());
         return articleMapper.insertSelective(record);
+    }
+
+    //查询所有文章数量
+    @Override
+    public int selectArticleNum() {
+        return articleMapper.selectArticleNum();
+    }
+
+    @Override
+    public List selectNumByTime() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        List<DateVo> list = articleMapper.selectNumByTime();
+        List list1 = new ArrayList();
+        for (DateVo dateVo : list) {
+            HashMap<String, Object> hm = new HashMap<>();
+            hm.put("date", sdf.format(dateVo.getDates()));
+            hm.put("num", dateVo.getNum());
+            list1.add(hm);
+        }
+        return list1;
+
     }
 
     @Override

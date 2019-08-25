@@ -1,6 +1,7 @@
 package com.project.taste.mapper;
 
 import com.project.taste.model.Video;
+import com.project.taste.vo.DateVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,10 @@ import java.util.List;
 public interface VideoMapper {
     //根据类别查询视频
     List<Video> selectAllByCategoryId(String videoCategoryId);
+    //查询视频数量
+    int selectVideoNum();
+    //根据时间查询用户数量
+    List<DateVo> selectNumByTime();
 
     int deleteByPrimaryKey(String videoId);
 

@@ -55,6 +55,7 @@ public class VideoController {
             String update = HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery("*:*");
+            solrQuery.setRows(pageNum*pageSize);
             QueryResponse response = httpSolrClient.query(solrQuery);
             List list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
@@ -156,6 +157,7 @@ public class VideoController {
         try{
             HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
+            solrQuery.setRows(pageNum*pageSize);
             solrQuery.set("q", video.getVideoTitle());
             //默认域
             solrQuery.set("df", "videoTitle");
@@ -250,6 +252,40 @@ public class VideoController {
                 js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }
         }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
+
+    /**
+     * 查询视频数量
+     */
+    @ResponseBody
+    @RequestMapping("/select/num")
+    public JsonResult selectVideoNum(){
+        JsonResult js;
+        try{
+            int i = videoService.selectVideoNum();
+            js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",i);
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
+
+    /**
+     * 根据日期查数量
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/select/bytime")
+    public JsonResult selectByTime(){
+        JsonResult js;
+        try{
+            List list = videoService.selectNumByTime();
+            js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+        }catch (Exception e){
+            e.printStackTrace();
             js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
         }
         return js;

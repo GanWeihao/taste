@@ -13,6 +13,13 @@
       <arg column="VIDEO_CATEGORY_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.project.taste.vo.DateVo">
+    <constructor>
+      <arg column="dates" jdbcType="DATE" javaType="java.util.Date"/>
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+    </constructor>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, VIDEO_STATUS, VIDEO_CATEGORY_ID
   </sql>
@@ -62,6 +69,12 @@
     from video
     where VIDEO_TITLE = #{videoTitle,jdbcType=VARCHAR}
   </select>
+  <!--查询视频数量-->
+  <select id="selectVideoNum" resultType="java.lang.Integer">
+    select count(VIDEO_ID)
+    from video
+    where VIDEO_STATUS=0
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from video
@@ -78,6 +91,18 @@
       #{videoTitle,jdbcType=VARCHAR}, #{videoContent,jdbcType=VARCHAR}, #{videoTime,jdbcType=TIMESTAMP},
       #{videoStatus,jdbcType=INTEGER},#{videoCategoryId,jdbcType=VARCHAR})
   </insert>
+
+  <!--根据日期查文章数量-->
+  <select id="selectNumByTime" resultMap="BaseResultMap2">
+    SELECT
+	DATE_FORMAT( VIDEO_TIME, '%Y-%m-%d' ) AS dates,
+	COUNT(VIDEO_ID) num
+FROM
+	video
+GROUP BY
+	dates
+	order by dates asc
+    </select>
 
 
 

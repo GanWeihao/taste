@@ -19,6 +19,10 @@ public interface ArticleMapper {
     int deleteByArticleId(String articleId);
     //添加文章
     int insertSelective(Article record);
+    //查询所有文章数量
+    int selectArticleNum();
+    //根据日期查数量
+    List selectNumByTime();
 
 
     int deleteByPrimaryKey(String articleId);

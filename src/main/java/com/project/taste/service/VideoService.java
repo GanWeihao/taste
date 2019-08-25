@@ -2,11 +2,16 @@ package com.project.taste.service;
 
 import com.project.taste.model.Video;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface VideoService {
     //根据类别查询视频
     List<Video> selectAllByCategoryId(String videoCategoryId);
+    //查询视频数量
+    int selectVideoNum();
+    //根据时间查询用户数量
+    List selectNumByTime() throws ParseException;
 
     int deleteByPrimaryKey(String videoId);
     //添加视频

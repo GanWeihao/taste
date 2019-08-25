@@ -87,4 +87,24 @@ public class AdminController {
         }
         return  js;
     }
+
+    /**
+     * 根据ID查管理员
+     */
+    @ResponseBody
+    @RequestMapping(value = "/findbyid", method = RequestMethod.POST)
+    public JsonResult FindAdminById(String adminId){
+        JsonResult js;
+        try{
+            Admin admin = adminService.selectByPrimaryKey(adminId);
+            if(admin!=null){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功", admin);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
 }
