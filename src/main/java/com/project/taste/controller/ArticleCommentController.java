@@ -18,7 +18,6 @@ import java.util.List;
 public class ArticleCommentController {
     @Autowired
     ArticleCommentServiceImpl articleCommentService;
-
     //根据文章id查询文章评论
     @ResponseBody
     @RequestMapping("/query/articleid")

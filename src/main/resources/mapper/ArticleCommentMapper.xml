@@ -12,6 +12,29 @@
       <arg column="ARTICLE_COMMENT_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
+  <resultMap id="BaseResultMap1" type="com.project.taste.model.ArticleComment">
+    <constructor >
+      <idArg column="ARTICLE_COMMENT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COMMENT_TEXT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COMMENT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ARTICLE_COMMENT_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COMMENT_ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COMMENT_TOUSER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COMMENT_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+    <association property="user" javaType="com.project.taste.model.User">
+      <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+      <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+      <result column="USER_TELPHONE" property="userTelphone" jdbcType="VARCHAR"/>
+      <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR"/>
+      <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR"/>
+      <result column="USER_HEADURL" property="userHeadurl" jdbcType="VARCHAR"/>
+      <result column="USER_TIME" property="userTime" jdbcType="TIMESTAMP"/>
+      <result column="USER_RANK" property="userRank" jdbcType="INTEGER"/>
+      <result column="USER_STATUS" property="userStatus" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
   <sql id="Base_Column_List" >
     ARTICLE_COMMENT_ID, ARTICLE_COMMENT_TEXT, ARTICLE_COMMENT_TIME, ARTICLE_COMMENT_USER_ID, 
     ARTICLE_COMMENT_ARTICLE_ID, ARTICLE_COMMENT_TOUSER_ID, ARTICLE_COMMENT_STATUS
@@ -127,12 +150,13 @@
       ARTICLE_COMMENT_STATUS = #{articleCommentStatus,jdbcType=INTEGER}
     where ARTICLE_COMMENT_ID = #{articleCommentId,jdbcType=VARCHAR}
   </update>
+
   <!--根据文章评论ID查询文章评论-->
-  <select id="queryByIdComment"  parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from  article_comment
-    where ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
+  <select id="queryByIdComment" parameterType="java.lang.String" resultMap="BaseResultMap1">
+      select  *
+    from  article_comment as a
+    left join user as c on  a.ARTICLE_COMMENT_USER_ID=c.USER_ID
+    where a.ARTICLE_COMMENT_ARTICLE_ID=#{articleCommentArticleId,jdbcType=VARCHAR}
     and ARTICLE_COMMENT_STATUS=0
   </select>
   <!--根据用户ID查询文章评论-->
