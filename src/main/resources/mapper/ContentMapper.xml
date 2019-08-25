@@ -13,6 +13,12 @@
   <sql id="Base_Column_List" >
     CONTENT_ID, CONTENT_TEXT, CONTENT_ARTICLE_ID, CONTENT_IMGURL, CONTENT_ORDER
   </sql>
+  <!--查询所有文章内容-->
+  <select id="selectAllContent" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from content
+  </select>
   <!--根据文章ID查询内容-->
   <select id="selectByArticleId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select

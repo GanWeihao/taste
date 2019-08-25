@@ -25,4 +25,6 @@ public interface ContentMapper {
     int updateByPrimaryKeySelective(Content record);
 
     int updateByPrimaryKey(Content record);
+    //查询文章所有内容
+    public  List<Content> selectAllContent();
 }
