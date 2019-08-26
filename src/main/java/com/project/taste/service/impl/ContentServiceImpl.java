@@ -13,7 +13,10 @@ import java.util.UUID;
 public class ContentServiceImpl implements ContentService {
     @Autowired
     ContentMapper contentMapper;
-
+    //查询文章所有内容
+    public  List<Content> selectAllContent(){
+        return  contentMapper.selectAllContent();
+    }
     //根据文章ID查询内容
     @Override
     public List<Content> selectByArticleId(String articleId) {

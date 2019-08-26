@@ -20,6 +20,27 @@ import java.util.List;
 public class ContentController {
     @Autowired
     ContentService contentService;
+/**
+ *
+ * 查询所有文章内容
+ */
+@ResponseBody
+@RequestMapping("/select/allcontent")
+public JsonResult selectAllContent(){
+    JsonResult result=null;
+    try{
+        List<Content> list=contentService.selectAllContent();
+        if(list.size()>0){
+            result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list);
+        }else{
+            result=new JsonResult(Constants.STATUS_ERROR,"失败");
+        }
+    }catch (Exception e){
+        e.printStackTrace();
+        result=new JsonResult(Constants.STATUS_ERROR,"异常");
+    }
+    return result;
+}
 
     /**
      * 根据文章ID删除文章内容
