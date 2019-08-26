@@ -1,6 +1,7 @@
 package com.project.taste.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArticleBrowse {
     private String articleBrowseId;
@@ -11,11 +12,21 @@ public class ArticleBrowse {
 
     private Date articleBrowseTime;
 
+    Article article;
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article  article) {
+        this.article = article;
+    }
+
     public ArticleBrowse(String articleBrowseId, String articleBrowseUserId, String articleBrowseArticleId, Date articleBrowseTime) {
         this.articleBrowseId = articleBrowseId;
         this.articleBrowseUserId = articleBrowseUserId;
         this.articleBrowseArticleId = articleBrowseArticleId;
         this.articleBrowseTime = articleBrowseTime;
+
     }
 
     public ArticleBrowse() {

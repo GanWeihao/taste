@@ -32,7 +32,7 @@ public class ArticleBrowseController {
      */
     @ResponseBody
     @RequestMapping("/querybyid")
-    public JsonResult queryArticleBrowseByUserId(String articleBrowseUserId){
+    public JsonResult selectByUserId(String articleBrowseUserId){
         JsonResult js;
         try{
             List<ArticleBrowse> list = articleBrowseService.selectByUserId(articleBrowseUserId);
@@ -42,7 +42,8 @@ public class ArticleBrowseController {
                 js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+                e.printStackTrace();
+                js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
         }
         return js;
     }
