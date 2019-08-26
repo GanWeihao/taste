@@ -13,14 +13,30 @@
   <sql id="Base_Column_List" >
     VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID, VIDEO_COLLECT_USER_ID, VIDEO_COLLECT_TIME
   </sql>
-
-  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select
-    <include refid="Base_Column_List"/>
-    from video_collect
-    where VIDEO_COLLECT_USER_ID = #{videoCollectUserId,jdbcType=VARCHAR}
+  <resultMap id="BaseResultMap1" type="com.project.taste.model.VideoCollect" >
+    <constructor >
+      <idArg column="VIDEO_COLLECT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COLLECT_VIDEO_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COLLECT_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIDEO_COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+    <association property="video" javaType="com.project.taste.model.Video">
+      <id column="VIDEO_ID" property="videoId" jdbcType="VARCHAR"/>
+      <result column="VIDEO_USER_ID" property="videoUserId" jdbcType="VARCHAR"/>
+      <result column="VIDEO_URL" property="videoUrl" jdbcType="VARCHAR"/>
+      <result column="VIDEO_TITLE" property="videoTitle" jdbcType="VARCHAR"/>
+      <result column="VIDEO__CONTENT" property="videoContent" jdbcType="VARCHAR"/>
+      <result column="VIDEO_TIME" property="videoTime" jdbcType="TIMESTAMP"/>
+      <result column="VIDEO_STATUS" property="videoStatus" jdbcType="INTEGER"/>
+    </association>
+  </resultMap>
+<!--根据用户ID查询收藏的视频-->
+  <select id="selectByUserId" resultMap="BaseResultMap1" parameterType="java.lang.String">
+    select *
+      from video_collect a
+      left join video b on a.VIDEO_COLLECT_VIDEO_ID=b.VIDEO_ID
+      where VIDEO_COLLECT_USER_ID = #{videoCollectUserId,jdbcType=VARCHAR}
   </select>
-
   <!--  添加视频收藏-->
   <insert id="insertVideoCollect" parameterType="com.project.taste.model.VideoCollect" >
     insert into video_collect (VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID,

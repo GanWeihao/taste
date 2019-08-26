@@ -11,13 +11,21 @@ public class VideoCollect {
 
     private Date videoCollectTime;
 
+    Video video;
+
+    public Video getVideo() {
+        return video;
+    }
+
+    public void setVideo(Video video) {
+        this.video = video;
+    }
     public VideoCollect(String videoCollectId, String videoCollectVideoId, String videoCollectUserId, Date videoCollectTime) {
         this.videoCollectId = videoCollectId;
         this.videoCollectVideoId = videoCollectVideoId;
         this.videoCollectUserId = videoCollectUserId;
         this.videoCollectTime = videoCollectTime;
     }
-
     public VideoCollect() {
         super();
     }
