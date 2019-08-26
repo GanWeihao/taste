@@ -10,11 +10,14 @@ import java.util.List;
 public interface UserService {
     int deleteByPrimaryKey(String userId);
 
+    //查询所有用户
+    List<User> selectAll();
+
     //注册用户
     int insert(String userId, String userName, String userTelphone, String userEmail, String userPassword, String userHeadurl, Date userTime);
 
     //根据手机号添加用户
-    int insertSelective(User record);
+    String insertSelective(User record);
 
     //手机号登入
     User selectByPrimaryKey1(String userTelephone);
@@ -29,7 +32,9 @@ public interface UserService {
     User selectById(String userId);
 
     //根据用户名 手机号 用户邮箱查询用户
-    User queryAlltiaojian(User user);
+    List queryAlltiaojian(User user);
+    //模糊搜索
+    List queryAlltiaojian2(User user);
 
     //恢复或禁封用户
     int updateByStatus(User user);
