@@ -1,6 +1,8 @@
 package com.project.taste.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.project.taste.model.Content;
 import com.project.taste.service.ContentService;
 import com.project.taste.util.Constants;
@@ -26,12 +28,14 @@ public class ContentController {
  */
 @ResponseBody
 @RequestMapping("/select/allcontent")
-public JsonResult selectAllContent(){
+public JsonResult selectAllContent(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "6") Integer pageSize){
     JsonResult result=null;
     try{
+        PageHelper.startPage(pageNum,pageSize);
         List<Content> list=contentService.selectAllContent();
+        PageInfo pageInfo = new PageInfo(list);
         if(list.size()>0){
-            result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list);
+            result=new JsonResult(Constants.STATUS_SUCCESS,"成功",pageInfo);
         }else{
             result=new JsonResult(Constants.STATUS_ERROR,"失败");
         }

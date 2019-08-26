@@ -26,7 +26,6 @@ public class ArticleBrowse {
         this.articleBrowseUserId = articleBrowseUserId;
         this.articleBrowseArticleId = articleBrowseArticleId;
         this.articleBrowseTime = articleBrowseTime;
-
     }
 
     public ArticleBrowse() {
