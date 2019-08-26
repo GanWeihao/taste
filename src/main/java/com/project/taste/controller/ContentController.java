@@ -33,6 +33,7 @@ public JsonResult selectAllContent(@RequestParam(defaultValue = "1") Integer pag
     try{
         PageHelper.startPage(pageNum,pageSize);
         List<Content> list=contentService.selectAllContent();
+
         PageInfo pageInfo = new PageInfo(list);
         if(list.size()>0){
             result=new JsonResult(Constants.STATUS_SUCCESS,"成功",pageInfo);
