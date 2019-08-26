@@ -12,12 +12,28 @@
   <sql id="Base_Column_List" >
     ARTICLE_COLLECT_ID, ARTICLE_COLLECT_USER_ID, ARTICLE_COLLECT_ARTICLE_ID, ARTICLE_COLLECT_TIME
   </sql>
+  <resultMap id="BaseResultMap1" type="com.project.taste.model.ArticleCollect" >
+    <constructor >
+      <idArg column="ARTICLE_COLLECT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COLLECT_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COLLECT_ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ARTICLE_COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+    <association property="article" javaType="com.project.taste.model.Article">
+      <id column="ARTICLE_ID"  property="articleId" jdbcType="VARCHAR" />
+      <result column="ARTICLE_TITLE" property="articleTitle" jdbcType="VARCHAR" />
+      <result column="ARTICLE_STATUS" property="articleStatus"  jdbcType="INTEGER" />
+      <result column="ARTICLE_USER_ID" property="articleUserId" jdbcType="VARCHAR" />
+      <result column="ARTICLE_CATEGORY_ID" property="articleCategoryId" jdbcType="VARCHAR"/>
+      <result column="ARTICLE_TIME" property="articleTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
   <!-- 根据用户id查询所有文章收藏-->
-  <select id="selectArticleByUId" resultMap="BaseResultMap" parameterType="java.lang.String">
-    SELECT
-    <include refid="Base_Column_List"/>
+  <select id="selectArticleByUId" resultMap="BaseResultMap1" parameterType="java.lang.String">
+    SELECT*
     FROM
-    article_collect
+    article_collect a
+    left join article b on a.ARTICLE_COLLECT_ARTICLE_ID=b.ARTICLE_ID
     where ARTICLE_COLLECT_USER_ID = #{articleCollectUserId,jdbcType=VARCHAR}
   </select>
   <!--  根据文章ID查收藏数量-->
