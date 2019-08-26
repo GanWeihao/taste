@@ -32,11 +32,17 @@
             <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer"/>
         </constructor>
     </resultMap>
-
     <sql id="Base_Column_List">
     USER_ID, USER_NAME, USER_TELPHONE, USER_EMAIL, USER_PASSWORD, USER_HEADURL, USER_TIME,
     USER_RANK, USER_STATUS
   </sql>
+    <!--查询所有用户-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        order by USER_TIME DESC
+    </select>
 
     <!--用户登入-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.project.taste.model.User">
@@ -44,9 +50,14 @@
         <include refid="Base_Column_List"/>
         from user
         where USER_NAME= #{userName,jdbcType=VARCHAR}
-        or USER_TELPHONE= #{userName,jdbcType=VARCHAR}
-        or USER_EMAIL= #{userName,jdbcType=VARCHAR}
+        and USER_PASSWORD= #{userPassword,jdbcType=VARCHAR}
+        and USER_STATUS=0
 
+        or USER_TELPHONE= #{userName,jdbcType=VARCHAR}
+        and USER_PASSWORD= #{userPassword,jdbcType=VARCHAR}
+        and USER_STATUS=0
+
+        or USER_EMAIL= #{userName,jdbcType=VARCHAR}
         and USER_PASSWORD= #{userPassword,jdbcType=VARCHAR}
         and USER_STATUS=0
     </select>
@@ -92,26 +103,44 @@
       )
   </insert>
 
-    <!--根据用户名 手机号  邮箱查询用户 -->
+    <!--根据条件查询-->
     <select id="queryAlltiaojian" parameterType="com.project.taste.model.User" resultMap="BaseResultMap">
-
         select
         <include refid="Base_Column_List"/>
         from user
         <where>
             <if test="userName!=null and userName!=''">
-                or USER_NAME=#{userName,jdbcType=VARCHAR}
+                or USER_NAME = #{userName,jdbcType=VARCHAR}
             </if>
 
-            <if test="userTelphone!=null and userTelphone!=''">
-                or USER_TELPHONE=#{userTelphone,jdbcType=VARCHAR}
+            <if test="userName!=null and userTelphone!=''">
+                or USER_TELPHONE = #{userName,jdbcType=VARCHAR}
             </if>
 
-            <if test="userEmail!=null and userEmail!=''">
-                or USER_EMAIL=#{userEmail,jdbcType=VARCHAR}
+            <if test="userName!=null and userEmail!=''">
+                or USER_EMAIL = #{userName,jdbcType=VARCHAR}
             </if>
         </where>
-        and USER_STATUS=0
+    </select>
+
+    <!-- 模糊搜索 -->
+    <select id="queryAlltiaojian2" parameterType="com.project.taste.model.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="userName!=null and userName!=''">
+                or POSITION(#{userName,jdbcType=VARCHAR} IN `USER_NAME`)
+            </if>
+
+            <if test="userName!=null and userTelphone!=''">
+                or POSITION(#{userName,jdbcType=VARCHAR} IN `USER_TELPHONE`)
+            </if>
+
+            <if test="userName!=null and userEmail!=''">
+                or POSITION(#{userName,jdbcType=VARCHAR} IN `USER_EMAIL`)
+            </if>
+        </where>
     </select>
 
     <!--禁封或恢复用户-->

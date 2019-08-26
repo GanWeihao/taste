@@ -1,6 +1,8 @@
 package com.project.taste.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.project.taste.model.User;
 import com.project.taste.service.impl.UserServiceImpl;
 import com.project.taste.util.Constants;
@@ -27,10 +29,31 @@ public class UserController {
     UserServiceImpl userService;
 
     /**
+     * 查询所有用户
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/all")
+    public JsonResult selectAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "6") Integer pageSize){
+        JsonResult js;
+        try{
+            PageHelper.startPage(pageNum, pageSize);
+            List<User> list = userService.selectAll();
+            PageInfo pageInfo = new PageInfo(list);
+            if(list.size()>0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功", pageInfo);
+            }else {
+                js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
+
+    /**
      * 用户登入
      *
-     * @param userName
-     * @param userPassword
      * @return
      */
     @ResponseBody
@@ -64,9 +87,9 @@ public class UserController {
             } else {
                 User user1 = new User();
                 user1.setUserTelphone(userTelephone);
-                int i = userService.insertSelective(user1);
+                String i = userService.insertSelective(user1);
                 User user2 = userService.selectByPrimaryKey1(userTelephone);
-                if (i != 0) {
+                if (i != null) {
                     js = new JsonResult(Constants.STATUS_SUCCESS, "注册成功", user2);
                 } else {
                     js = new JsonResult(Constants.STATUS_FAIL, "注册失败");
@@ -110,10 +133,10 @@ public class UserController {
     public JsonResult insert(User user) {
         JsonResult result = null;
         try {
-            User user1 = userService.queryAlltiaojian(user);
-            if(user1 == null){
-                int s1 = userService.insertSelective(user);
-                if (s1 == 1) {
+            List user1 = userService.queryAlltiaojian(user);
+            if(user1.size()<=0){
+                String s1 = userService.insertSelective(user);
+                if (s1 != null) {
                     result = new JsonResult(Constants.STATUS_SUCCESS, "添加成功", s1);
                 } else {
                     result = new JsonResult(Constants.STATUS_FAIL, "添加失败");
@@ -180,6 +203,31 @@ public class UserController {
     }
 
     /**
+     * 模糊搜索
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/query/mohu")
+    public JsonResult queryAlltiaojian2(User user, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "6") Integer pageSize) {
+        JsonResult result = null;
+        try {
+            PageHelper.startPage(pageNum, pageSize);
+            List user1 = userService.queryAlltiaojian2(user);
+            PageInfo pageInfo = new PageInfo(user1);
+            if (user1.size()>0) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", pageInfo);
+            } else {
+                result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
+            }
+        } catch (Exception e) {
+            result = new JsonResult(Constants.STATUS_ERROR, "查询异常");
+        }
+        return result;
+    }
+
+    /**
      * 根据用户名 用户邮箱 用户电话查询用户
      *
      * @param
@@ -190,8 +238,8 @@ public class UserController {
     public JsonResult queryAlltiaojian(User user) {
         JsonResult result = null;
         try {
-            User user1 = userService.queryAlltiaojian(user);
-            if (user1 != null) {
+            List user1 = userService.queryAlltiaojian(user);
+            if (user1.size()>0) {
                 result = new JsonResult(Constants.STATUS_SUCCESS, "查询成功", user1);
             } else {
                 result = new JsonResult(Constants.STATUS_FAIL, "查询失败");

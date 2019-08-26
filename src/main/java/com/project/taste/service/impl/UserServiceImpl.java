@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
         return 0;
     }
 
+    @Override
+    public List<User> selectAll() {
+        return userMapper.selectAll();
+    }
+
     //查询用户数量
     @Override
     public int querynum() {
@@ -37,16 +42,22 @@ public class UserServiceImpl implements UserService {
 
     //添加用户2
     @Override
-    public int insertSelective(User record) {
+    public String insertSelective(User record) {
         String id = UUID.randomUUID().toString().replaceAll("-", "");
         record.setUserId(id);
         if(record.getUserName()==null){
             record.setUserName(record.getUserTelphone());
         }
         record.setUserTime(new Date());
-        record.setUserStatus(0);
+        if(record.getUserStatus()==null){
+            record.setUserStatus(0);
+        }
         record.setUserRank(1);
-        return userMapper.insertSelective(record);
+        int i = userMapper.insertSelective(record);
+        if(i==0){
+            return null;
+        }
+        return id;
     }
 
 
@@ -72,12 +83,17 @@ public class UserServiceImpl implements UserService {
 
     //根据用户名 用户邮箱 用户电话 查询用户信息
     @Override
-    public User queryAlltiaojian(User user) {
+    public List queryAlltiaojian(User user) {
         return userMapper.queryAlltiaojian(user);
     }
 
-    //恢复或禁封用户
+    //模糊搜索
+    @Override
+    public List queryAlltiaojian2(User user) {
+        return userMapper.queryAlltiaojian2(user);
+    }
 
+    //恢复或禁封用户
     @Override
     public int updateByStatus(User user) {
         return userMapper.updateByStatus(user);
