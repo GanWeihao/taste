@@ -2,6 +2,7 @@ package com.project.taste.controller;
 
 import com.project.taste.model.ArticleComment;
 import com.project.taste.service.impl.ArticleCommentServiceImpl;
+import com.project.taste.service.impl.UserServiceImpl;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -18,6 +19,9 @@ import java.util.List;
 public class ArticleCommentController {
     @Autowired
     ArticleCommentServiceImpl articleCommentService;
+
+    @Autowired
+    UserServiceImpl userService;
     //根据文章id查询文章评论
     @ResponseBody
     @RequestMapping("/query/articleid")

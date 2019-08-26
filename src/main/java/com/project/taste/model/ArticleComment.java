@@ -16,14 +16,6 @@ public class ArticleComment {
     private String articleCommentTouserId;
 
     private Integer articleCommentStatus;
-    User user;
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user){
-        this.user = user;
-    }
 
     public ArticleComment(String articleCommentId, String articleCommentText, Date articleCommentTime, String articleCommentUserId, String articleCommentArticleId, String articleCommentTouserId, Integer articleCommentStatus) {
         this.articleCommentId = articleCommentId;

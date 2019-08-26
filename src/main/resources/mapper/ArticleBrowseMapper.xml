@@ -12,29 +12,12 @@
   <sql id="Base_Column_List" >
     ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
   </sql>
-  <resultMap id="BaseResultMap1" type="com.project.taste.model.ArticleBrowse" >
-    <constructor >
-      <idArg column="ARTICLE_BROWSE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ARTICLE_BROWSE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ARTICLE_BROWSE_ARTICLE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ARTICLE_BROWSE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-    </constructor>
-    <association property="article" javaType="com.project.taste.model.Article">
-      <id column="ARTICLE_ID"  property="articleId" jdbcType="VARCHAR" />
-      <result column="ARTICLE_TITLE" property="articleTitle" jdbcType="VARCHAR" />
-      <result column="ARTICLE_STATUS" property="articleStatus"  jdbcType="INTEGER" />
-      <result column="ARTICLE_USER_ID" property="articleUserId" jdbcType="VARCHAR" />
-      <result column="ARTICLE_CATEGORY_ID" property="articleCategoryId" jdbcType="VARCHAR"/>
-      <result column="ARTICLE_TIME" property="articleTime" jdbcType="TIMESTAMP" />
-    </association>
-  </resultMap>
   <!--根据用户ID查询浏览记录-->
-  <select id="selectByUserId" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select *
-    from article_browse a
-    left join article b on  a.ARTICLE_BROWSE_ARTICLE_ID=b.ARTICLE_ID
-    where a.ARTICLE_BROWSE_USER_ID =#{articleBrowseUserId,jdbcType=VARCHAR}
-    order by a.ARTICLE_BROWSE_TIME desc
+    from article_browse
+    where ARTICLE_BROWSE_USER_ID =#{articleBrowseUserId,jdbcType=VARCHAR}
+    order by ARTICLE_BROWSE_TIME desc
   </select>
   <!--根据ID查询浏览数量-->
   <select id="selectNumByArticleId" resultType="java.lang.Integer" parameterType="java.lang.String">

@@ -12,28 +12,6 @@
       <arg column="VIDEO_COMMENT_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer"/>
     </constructor>
   </resultMap>
-  <resultMap id="BaseResultMap1" type="com.project.taste.model.VideoComment">
-    <constructor>
-      <idArg column="VIDEO_COMMENT_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-      <arg column="VIDEO_COMMENT_CONTENT" jdbcType="VARCHAR" javaType="java.lang.String"/>
-      <arg column="VIDEO_COMMENT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-      <arg column="VIDEO_COMMENT_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-      <arg column="VIDEO_COMMENT_VIDEO_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-      <arg column="VIDEO_COMMENT_TOUSER_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-      <arg column="VIDEO_COMMENT_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-    </constructor>
-    <association property="user" javaType="com.project.taste.model.User">
-      <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>
-      <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
-      <result column="USER_TELPHONE" property="userTelphone" jdbcType="VARCHAR"/>
-      <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR"/>
-      <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR"/>
-      <result column="USER_HEADURL" property="userHeadurl" jdbcType="VARCHAR"/>
-      <result column="USER_TIME" property="userTime" jdbcType="TIMESTAMP"/>
-      <result column="USER_RANK" property="userRank" jdbcType="INTEGER"/>
-      <result column="USER_STATUS" property="userStatus" jdbcType="INTEGER"/>
-    </association>
-  </resultMap>
   <sql id="Base_Column_List">
     VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID,
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
@@ -59,11 +37,10 @@
   </select>
 
   <!--根据视频ID查询视频的所有评论-->
-  <select id="queryVideoCommentByVideoId" parameterType="java.lang.String" resultMap="BaseResultMap1">
+  <select id="queryVideoCommentByVideoId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
-    from  video_comment a
-    left join user c on  a.VIDEO_COMMENT_USER_ID=c.USER_ID
-    where a.VIDEO_COMMENT_VIDEO_ID=#{videoCommentVideoId,jdbcType=VARCHAR}
+    from  video_comment
+    where VIDEO_COMMENT_VIDEO_ID=#{videoCommentVideoId,jdbcType=VARCHAR}
     and VIDEO_COMMENT_STATUS=0
   </select>
   <!--查询所有视频评论-->

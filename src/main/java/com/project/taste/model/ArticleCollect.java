@@ -11,16 +11,6 @@ public class ArticleCollect {
 
     private Date articleCollectTime;
 
-    Article article;
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-
     public ArticleCollect(String articleCollectId, String articleCollectUserId, String articleCollectArticleId, Date articleCollectTime) {
         this.articleCollectId = articleCollectId;
         this.articleCollectUserId = articleCollectUserId;

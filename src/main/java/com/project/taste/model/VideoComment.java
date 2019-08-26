@@ -17,14 +17,6 @@ public class VideoComment {
 
     private Integer videoCommentStatus;
 
-    User user;
-
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
     public VideoComment(String videoCommentId, String videoCommentContent, Date videoCommentTime, String videoCommentUserId, String videoCommentVideoId, String videoCommentTouserId, Integer videoCommentStatus) {
         this.videoCommentId = videoCommentId;
         this.videoCommentContent = videoCommentContent;
