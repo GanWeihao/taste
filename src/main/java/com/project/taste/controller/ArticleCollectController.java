@@ -1,7 +1,6 @@
 package com.project.taste.controller;
 
 import com.project.taste.bo.ArticleCollect_Article;
-import com.project.taste.model.Article;
 import com.project.taste.model.ArticleCollect;
 import com.project.taste.service.ArticleCollectService;
 import com.project.taste.service.ArticleService;
@@ -10,7 +9,6 @@ import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
