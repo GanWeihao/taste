@@ -9,6 +9,8 @@ public interface MessageService {
     int deleteByPrimaryKey(String messageId);
     //添加消息
     int insert(String messageContent,String messageTitle,String messageUserId);
+    //查看用户所有消息
+    List queryAllByUserId(String messageUserId);
 
     int insertSelective(Message record);
 

@@ -13,6 +13,8 @@ public interface MessageMapper {
     int deleteByPrimaryKey(String messageId);
     //添加消息
     int insert(Message record);
+    //查看用户所有消息
+    List queryAllByUserId(String messageUserId);
 
     int insertSelective(Message record);
 

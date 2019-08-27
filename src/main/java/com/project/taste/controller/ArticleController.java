@@ -1,33 +1,32 @@
 package com.project.taste.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.project.taste.bo.Article_Content;
+import com.project.taste.bo.Article_User;
+import com.project.taste.bo.Page;
 import com.project.taste.model.Article;
 import com.project.taste.model.Content;
+import com.project.taste.model.User;
 import com.project.taste.service.ArticleService;
 import com.project.taste.service.ContentService;
-import com.project.taste.util.Constants;
-import com.project.taste.util.HttpClientHelper;
-import com.project.taste.util.JsonResult;
-import com.project.taste.util.ListPageUtil;
+import com.project.taste.service.UserService;
+import com.project.taste.util.*;
 import io.swagger.annotations.Api;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import springfox.documentation.spring.web.json.Json;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +38,8 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
     ContentService contentService;
+    @Autowired
+    UserService userService;
     @Autowired
     SolrClient solrClient;
 
@@ -61,18 +62,28 @@ public class ArticleController {
         try{
             String update = HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
-            solrQuery.setRows(pageNum*pageSize);
+            solrQuery.setRows(articleService.selectArticleNum());
             solrQuery.setQuery("*:*");
+            solrQuery.addSort("articleTime", SolrQuery.ORDER.desc);
             QueryResponse response = solrClient.query(solrQuery);
             List list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
             for (SolrDocument obj : results){
                 System.out.println(obj);
-                list.add(obj);
+                Article_Content article_content = ArticleContentUtil.put(obj, contentService);
+                list.add(article_content);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            Page page = new Page();
+            page.setLastPage(listPageUtil.getLastPage());
+            page.setNextPage(listPageUtil.getNextPage());
+            page.setNowPage(listPageUtil.getNowPage());
+            page.setPageSize(listPageUtil.getPageSize());
+            page.setTotalCount(listPageUtil.getTotalCount());
+            page.setTotalPage(listPageUtil.getTotalPage());
+            page.setPagedList(listPageUtil.getPagedList());
             if(results.size()>0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",page);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
             }
@@ -97,7 +108,8 @@ public class ArticleController {
         try{
             HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
-            solrQuery.setRows(pageNum*pageSize);
+            solrQuery.setRows(articleService.selectArticleNum());
+            solrQuery.addSort("articleTime", SolrQuery.ORDER.desc);
             solrQuery.set("q", article.getArticleTitle());
             //默认域
             solrQuery.set("df", "articleTitle");
@@ -112,15 +124,24 @@ public class ArticleController {
             solrQuery.setHighlightSimplePost("</span>");
             QueryResponse response = solrClient.query(solrQuery);
             Map<String, Map<String, List<String>>> highlight = response.getHighlighting();
-            List<Map<String, Object>> list = new ArrayList<>();
+            List<Article_Content> list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
             for (SolrDocument obj : results){
                 obj.put("highlight",highlight.get(obj.get("id")));
-                list.add(obj);
+                Article_Content article_content = ArticleContentUtil.put(obj, contentService);
+                list.add(article_content);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            Page page = new Page();
+            page.setLastPage(listPageUtil.getLastPage());
+            page.setNextPage(listPageUtil.getNextPage());
+            page.setNowPage(listPageUtil.getNowPage());
+            page.setPageSize(listPageUtil.getPageSize());
+            page.setTotalCount(listPageUtil.getTotalCount());
+            page.setTotalPage(listPageUtil.getTotalPage());
+            page.setPagedList(listPageUtil.getPagedList());
             if(results.size()>0 && results!=null){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",page);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
             }
@@ -286,5 +307,49 @@ public class ArticleController {
         return js;
     }
 
+    /**
+     * 查询所有文章带用户
+     */
+    @ResponseBody
+    @RequestMapping("/select/with/user")
+    public JsonResult selectWithUser(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
+        JsonResult js;
+        try{
+            String update = HttpClientHelper.sendPost(deltaImport);
+            SolrQuery solrQuery = new SolrQuery();
+            solrQuery.setRows(articleService.selectArticleNum());
+            solrQuery.addSort("articleTime", SolrQuery.ORDER.desc);
+            solrQuery.setQuery("*:*");
+            QueryResponse response = solrClient.query(solrQuery);
+            List list = new ArrayList<>();
+            SolrDocumentList results = response.getResults();
+            for (SolrDocument obj : results){
+                Article_User article_user = new Article_User();
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", java.util.Locale.US);
+                Date date = sdf.parse(obj.get("articleTime").toString());
+                article_user.setArticleId((obj.get("id").toString()));
+                article_user.setArticleTitle(obj.get("articleTitle").toString());
+                article_user.setArticleCategoryId(obj.get("articleCategoryId").toString());
+                System.out.println(obj.get("articleTime").toString());
+                article_user.setArticleTime(date);
+                article_user.setArticleStatus(Integer.valueOf(obj.get("articleStatus").toString()));
+                article_user.setArticleUserId(obj.get("articleUserId").toString());
+                User user = userService.selectById(obj.get("articleUserId").toString());
+                article_user.setUser(user);
+                list.add(article_user);
+            }
+            System.out.println(list);
+            ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            if(list.size()>0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            js = new JsonResult(Constants.STATUS_ERROR,"暂无数据");
+        }
+        return js;
+    }
 
 }

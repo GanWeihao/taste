@@ -1,8 +1,10 @@
-package com.project.taste.model;
+package com.project.taste.bo;
+
+import com.project.taste.model.Video;
 
 import java.util.Date;
 
-public class VideoBrowse {
+public class VideoBrowse_Video {
     private String videoBrowseId;
 
     private String videoBrowseVideoId;
@@ -11,14 +13,17 @@ public class VideoBrowse {
 
     private Date videoBrowseTime;
 
-    public VideoBrowse(String videoBrowseId, String videoBrowseVideoId, String videoBrowseUserId, Date videoBrowseTime) {
+    private Video video;
+
+    public VideoBrowse_Video(String videoBrowseId, String videoBrowseVideoId, String videoBrowseUserId, Date videoBrowseTime, Video video) {
         this.videoBrowseId = videoBrowseId;
         this.videoBrowseVideoId = videoBrowseVideoId;
         this.videoBrowseUserId = videoBrowseUserId;
         this.videoBrowseTime = videoBrowseTime;
+        this.video = video;
     }
 
-    public VideoBrowse() {
+    public VideoBrowse_Video() {
         super();
     }
 
@@ -27,7 +32,7 @@ public class VideoBrowse {
     }
 
     public void setVideoBrowseId(String videoBrowseId) {
-        this.videoBrowseId = videoBrowseId == null ? null : videoBrowseId.trim();
+        this.videoBrowseId = videoBrowseId;
     }
 
     public String getVideoBrowseVideoId() {
@@ -35,7 +40,7 @@ public class VideoBrowse {
     }
 
     public void setVideoBrowseVideoId(String videoBrowseVideoId) {
-        this.videoBrowseVideoId = videoBrowseVideoId == null ? null : videoBrowseVideoId.trim();
+        this.videoBrowseVideoId = videoBrowseVideoId;
     }
 
     public String getVideoBrowseUserId() {
@@ -43,7 +48,7 @@ public class VideoBrowse {
     }
 
     public void setVideoBrowseUserId(String videoBrowseUserId) {
-        this.videoBrowseUserId = videoBrowseUserId == null ? null : videoBrowseUserId.trim();
+        this.videoBrowseUserId = videoBrowseUserId;
     }
 
     public Date getVideoBrowseTime() {
@@ -52,5 +57,13 @@ public class VideoBrowse {
 
     public void setVideoBrowseTime(Date videoBrowseTime) {
         this.videoBrowseTime = videoBrowseTime;
+    }
+
+    public Video getVideo() {
+        return video;
+    }
+
+    public void setVideo(Video video) {
+        this.video = video;
     }
 }

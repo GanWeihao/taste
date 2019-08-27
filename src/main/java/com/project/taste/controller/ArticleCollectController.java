@@ -1,8 +1,10 @@
 package com.project.taste.controller;
 
+import com.project.taste.bo.ArticleCollect_Article;
 import com.project.taste.model.Article;
 import com.project.taste.model.ArticleCollect;
 import com.project.taste.service.ArticleCollectService;
+import com.project.taste.service.ArticleService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,6 +24,8 @@ import java.util.List;
 public class ArticleCollectController {
     @Autowired
     ArticleCollectService articleCollectService;
+    @Autowired
+    ArticleService articleService;
 
     /**
      * 根据用户id查询所有文章收藏
@@ -31,8 +36,18 @@ public class ArticleCollectController {
         JsonResult js;
         try{
             List<ArticleCollect> list=articleCollectService.selectArticleByUId(articleCollectUserId);
-            if(list.size()>0){
-                js=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+            List<ArticleCollect_Article> list1 = new ArrayList<>();
+            for(ArticleCollect articleCollect : list){
+                ArticleCollect_Article articleCollectArticle = new ArticleCollect_Article();
+                articleCollectArticle.setArticleCollectId(articleCollect.getArticleCollectId());
+                articleCollectArticle.setArticleCollectArticleId(articleCollect.getArticleCollectArticleId());
+                articleCollectArticle.setArticleCollectTime(articleCollect.getArticleCollectTime());
+                articleCollectArticle.setArticleCollectUserId(articleCollect.getArticleCollectUserId());
+                articleCollectArticle.setArticle(articleService.selectByPrimaryKey(articleCollect.getArticleCollectArticleId()));
+                list1.add(articleCollectArticle);
+            }
+            if(list1.size()>0){
+                js=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list1);
             }else {
                 js=new JsonResult(Constants.STATUS_NOT_FOUND,"查询失败");
             }

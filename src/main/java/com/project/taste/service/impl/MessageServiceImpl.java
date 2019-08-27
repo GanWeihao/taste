@@ -36,6 +36,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public List queryAllByUserId(String messageUserId) {
+        return messageMapper.queryAllByUserId(messageUserId);
+    }
+
+    @Override
     public int insertSelective(Message record) {
         return 0;
     }

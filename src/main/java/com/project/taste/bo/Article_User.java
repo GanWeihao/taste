@@ -1,11 +1,11 @@
 package com.project.taste.bo;
 
-import com.project.taste.model.Content;
+import com.project.taste.model.User;
 
 import java.util.Date;
 import java.util.List;
 
-public class Article_Content {
+public class Article_User {
     private String articleId;
 
     private String articleTitle;
@@ -18,22 +18,19 @@ public class Article_Content {
 
     private Date articleTime;
 
-    private List<Content> list;
+    private User user;
 
-    private Object highlight;
-
-    public Article_Content(String articleId, String articleTitle, Integer articleStatus, String articleUserId, String articleCategoryId, Date articleTime, List<Content> list, Object highlight) {
+    public Article_User(String articleId, String articleTitle, Integer articleStatus, String articleUserId, String articleCategoryId, Date articleTime, User user) {
         this.articleId = articleId;
         this.articleTitle = articleTitle;
         this.articleStatus = articleStatus;
         this.articleUserId = articleUserId;
         this.articleCategoryId = articleCategoryId;
         this.articleTime = articleTime;
-        this.list = list;
-        this.highlight = highlight;
+        this.user = user;
     }
 
-    public Article_Content() {
+    public Article_User() {
         super();
     }
 
@@ -85,19 +82,11 @@ public class Article_Content {
         this.articleTime = articleTime;
     }
 
-    public List<Content> getList() {
-        return list;
+    public User getUser() {
+        return user;
     }
 
-    public void setList(List<Content> list) {
-        this.list = list;
-    }
-
-    public Object getHighlight() {
-        return highlight;
-    }
-
-    public void setHighlight(Object highlight) {
-        this.highlight = highlight;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

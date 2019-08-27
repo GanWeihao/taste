@@ -51,6 +51,22 @@ public class MessageController {
     }
 
     /**
+     * 查询用户所有消息
+     */
+    @ResponseBody
+    @RequestMapping("/select/all")
+    public JsonResult selectAllByUserId(String messageUserId){
+        JsonResult js;
+        try{
+            List list = messageService.queryAllByUserId(messageUserId);
+            js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
+
+    /**
      * 根据消息ID查询消息详情
      * @param messageId
      * @return

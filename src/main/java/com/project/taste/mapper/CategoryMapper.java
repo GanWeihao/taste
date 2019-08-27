@@ -12,6 +12,7 @@ public interface CategoryMapper {
 
     //查询所有类别
     List<Category> queryAll();
+    List<Category> queryAll2();
 
     int deleteByPrimaryKey(String categoryId);
 
@@ -25,5 +26,5 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     //删除类别
-    int updateByPrimaryKey(String categoryId);
+    int updateByPrimaryKey(Category category);
 }

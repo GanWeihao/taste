@@ -1,8 +1,9 @@
 package com.project.taste.controller;
 
+import com.project.taste.bo.ArticleComment_User;
 import com.project.taste.model.ArticleComment;
+import com.project.taste.service.UserService;
 import com.project.taste.service.impl.ArticleCommentServiceImpl;
-import com.project.taste.service.impl.UserServiceImpl;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,9 +21,10 @@ import java.util.List;
 public class ArticleCommentController {
     @Autowired
     ArticleCommentServiceImpl articleCommentService;
-
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
+
+
     //根据文章id查询文章评论
     @ResponseBody
     @RequestMapping("/query/articleid")
@@ -29,8 +32,22 @@ public class ArticleCommentController {
         JsonResult result=null;
         try{
             List<ArticleComment> list=articleCommentService.queryByIdComment(articleCommentArticleId);
+            List<ArticleComment_User> list1 = new ArrayList<>();
+            for(ArticleComment articleComment : list){
+                ArticleComment_User articleComment_user = new ArticleComment_User();
+                articleComment_user.setArticleCommentId(articleComment.getArticleCommentId());
+                articleComment_user.setArticleCommentArticleId(articleComment.getArticleCommentArticleId());
+                articleComment_user.setArticleCommentStatus(articleComment.getArticleCommentStatus());
+                articleComment_user.setArticleCommentText(articleComment.getArticleCommentText());
+                articleComment_user.setArticleCommentTime(articleComment.getArticleCommentTime());
+                articleComment_user.setArticleCommentUserId(articleComment.getArticleCommentUserId());
+                articleComment_user.setArticleCommentTouserId(articleComment.getArticleCommentTouserId());
+                articleComment_user.setUser(userService.selectById(articleComment.getArticleCommentUserId()));
+                articleComment_user.setToUser(userService.selectById(articleComment.getArticleCommentTouserId()));
+                list1.add(articleComment_user);
+            }
             if(list.size()>0){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list);
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list1);
             }else{
                 result=new JsonResult(Constants.STATUS_ERROR,"失败");
             }
@@ -48,8 +65,22 @@ public class ArticleCommentController {
         JsonResult result=null;
         try{
             List<ArticleComment> list=articleCommentService.queryUserByIdComment(articleCommentUserId);
+            List<ArticleComment_User> list1 = new ArrayList<>();
+            for(ArticleComment articleComment : list){
+                ArticleComment_User articleComment_user = new ArticleComment_User();
+                articleComment_user.setArticleCommentId(articleComment.getArticleCommentId());
+                articleComment_user.setArticleCommentArticleId(articleComment.getArticleCommentArticleId());
+                articleComment_user.setArticleCommentStatus(articleComment.getArticleCommentStatus());
+                articleComment_user.setArticleCommentText(articleComment.getArticleCommentText());
+                articleComment_user.setArticleCommentTime(articleComment.getArticleCommentTime());
+                articleComment_user.setArticleCommentUserId(articleComment.getArticleCommentUserId());
+                articleComment_user.setArticleCommentTouserId(articleComment.getArticleCommentTouserId());
+                articleComment_user.setUser(userService.selectById(articleComment.getArticleCommentUserId()));
+                articleComment_user.setToUser(userService.selectById(articleComment.getArticleCommentTouserId()));
+                list1.add(articleComment_user);
+            }
             if(list.size()>0){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list);
+                result=new JsonResult(Constants.STATUS_SUCCESS,"成功",list1);
             }else{
                 result=new JsonResult(Constants.STATUS_ERROR,"失败");
             }

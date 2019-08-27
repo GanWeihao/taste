@@ -21,7 +21,16 @@
     <include refid="Base_Column_List"/>
     from message
     where MESSAGE_USER_ID=#{messageUserId,jdbcType=VARCHAR} and MESSAGE_STATUS!=2
-    ORDER BY MESSAGE_TIME asc
+    ORDER BY MESSAGE_TIME desc
+  </select>
+
+  <!--根据用户ID查询用户的所有消息-->
+  <select id="queryAllByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from message
+    where MESSAGE_USER_ID=#{messageUserId,jdbcType=VARCHAR}
+    ORDER BY MESSAGE_TIME desc
   </select>
 
   <!--据消息ID查询消息详情-->

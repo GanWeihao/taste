@@ -1,10 +1,10 @@
 package com.project.taste.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.project.taste.model.Article;
+import com.project.taste.bo.ArticleBrowse_Article;
 import com.project.taste.model.ArticleBrowse;
-import com.project.taste.model.Content;
 import com.project.taste.service.ArticleBrowseService;
+import com.project.taste.service.ArticleService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -24,6 +24,8 @@ import java.util.List;
 public class ArticleBrowseController {
     @Autowired
     ArticleBrowseService articleBrowseService;
+    @Autowired
+    ArticleService articleService;
 
     /**
      * 根据用户ID查询文章浏览记录
@@ -36,8 +38,18 @@ public class ArticleBrowseController {
         JsonResult js;
         try{
             List<ArticleBrowse> list = articleBrowseService.selectByUserId(articleBrowseUserId);
-            if(list.size()>0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功", list);
+            List<ArticleBrowse_Article> list1 = new ArrayList<>();
+            for(ArticleBrowse articleBrowse : list){
+                ArticleBrowse_Article articleBrowseArticle = new ArticleBrowse_Article();
+                articleBrowseArticle.setArticleBrowseId(articleBrowse.getArticleBrowseId());
+                articleBrowseArticle.setArticleBrowseArticleId(articleBrowse.getArticleBrowseArticleId());
+                articleBrowseArticle.setArticleBrowseTime(articleBrowse.getArticleBrowseTime());
+                articleBrowseArticle.setArticleBrowseUserId(articleBrowse.getArticleBrowseUserId());
+                articleBrowseArticle.setArticle(articleService.selectByPrimaryKey(articleBrowse.getArticleBrowseArticleId()));
+                list1.add(articleBrowseArticle);
+            }
+            if(list1.size()>0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功", list1);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }

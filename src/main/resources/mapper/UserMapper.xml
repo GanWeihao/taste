@@ -44,6 +44,13 @@
         order by USER_TIME DESC
     </select>
 
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+    </select>
+
     <!--用户登入-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.project.taste.model.User">
         select

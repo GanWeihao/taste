@@ -50,12 +50,22 @@ public class CategoryServiceImpl implements CategoryService {
     }
     //删除类别
     @Override
-    public int updateByPrimaryKey(String categoryId) {
-        return categoryMapper.updateByPrimaryKey(categoryId);
+    public int updateByPrimaryKey(Category category) {
+        Category category1 = categoryMapper.selectByPrimaryKey(category.getCategoryId());
+        if(category1.getCategoryStatus() == 0){
+            category1.setCategoryStatus(1);
+        }else{
+            category1.setCategoryStatus(0);
+        }
+        return categoryMapper.updateByPrimaryKey(category1);
     }
     //查询所有类别
     @Override
     public List<Category> queryAll() {
         return categoryMapper.queryAll();
+    }
+    @Override
+    public List<Category> queryAll2() {
+        return categoryMapper.queryAll2();
     }
 }

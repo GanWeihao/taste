@@ -2,19 +2,21 @@ package com.project.taste.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.project.taste.bo.VideoBrowse_Video;
 import com.project.taste.model.VideoBrowse;
-import com.project.taste.service.impl.VideoBrowseServiceImpl;
+import com.project.taste.service.VideoBrowseService;
+import com.project.taste.service.VideoService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,7 +24,9 @@ import java.util.List;
 @Api(tags = "视频浏览记录控制器")
 public class VideoBrowseController {
     @Autowired
-    VideoBrowseServiceImpl videoBrowseService;
+    VideoBrowseService videoBrowseService;
+    @Autowired
+    VideoService videoService;
 
     /**
      * 根据用户ID查询用户浏览视频记录
@@ -38,8 +42,18 @@ public class VideoBrowseController {
         try{
             PageHelper.startPage(pageNum,pageSize);
             List<VideoBrowse> list=videoBrowseService.queryVideoBrowseByUserId(userId);
-            PageInfo pageInfo = new PageInfo(list);
-            if(list.size()>0){
+            List<VideoBrowse_Video> list1 = new ArrayList<>();
+            for(VideoBrowse videoBrowse : list){
+                VideoBrowse_Video videoBrowseVideo = new VideoBrowse_Video();
+                videoBrowseVideo.setVideoBrowseId(videoBrowse.getVideoBrowseId());
+                videoBrowseVideo.setVideoBrowseTime(videoBrowse.getVideoBrowseTime());
+                videoBrowseVideo.setVideoBrowseUserId(videoBrowse.getVideoBrowseUserId());
+                videoBrowseVideo.setVideoBrowseVideoId(videoBrowse.getVideoBrowseVideoId());
+                videoBrowseVideo.setVideo(videoService.queryVideoById(videoBrowse.getVideoBrowseVideoId()));
+                list1.add(videoBrowseVideo);
+            }
+            PageInfo pageInfo = new PageInfo(list1);
+            if(list1.size()>0){
                 result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
             }else{
                 result=new JsonResult(Constants.STATUS_FAIL,"查询失败");

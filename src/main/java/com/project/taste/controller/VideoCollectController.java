@@ -1,8 +1,10 @@
 package com.project.taste.controller;
 
+import com.project.taste.bo.VideoCollect_Video;
 import com.project.taste.model.Video;
 import com.project.taste.model.VideoCollect;
 import com.project.taste.service.VideoCollectService;
+import com.project.taste.service.VideoService;
 import com.project.taste.util.Constants;
 import com.project.taste.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,6 +24,8 @@ import java.util.List;
 public class VideoCollectController {
     @Autowired
     VideoCollectService videoCollectService;
+    @Autowired
+    VideoService videoService;
     /**
      * 添加视频收藏
      */
@@ -51,8 +56,18 @@ public class VideoCollectController {
         JsonResult js;
         try{
             List<VideoCollect> list = videoCollectService.selectByUserId(videoCollectUserId);
-            if(list.size()>0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+            List<VideoCollect_Video> list1 = new ArrayList<>();
+            for(VideoCollect videoCollect : list){
+                VideoCollect_Video videoCollectVideo = new VideoCollect_Video();
+                videoCollectVideo.setVideoCollectId(videoCollect.getVideoCollectId());
+                videoCollectVideo.setVideoCollectTime(videoCollect.getVideoCollectTime());
+                videoCollectVideo.setVideoCollectUserId(videoCollect.getVideoCollectUserId());
+                videoCollectVideo.setVideoCollectVideoId(videoCollect.getVideoCollectVideoId());
+                videoCollectVideo.setVideo(videoService.queryVideoById(videoCollect.getVideoCollectVideoId()));
+                list1.add(videoCollectVideo);
+            }
+            if(list1.size()>0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list1);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }

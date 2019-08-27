@@ -2,12 +2,13 @@ package com.project.taste.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.project.taste.bo.Page;
+import com.project.taste.bo.Video_User;
+import com.project.taste.model.User;
 import com.project.taste.model.Video;
+import com.project.taste.service.UserService;
 import com.project.taste.service.impl.VideoServiceImpl;
-import com.project.taste.util.Constants;
-import com.project.taste.util.HttpClientHelper;
-import com.project.taste.util.JsonResult;
-import com.project.taste.util.ListPageUtil;
+import com.project.taste.util.*;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +35,8 @@ import java.util.Map;
 public class VideoController {
     @Autowired
     VideoServiceImpl videoService;
+    @Autowired
+    UserService userService;
     HttpSolrClient httpSolrClient = new HttpSolrClient.Builder("http://106.13.207.98:9091/solr/video").build();
 
     //增量
@@ -55,17 +60,26 @@ public class VideoController {
             String update = HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery("*:*");
-            solrQuery.setRows(pageNum*pageSize);
+            solrQuery.setRows(videoService.selectVideoNum());
+            solrQuery.addSort("videoTime", SolrQuery.ORDER.desc);
             QueryResponse response = httpSolrClient.query(solrQuery);
             List list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
             for (SolrDocument obj : results){
-                System.out.println(obj);
-                list.add(obj);
+                Video_User video_user = VideoUserUtil.put(obj, userService);
+                list.add(video_user);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            Page page = new Page();
+            page.setLastPage(listPageUtil.getLastPage());
+            page.setNextPage(listPageUtil.getNextPage());
+            page.setNowPage(listPageUtil.getNowPage());
+            page.setPageSize(listPageUtil.getPageSize());
+            page.setTotalCount(listPageUtil.getTotalCount());
+            page.setTotalPage(listPageUtil.getTotalPage());
+            page.setPagedList(listPageUtil.getPagedList());
             if(results.size()>0 && results!=null){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",page);
             }else {
                 result = new JsonResult(Constants.STATUS_FAIL, "查询失败");
             }
@@ -157,7 +171,8 @@ public class VideoController {
         try{
             HttpClientHelper.sendPost(deltaImport);
             SolrQuery solrQuery = new SolrQuery();
-            solrQuery.setRows(pageNum*pageSize);
+            solrQuery.setRows(videoService.selectVideoNum());
+            solrQuery.addSort("videoTime", SolrQuery.ORDER.desc);
             solrQuery.set("q", video.getVideoTitle());
             //默认域
             solrQuery.set("df", "videoTitle");

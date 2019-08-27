@@ -124,9 +124,10 @@ public class UserServiceImpl implements UserService {
         return list1;
     }
 
+    //修改用户资料
     @Override
     public int updateByPrimaryKeySelective(User record) {
-        return 0;
+        return userMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.project.taste.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.project.taste.bo.VideoComment_User;
 import com.project.taste.model.VideoComment;
+import com.project.taste.service.UserService;
 import com.project.taste.service.VideoCommentService;
 import com.project.taste.service.impl.VideoCommentServiceImpl;
 import com.project.taste.util.Constants;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,8 @@ import java.util.List;
 public class VideoCommentController {
     @Autowired
     VideoCommentServiceImpl videoCommentService;
+    @Autowired
+    UserService userService;
 
     /**
      * 根据视频ID查询视频的所有评论
@@ -35,8 +40,22 @@ public class VideoCommentController {
         JsonResult result=null;
         try{
             List<VideoComment> list=videoCommentService.queryVideoCommentByVideoId(videoId);
-            if(list.size()>0){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+            List<VideoComment_User> list1 = new ArrayList<>();
+            for(VideoComment videoComment : list){
+                VideoComment_User videoComment_user = new VideoComment_User();
+                videoComment_user.setVideoCommentId(videoComment.getVideoCommentId());
+                videoComment_user.setVideoCommentContent(videoComment.getVideoCommentContent());
+                videoComment_user.setVideoCommentStatus(videoComment.getVideoCommentStatus());
+                videoComment_user.setVideoCommentTime(videoComment.getVideoCommentTime());
+                videoComment_user.setVideoCommentVideoId(videoComment.getVideoCommentVideoId());
+                videoComment_user.setVideoCommentUserId(videoComment.getVideoCommentUserId());
+                videoComment_user.setVideoCommentTouserId(videoComment.getVideoCommentTouserId());
+                videoComment_user.setUser(userService.selectById(videoComment.getVideoCommentUserId()));
+                videoComment_user.setToUser(userService.selectById(videoComment.getVideoCommentTouserId()));
+                list1.add(videoComment_user);
+            }
+            if(list1.size()>0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list1);
             }else{
                 result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }
@@ -78,8 +97,22 @@ public class VideoCommentController {
         JsonResult result=null;
         try{
             List<VideoComment> list = videoCommentService.queryVideoCommentByUserId(userId);
-            if(list.size()>0){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list);
+            List<VideoComment_User> list1 = new ArrayList<>();
+            for(VideoComment videoComment : list){
+                VideoComment_User videoComment_user = new VideoComment_User();
+                videoComment_user.setVideoCommentId(videoComment.getVideoCommentId());
+                videoComment_user.setVideoCommentContent(videoComment.getVideoCommentContent());
+                videoComment_user.setVideoCommentStatus(videoComment.getVideoCommentStatus());
+                videoComment_user.setVideoCommentTime(videoComment.getVideoCommentTime());
+                videoComment_user.setVideoCommentVideoId(videoComment.getVideoCommentVideoId());
+                videoComment_user.setVideoCommentUserId(videoComment.getVideoCommentUserId());
+                videoComment_user.setVideoCommentTouserId(videoComment.getVideoCommentTouserId());
+                videoComment_user.setUser(userService.selectById(videoComment.getVideoCommentUserId()));
+                videoComment_user.setToUser(userService.selectById(videoComment.getVideoCommentTouserId()));
+                list1.add(videoComment_user);
+            }
+            if(list1.size()>0){
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",list1);
             }else{
                 result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }

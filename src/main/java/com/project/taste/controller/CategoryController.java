@@ -43,6 +43,29 @@ public class CategoryController {
         }
         return js;
     }
+
+    /**
+     * 查询所有类别
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/queryall2")
+    public JsonResult queryAll2(){
+        JsonResult js;
+        try{
+            List list = categoryService.queryAll2();
+            if(list.size()>0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功", list);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"查询失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"查询异常");
+        }
+        return js;
+    }
+
+
     /**
      * 添加类别
      */
@@ -82,25 +105,24 @@ public class CategoryController {
     }
 
     /**
-     * 删除类别
+     * 删除/恢复类别
      *
      * @param
      * @return
      */
     @ResponseBody
     @RequestMapping("/deletebyid")
-
-    public Object updateByPrimaryKey(String categoryId) {
+    public Object updateByPrimaryKey(Category category) {
         JsonResult result = null;
-        int s = categoryService.updateByPrimaryKey(categoryId);
+        int s = categoryService.updateByPrimaryKey(category);
         try {
-            if (s == 1) {
-                result = new JsonResult(Constants.STATUS_SUCCESS, "删除成功", s);
+            if (s != 0) {
+                result = new JsonResult(Constants.STATUS_SUCCESS, "成功", s);
             } else {
-                result = new JsonResult(Constants.STATUS_FAIL, "删除失败");
+                result = new JsonResult(Constants.STATUS_FAIL, "失败");
             }
         } catch (Exception e) {
-            result = new JsonResult(Constants.STATUS_ERROR, "删除异常", e.getMessage());
+            result = new JsonResult(Constants.STATUS_ERROR, "异常", e.getMessage());
         }
         return result;
     }

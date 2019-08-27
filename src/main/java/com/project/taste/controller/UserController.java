@@ -349,4 +349,46 @@ public class UserController {
         }
         return js;
     }
+
+    /**
+     * 修改用户资料
+     * @param user
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public JsonResult update(User user){
+        JsonResult js;
+        try{
+            User u = new User();
+            u.setUserId(user.getUserId());
+            u.setUserName(user.getUserName());
+            u.setUserTelphone(user.getUserTelphone());
+            u.setUserEmail(user.getUserEmail());
+            List user1 = userService.queryAlltiaojian2(user);
+            if(user1.size()>1){
+                return new JsonResult(Constants.STATUS_FAIL,"用户名已存在了耶");
+            }
+            user.setUserName(user.getUserTelphone());
+            List user2 = userService.queryAlltiaojian2(user);
+            if(user2.size()>1){
+                return new JsonResult(Constants.STATUS_FAIL,"手机号已存在了耶");
+            }
+            user.setUserName(user.getUserEmail());
+            List user3 = userService.queryAlltiaojian2(user);
+            if(user3.size()>1){
+                return new JsonResult(Constants.STATUS_FAIL,"电子邮箱已存在了耶");
+            }
+
+            int i = userService.updateByPrimaryKeySelective(u);
+            if(i!=0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"修改成功", i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"修改失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"修改异常");
+        }
+        return js;
+    }
 }
