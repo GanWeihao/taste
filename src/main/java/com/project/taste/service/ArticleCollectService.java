@@ -36,4 +36,5 @@ public interface ArticleCollectService {
      * 删除文章收藏
      */
     int deleteCollect(String articleCollectId);
+
 }

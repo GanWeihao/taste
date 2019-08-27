@@ -66,4 +66,5 @@ public class VideoCollect_Video {
     public void setVideo(Video video) {
         this.video = video;
     }
+
 }

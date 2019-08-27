@@ -11,6 +11,7 @@
   <sql id="Base_Column_List" >
     USER_CATEGORY_ID, USER_CATEGORY_USER_ID, USER_CATEGORY_CATEGORY_ID
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />

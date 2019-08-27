@@ -23,9 +23,10 @@ public interface ArticleCommentMapper {
 
     int updateByPrimaryKey(ArticleComment record);
     //根据文章ID查询评论
-    public List<ArticleComment> queryByIdComment(String articleCommentArticleId);
+    List<ArticleComment> queryByIdComment(String articleCommentArticleId);
     //根据用户ID查询文章评论
-    public List<ArticleComment>  queryUserByIdComment(String articleCommentUserId);
+    List<ArticleComment>  queryUserByIdComment(String articleCommentUserId);
     //根据文章ID查询评论数量
-    public int queryCommentNumber(String articleCommentArticleId);
+    int queryCommentNumber(String articleCommentArticleId);
+
 }

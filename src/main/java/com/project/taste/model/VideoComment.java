@@ -86,4 +86,5 @@ public class VideoComment {
     public void setVideoCommentStatus(Integer videoCommentStatus) {
         this.videoCommentStatus = videoCommentStatus;
     }
+
 }

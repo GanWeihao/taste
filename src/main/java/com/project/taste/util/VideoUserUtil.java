@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class VideoUserUtil {
+
     public static Video_User put(SolrDocument obj, UserService userService) throws ParseException {
         Video_User video_user = new Video_User();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", java.util.Locale.US);
@@ -25,4 +26,5 @@ public class VideoUserUtil {
         video_user.setUser(user);
         return video_user;
     }
+
 }

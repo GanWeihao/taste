@@ -16,6 +16,7 @@
     ARTICLE_COMMENT_ID, ARTICLE_COMMENT_TEXT, ARTICLE_COMMENT_TIME, ARTICLE_COMMENT_USER_ID, 
     ARTICLE_COMMENT_ARTICLE_ID, ARTICLE_COMMENT_TOUSER_ID, ARTICLE_COMMENT_STATUS
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List"/>

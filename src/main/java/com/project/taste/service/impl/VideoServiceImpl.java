@@ -119,4 +119,5 @@ public class VideoServiceImpl implements VideoService {
         List<Video> list=videoMapper.queryVideoAllByid(userId);
         return list;
     }
+
 }

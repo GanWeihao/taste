@@ -66,4 +66,5 @@ public class AdminServiceImpl implements AdminService {
     public int AdminDel(String adminId) {
         return adminMapper.AdminDel(adminId);
     }
+
 }

@@ -66,4 +66,5 @@ public class VideoBrowse_Video {
     public void setVideo(Video video) {
         this.video = video;
     }
+
 }

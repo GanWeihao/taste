@@ -29,4 +29,5 @@ public interface VideoCollectMapper {
     int selectVideoCount(String videoCollectVideoId);
     //删除视频收藏
     int deleteVideoCollect(String videoCollectId);
+
 }

@@ -47,4 +47,5 @@ public class HttpClientHelper {
         getMethod.releaseConnection();
         return result;
     }
+
 }

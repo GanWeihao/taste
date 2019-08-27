@@ -30,4 +30,5 @@ public interface ArticleCollectMapper {
     int insertCollect(ArticleCollect articleCollect);
     //删除文章收藏
     int deleteCollect(String articleCollectId);
+
 }

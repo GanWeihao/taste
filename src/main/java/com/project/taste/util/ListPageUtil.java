@@ -8,7 +8,8 @@ import java.util.List;
  * @version 创建时间：2019-08-24 下午01:52:23
  * 类说明
  */
-public class ListPageUtil<T> {
+public class
+ListPageUtil<T> {
     /**原集合*/
     private List<T> data;
 
@@ -97,4 +98,5 @@ public class ListPageUtil<T> {
     public int getTotalCount() {
         return totalCount;
     }
+
 }

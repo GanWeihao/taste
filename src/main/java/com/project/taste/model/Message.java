@@ -75,4 +75,5 @@ public class Message {
     public void setMessageStatus(Integer messageStatus) {
         this.messageStatus = messageStatus;
     }
+
 }

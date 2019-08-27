@@ -92,4 +92,5 @@ public class Page<T> {
     public void setPagedList(List<T> pagedList) {
         this.pagedList = pagedList;
     }
+
 }

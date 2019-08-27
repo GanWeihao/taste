@@ -68,4 +68,5 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> queryAll2() {
         return categoryMapper.queryAll2();
     }
+
 }

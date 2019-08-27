@@ -20,4 +20,5 @@ public interface AdminService {
     int AdminAdd(Admin admin);
     //管理员删除
     int AdminDel (String adminId);
+
 }

@@ -98,4 +98,5 @@ public class ArticleServiceImpl implements ArticleService {
     public int updateByPrimaryKey(Article record) {
         return 0;
     }
+
 }

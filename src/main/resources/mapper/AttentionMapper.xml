@@ -11,6 +11,7 @@
   <sql id="Base_Column_List" >
     ATTENTION_ID, ATTENTION_USER_ID, ATTENTION_TOUSER_ID
   </sql>
+
   <!--查询用户关注人数-->
   <select id="queryNum" resultType="java.lang.Integer" parameterType="java.lang.String">
     	 SELECT COUNT(*) from attention where  ATTENTION_USER_ID= #{attentionId,jdbcType=VARCHAR}

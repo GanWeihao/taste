@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ArticleContentUtil {
+
     public static Article_Content put(SolrDocument obj, ContentService contentService) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", java.util.Locale.US);
         Article_Content article_content = new Article_Content();
@@ -24,4 +25,5 @@ public class ArticleContentUtil {
         article_content.setList(list);
         return article_content;
     }
+
 }

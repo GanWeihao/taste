@@ -45,4 +45,5 @@ public class JsonResult {
         this.message = message;
         this.data = data;
     }
+
 }

@@ -19,4 +19,5 @@ public interface AttentionService {
     int updateByPrimaryKeySelective(Attention record);
 
     int updateByPrimaryKey(Attention record);
+
 }

@@ -53,4 +53,5 @@ public class VideoBrowse {
     public void setVideoBrowseTime(Date videoBrowseTime) {
         this.videoBrowseTime = videoBrowseTime;
     }
+
 }

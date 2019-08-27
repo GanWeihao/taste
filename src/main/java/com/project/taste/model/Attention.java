@@ -40,4 +40,5 @@ public class Attention {
     public void setAttentionTouserId(String attentionTouserId) {
         this.attentionTouserId = attentionTouserId == null ? null : attentionTouserId.trim();
     }
+
 }

@@ -100,4 +100,5 @@ public class Article_Content {
     public void setHighlight(Object highlight) {
         this.highlight = highlight;
     }
+
 }

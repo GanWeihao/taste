@@ -23,7 +23,6 @@ public interface ArticleBrowseMapper {
 
     int insert(ArticleBrowse record);
 
-
     ArticleBrowse selectByPrimaryKey(String articleBrowseId);
 
     int updateByPrimaryKeySelective(ArticleBrowse record);

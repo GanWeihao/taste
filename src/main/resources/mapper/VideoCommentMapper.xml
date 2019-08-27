@@ -16,7 +16,6 @@
     VIDEO_COMMENT_ID, VIDEO_COMMENT_CONTENT, VIDEO_COMMENT_TIME, VIDEO_COMMENT_USER_ID,
     VIDEO_COMMENT_VIDEO_ID, VIDEO_COMMENT_TOUSER_ID, VIDEO_COMMENT_STATUS
   </sql>
-
   <!--根据用户ID查询所有评论-->
   <select id="queryVideoCommentByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
     select

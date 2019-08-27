@@ -24,7 +24,6 @@ public interface ArticleMapper {
     //根据日期查数量
     List selectNumByTime();
 
-
     int deleteByPrimaryKey(String articleId);
 
     int insert(Article record);

@@ -81,5 +81,4 @@ public class Attention_User {
         this.userRank = userRank;
     }
 
-
 }

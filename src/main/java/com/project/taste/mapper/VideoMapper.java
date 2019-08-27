@@ -37,4 +37,5 @@ public interface VideoMapper {
     Video queryVideoById(String videoId);
     //根据用户id查询用户上传所有视频
     List<Video> queryVideoAllByid(String userId);
+
 }

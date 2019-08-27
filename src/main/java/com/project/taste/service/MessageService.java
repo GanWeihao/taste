@@ -28,4 +28,5 @@ public interface MessageService {
     int updateMessage(String messageId);
     //查询未读信息数量
     int queryMessageNum(String userId);
+
 }

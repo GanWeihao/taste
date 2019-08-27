@@ -66,4 +66,5 @@ public class ArticleBrowse_Article {
     public void setArticle(Article article) {
         this.article = article;
     }
+
 }

@@ -52,4 +52,5 @@ public class VideoCollect {
     public void setVideoCollectTime(Date videoCollectTime) {
         this.videoCollectTime = videoCollectTime;
     }
+
 }

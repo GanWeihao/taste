@@ -97,4 +97,5 @@ public class Video {
     public void setVideoStatus(Integer videoStatus) {
         this.videoStatus = videoStatus;
     }
+
 }

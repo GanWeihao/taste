@@ -54,4 +54,5 @@ public class ArticleBrowse {
     public void setArticleBrowseTime(Date articleBrowseTime) {
         this.articleBrowseTime = articleBrowseTime;
     }
+
 }

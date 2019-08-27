@@ -52,4 +52,5 @@ public class UserCategoryServiceImpl implements UserCategoryService {
     public int updateByPrimaryKey(UserCategory record) {
         return 0;
     }
+
 }

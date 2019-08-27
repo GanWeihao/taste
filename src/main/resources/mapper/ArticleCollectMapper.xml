@@ -12,7 +12,6 @@
   <sql id="Base_Column_List" >
     ARTICLE_COLLECT_ID, ARTICLE_COLLECT_USER_ID, ARTICLE_COLLECT_ARTICLE_ID, ARTICLE_COLLECT_TIME
   </sql>
-
   <!-- 根据用户id查询所有文章收藏-->
   <select id="selectArticleByUId" resultMap="BaseResultMap" parameterType="java.lang.String">
     SELECT*

@@ -14,7 +14,6 @@
             <arg column="USER_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer"/>
         </constructor>
     </resultMap>
-
     <resultMap id="BaseResultMap1" type="com.project.taste.bo.Attention_User">
         <constructor>
             <idArg column="USER_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>

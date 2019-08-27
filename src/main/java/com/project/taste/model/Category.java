@@ -40,4 +40,5 @@ public class Category {
     public void setCategoryStatus(Integer categoryStatus) {
         this.categoryStatus = categoryStatus;
     }
+
 }

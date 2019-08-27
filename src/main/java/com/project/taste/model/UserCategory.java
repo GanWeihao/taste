@@ -40,4 +40,5 @@ public class UserCategory {
     public void setUserCategoryCategoryId(String userCategoryCategoryId) {
         this.userCategoryCategoryId = userCategoryCategoryId == null ? null : userCategoryCategoryId.trim();
     }
+
 }

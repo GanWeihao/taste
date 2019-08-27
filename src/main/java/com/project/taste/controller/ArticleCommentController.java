@@ -24,7 +24,6 @@ public class ArticleCommentController {
     @Autowired
     UserService userService;
 
-
     //根据文章id查询文章评论
     @ResponseBody
     @RequestMapping("/query/articleid")

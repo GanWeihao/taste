@@ -101,4 +101,5 @@ public class MessageServiceImpl implements MessageService {
         int num=messageMapper.queryMessageNum(userId);
         return num;
     }
+
 }

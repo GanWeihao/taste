@@ -1,6 +1,5 @@
 server:
   port: 9090
-
   tomcat:
     uri-encoding: UTF-8
     max-connections: 20000

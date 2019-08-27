@@ -108,4 +108,5 @@ public class User {
     public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
     }
+
 }

@@ -61,4 +61,5 @@ public class ContentServiceImpl implements ContentService {
     public int updateByPrimaryKey(Content record) {
         return 0;
     }
+
 }

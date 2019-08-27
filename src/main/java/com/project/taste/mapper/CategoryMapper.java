@@ -27,4 +27,5 @@ public interface CategoryMapper {
 
     //删除类别
     int updateByPrimaryKey(Category category);
+
 }

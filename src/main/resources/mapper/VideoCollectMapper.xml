@@ -9,7 +9,6 @@
       <arg column="VIDEO_COLLECT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
-
   <sql id="Base_Column_List" >
     VIDEO_COLLECT_ID, VIDEO_COLLECT_VIDEO_ID, VIDEO_COLLECT_USER_ID, VIDEO_COLLECT_TIME
   </sql>

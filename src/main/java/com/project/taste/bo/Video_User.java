@@ -110,4 +110,5 @@ public class Video_User {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

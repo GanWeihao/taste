@@ -110,4 +110,5 @@ public class VideoComment_User {
     public void setToUser(User toUser) {
         this.toUser = toUser;
     }
+
 }

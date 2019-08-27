@@ -58,4 +58,5 @@ public class AttentionServiceImpl implements AttentionService {
     public int updateByPrimaryKey(Attention record) {
         return 0;
     }
+
 }

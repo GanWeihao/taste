@@ -53,4 +53,5 @@ public class ArticleCollect {
     public void setArticleCollectTime(Date articleCollectTime) {
         this.articleCollectTime = articleCollectTime;
     }
+
 }

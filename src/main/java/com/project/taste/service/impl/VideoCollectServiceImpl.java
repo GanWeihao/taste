@@ -84,4 +84,5 @@ public class VideoCollectServiceImpl implements VideoCollectService {
     public int deleteVideoCollect(String videoCollectId){
         return  videoCollectMapper.deleteVideoCollect(videoCollectId);
     }
+
 }

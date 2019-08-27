@@ -86,4 +86,5 @@ public class ArticleComment {
     public void setArticleCommentStatus(Integer articleCommentStatus) {
         this.articleCommentStatus = articleCommentStatus;
     }
+
 }

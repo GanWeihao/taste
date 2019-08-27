@@ -12,6 +12,7 @@
   <sql id="Base_Column_List" >
     ARTICLE_BROWSE_ID, ARTICLE_BROWSE_USER_ID, ARTICLE_BROWSE_ARTICLE_ID, ARTICLE_BROWSE_TIME
   </sql>
+
   <!--根据用户ID查询浏览记录-->
   <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select *

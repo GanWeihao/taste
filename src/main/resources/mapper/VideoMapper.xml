@@ -19,7 +19,6 @@
       <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer"/>
     </constructor>
   </resultMap>
-
   <sql id="Base_Column_List" >
     VIDEO_ID, VIDEO_USER_ID, VIDEO_URL, VIDEO_TITLE, VIDEO__CONTENT, VIDEO_TIME, VIDEO_STATUS, VIDEO_CATEGORY_ID
   </sql>

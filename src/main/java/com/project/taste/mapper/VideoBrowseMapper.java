@@ -28,4 +28,5 @@ public interface VideoBrowseMapper {
     List<VideoBrowse> queryVideoBrowseByUserId(String userId);
     //根据用户ID查询用户浏览视频数量
     int queryVideoBrowseNum(String userId);
+
 }

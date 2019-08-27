@@ -31,4 +31,5 @@ public interface ArticleService {
     int updateByPrimaryKeySelective(Article record);
 
     int updateByPrimaryKey(Article record);
+
 }

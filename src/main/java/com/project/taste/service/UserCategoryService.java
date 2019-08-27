@@ -19,4 +19,5 @@ public interface UserCategoryService {
     int updateByPrimaryKeySelective(UserCategory record);
 
     int updateByPrimaryKey(UserCategory record);
+
 }

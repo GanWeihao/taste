@@ -14,7 +14,6 @@
   <sql id="Base_Column_List" >
     MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_TIME, MESSAGE_USER_ID, MESSAGE_STATUS
   </sql>
-
   <!--根据用户ID查询用户的所有已读和未读信息-->
   <select id="queryMessageByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select

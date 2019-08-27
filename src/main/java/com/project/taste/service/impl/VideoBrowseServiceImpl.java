@@ -68,4 +68,5 @@ public class VideoBrowseServiceImpl implements VideoBrowseService {
         int num=videoBrowseMapper.queryVideoBrowseNum(userId);
         return num;
     }
+
 }

@@ -25,4 +25,5 @@ public interface AttentionMapper {
     int updateByPrimaryKeySelective(Attention record);
 
     int updateByPrimaryKey(Attention record);
+
 }

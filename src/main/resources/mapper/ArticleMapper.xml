@@ -22,6 +22,7 @@
     ARTICLE_ID, ARTICLE_TITLE, ARTICLE_STATUS, ARTICLE_USER_ID, ARTICLE_CATEGORY_ID,
     ARTICLE_TIME
   </sql>
+
     <!--查询所有文章（带分页）-->
     <select id="selectAll" resultMap="BaseResultMap">
         select

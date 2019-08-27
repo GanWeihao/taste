@@ -24,4 +24,5 @@ public interface ArticleBrowseService {
     int updateByPrimaryKeySelective(ArticleBrowse record);
 
     int updateByPrimaryKey(ArticleBrowse record);
+
 }

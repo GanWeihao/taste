@@ -72,4 +72,5 @@ public class ArticleBrowseServiceImpl implements ArticleBrowseService {
     public int updateByPrimaryKey(ArticleBrowse record) {
         return 0;
     }
+
 }

@@ -79,4 +79,5 @@ public class Article implements Serializable {
     public void setArticleTime(Date articleTime) {
         this.articleTime = articleTime;
     }
+
 }
