@@ -21,9 +21,11 @@ public class Video_User {
 
     private  String videoCategoryId;
 
+    private Object highlight;
+
     private User user;
 
-    public Video_User(String videoId, String videoUserId, String videoUrl, String videoTitle, String videoContent, Date videoTime, Integer videoStatus, String videoCategoryId, User user) {
+    public Video_User(String videoId, String videoUserId, String videoUrl, String videoTitle, String videoContent, Date videoTime, Integer videoStatus, String videoCategoryId, Object highlight, User user) {
         this.videoId = videoId;
         this.videoUserId = videoUserId;
         this.videoUrl = videoUrl;
@@ -32,6 +34,7 @@ public class Video_User {
         this.videoTime = videoTime;
         this.videoStatus = videoStatus;
         this.videoCategoryId = videoCategoryId;
+        this.highlight = highlight;
         this.user = user;
     }
 
@@ -101,6 +104,14 @@ public class Video_User {
 
     public void setVideoCategoryId(String videoCategoryId) {
         this.videoCategoryId = videoCategoryId;
+    }
+
+    public Object getHighlight() {
+        return highlight;
+    }
+
+    public void setHighlight(Object highlight) {
+        this.highlight = highlight;
     }
 
     public User getUser() {

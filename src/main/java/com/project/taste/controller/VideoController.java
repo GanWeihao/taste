@@ -207,11 +207,12 @@ public class VideoController {
             solrQuery.setHighlightSimplePost("</span>");
             QueryResponse response = httpSolrClient.query(solrQuery);
             Map<String, Map<String, List<String>>> highlight = response.getHighlighting();
-            List<Map<String, Object>> list = new ArrayList<>();
+            List<Video_User> list = new ArrayList<>();
             SolrDocumentList results = response.getResults();
             for (SolrDocument obj : results){
                 obj.put("highlight",highlight.get(obj.get("id")));
-                list.add(obj);
+                Video_User video_user = VideoUserUtil.put(obj, userService);
+                list.add(video_user);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
             Page page = new Page();

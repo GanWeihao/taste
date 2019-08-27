@@ -70,7 +70,7 @@ public class ArticleController {
             SolrDocumentList results = response.getResults();
             for (SolrDocument obj : results){
                 System.out.println(obj);
-                Article_Content article_content = ArticleContentUtil.put(obj, contentService);
+                Article_Content article_content = ArticleContentUtil.put(obj, contentService, userService);
                 list.add(article_content);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
@@ -128,7 +128,7 @@ public class ArticleController {
             SolrDocumentList results = response.getResults();
             for (SolrDocument obj : results){
                 obj.put("highlight",highlight.get(obj.get("id")));
-                Article_Content article_content = ArticleContentUtil.put(obj, contentService);
+                Article_Content article_content = ArticleContentUtil.put(obj, contentService, userService);
                 list.add(article_content);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
@@ -330,7 +330,6 @@ public class ArticleController {
                 article_user.setArticleId((obj.get("id").toString()));
                 article_user.setArticleTitle(obj.get("articleTitle").toString());
                 article_user.setArticleCategoryId(obj.get("articleCategoryId").toString());
-                System.out.println(obj.get("articleTime").toString());
                 article_user.setArticleTime(date);
                 article_user.setArticleStatus(Integer.valueOf(obj.get("articleStatus").toString()));
                 article_user.setArticleUserId(obj.get("articleUserId").toString());

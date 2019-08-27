@@ -22,6 +22,7 @@ public class VideoUserUtil {
         video_user.setVideoContent(obj.get("videoContent").toString());
         video_user.setVideoUrl(obj.get("videoUrl").toString());
         video_user.setVideoUserId(obj.get("videoUserId").toString());
+        video_user.setHighlight(obj.get("highlight"));
         User user = userService.selectById(obj.get("videoUserId").toString());
         video_user.setUser(user);
         return video_user;

@@ -1,6 +1,7 @@
 package com.project.taste.bo;
 
 import com.project.taste.model.Content;
+import com.project.taste.model.User;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,9 @@ public class Article_Content {
 
     private Object highlight;
 
-    public Article_Content(String articleId, String articleTitle, Integer articleStatus, String articleUserId, String articleCategoryId, Date articleTime, List<Content> list, Object highlight) {
+    private User user;
+
+    public Article_Content(String articleId, String articleTitle, Integer articleStatus, String articleUserId, String articleCategoryId, Date articleTime, List<Content> list, Object highlight, User user) {
         this.articleId = articleId;
         this.articleTitle = articleTitle;
         this.articleStatus = articleStatus;
@@ -31,6 +34,7 @@ public class Article_Content {
         this.articleTime = articleTime;
         this.list = list;
         this.highlight = highlight;
+        this.user = user;
     }
 
     public Article_Content() {
@@ -101,4 +105,11 @@ public class Article_Content {
         this.highlight = highlight;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
