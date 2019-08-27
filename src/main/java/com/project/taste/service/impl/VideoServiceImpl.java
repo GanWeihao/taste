@@ -69,7 +69,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public int updateByPrimaryKeySelective(Video record) {
-        return 0;
+        return videoMapper.updateByPrimaryKeySelective(record);
     }
     //删除视频
     @Override

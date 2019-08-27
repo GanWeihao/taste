@@ -48,9 +48,9 @@
         where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
     </select>
     <!--根据ID删除文章-->
-    <update id="deleteByArticleId" parameterType="java.lang.String">
+    <update id="deleteByArticleId" parameterType="com.project.taste.model.Article">
         update article
-        set ARTICLE_STATUS=1
+        set ARTICLE_STATUS = #{articleStatus,jdbcType=VARCHAR}
         where ARTICLE_ID = #{articleId,jdbcType=VARCHAR}
     </update>
     <!--添加文章-->

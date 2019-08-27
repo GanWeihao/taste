@@ -33,8 +33,6 @@ public class CategoryServiceImpl implements CategoryService {
     public int insertSelective(Category record) {
         String id = UUID.randomUUID().toString().replaceAll("-","");
         record.setCategoryId(id);
-        record.setCategoryStatus(0);
-//        record.setCategoryName();
         return categoryMapper.insertSelective(record);
     }
 

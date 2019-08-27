@@ -60,7 +60,7 @@ public class ArticleController {
     public JsonResult queryAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult js;
         try{
-            String update = HttpClientHelper.sendPost(deltaImport);
+            String update = HttpClientHelper.sendPost(fullImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setRows(articleService.selectArticleNum());
             solrQuery.setQuery("*:*");
@@ -106,7 +106,7 @@ public class ArticleController {
     public JsonResult queryByTitle(Article article, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult js;
         try{
-            HttpClientHelper.sendPost(deltaImport);
+            HttpClientHelper.sendPost(fullImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setRows(articleService.selectArticleNum());
             solrQuery.addSort("articleTime", SolrQuery.ORDER.desc);
@@ -220,12 +220,12 @@ public class ArticleController {
         try{
             int i = articleService.deleteByArticleId(articleId);
             if(i!=0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"删除成功",i);
+                js = new JsonResult(Constants.STATUS_SUCCESS,"操作成功",i);
             }else{
-                js = new JsonResult(Constants.STATUS_FAIL,"删除失败");
+                js = new JsonResult(Constants.STATUS_FAIL,"操作失败");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"删除异常");
+            js = new JsonResult(Constants.STATUS_ERROR,"操作异常");
         }
         return js;
     }
@@ -238,8 +238,8 @@ public class ArticleController {
     public JsonResult insertArticle(Article article){
         JsonResult js;
         try{
-            int i = articleService.insertSelective(article);
-            if(i!=0){
+            String i = articleService.insertSelective(article);
+            if(i!=null && i!=""){
                 js = new JsonResult(Constants.STATUS_SUCCESS,"添加成功",i);
 
             }else{
@@ -315,7 +315,7 @@ public class ArticleController {
     public JsonResult selectWithUser(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult js;
         try{
-            String update = HttpClientHelper.sendPost(deltaImport);
+            String update = HttpClientHelper.sendPost(fullImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setRows(articleService.selectArticleNum());
             solrQuery.addSort("articleTime", SolrQuery.ORDER.desc);
@@ -338,10 +338,17 @@ public class ArticleController {
                 article_user.setUser(user);
                 list.add(article_user);
             }
-            System.out.println(list);
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            Page page = new Page();
+            page.setLastPage(listPageUtil.getLastPage());
+            page.setNextPage(listPageUtil.getNextPage());
+            page.setNowPage(listPageUtil.getNowPage());
+            page.setPageSize(listPageUtil.getPageSize());
+            page.setTotalCount(listPageUtil.getTotalCount());
+            page.setTotalPage(listPageUtil.getTotalPage());
+            page.setPagedList(listPageUtil.getPagedList());
             if(list.size()>0){
-                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
+                js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",page);
             }else{
                 js = new JsonResult(Constants.STATUS_FAIL,"暂无数据");
             }

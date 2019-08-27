@@ -57,7 +57,7 @@ public class VideoController {
     public Object queryVideoAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult result=null;
         try{
-            String update = HttpClientHelper.sendPost(deltaImport);
+            String update = HttpClientHelper.sendPost(fullImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setQuery("*:*");
             solrQuery.setRows(videoService.selectVideoNum());
@@ -87,6 +87,26 @@ public class VideoController {
             result=new JsonResult(Constants.STATUS_ERROR,"查询异常"+e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * 修改视频
+     */
+    @ResponseBody
+    @RequestMapping("/update")
+    public JsonResult updateVideo(Video video){
+        JsonResult js;
+        try{
+            int i = videoService.updateByPrimaryKeySelective(video);
+            if(i != 0){
+                js = new JsonResult(Constants.STATUS_SUCCESS,"修改成功", i);
+            }else{
+                js = new JsonResult(Constants.STATUS_FAIL,"修改失败");
+            }
+        }catch (Exception e){
+            js = new JsonResult(Constants.STATUS_ERROR,"修改异常");
+        }
+        return js;
     }
 
     /**
@@ -169,7 +189,7 @@ public class VideoController {
     public Object selectByPrimaryKey(Video video, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         JsonResult result=null;
         try{
-            HttpClientHelper.sendPost(deltaImport);
+            HttpClientHelper.sendPost(fullImport);
             SolrQuery solrQuery = new SolrQuery();
             solrQuery.setRows(videoService.selectVideoNum());
             solrQuery.addSort("videoTime", SolrQuery.ORDER.desc);
@@ -194,8 +214,16 @@ public class VideoController {
                 list.add(obj);
             }
             ListPageUtil listPageUtil = new ListPageUtil(list,pageNum,pageSize);
+            Page page = new Page();
+            page.setLastPage(listPageUtil.getLastPage());
+            page.setNextPage(listPageUtil.getNextPage());
+            page.setNowPage(listPageUtil.getNowPage());
+            page.setPageSize(listPageUtil.getPageSize());
+            page.setTotalCount(listPageUtil.getTotalCount());
+            page.setTotalPage(listPageUtil.getTotalPage());
+            page.setPagedList(listPageUtil.getPagedList());
             if(results.size()>0 && results!=null){
-                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",listPageUtil);
+                result=new JsonResult(Constants.STATUS_SUCCESS,"查询成功",page);
             }else {
                 result=new JsonResult(Constants.STATUS_FAIL,"查询失败");
             }

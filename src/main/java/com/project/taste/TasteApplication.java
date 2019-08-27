@@ -15,5 +15,4 @@ public class TasteApplication {
         SpringApplication.run(TasteApplication.class, args);
         logger.debug("--Application Started--");
     }
-
 }

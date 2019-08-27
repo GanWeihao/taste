@@ -44,17 +44,24 @@ public class ArticleServiceImpl implements ArticleService {
     //根据文章ID删除文章
     @Override
     public int deleteByArticleId(String articleId) {
-        return articleMapper.deleteByArticleId(articleId);
+        Article article = articleMapper.selectByPrimaryKey(articleId);
+        if(article.getArticleStatus() == 0){
+            article.setArticleStatus(1);
+        }else{
+            article.setArticleStatus(0);
+        }
+        return articleMapper.deleteByArticleId(article);
     }
 
     //添加文章
     @Override
-    public int insertSelective(Article record) throws IOException, SolrServerException {
+    public String insertSelective(Article record) throws IOException, SolrServerException {
         String id = UUID.randomUUID().toString().replaceAll("-", "");
         record.setArticleId(id);
         record.setArticleStatus(0);
         record.setArticleTime(new Date());
-        return articleMapper.insertSelective(record);
+        articleMapper.insertSelective(record);
+        return id;
     }
 
     //查询所有文章数量

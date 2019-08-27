@@ -17,7 +17,7 @@ public interface ArticleService {
     //根据ID删除文章
     int deleteByArticleId(String articleId);
     //添加文章
-    int insertSelective(Article record) throws IOException, SolrServerException;
+    String insertSelective(Article record) throws IOException, SolrServerException;
     //查询所有文章数量
     int selectArticleNum();
     //根据日期查数量

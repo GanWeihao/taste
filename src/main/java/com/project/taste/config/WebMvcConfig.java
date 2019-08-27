@@ -17,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         //Windows下
         registry.addResourceHandler("/file/**")
-                .addResourceLocations("file:/C:/taste/file/");
+                .addResourceLocations("file:/usr/taste/file/");
     }
 
 }

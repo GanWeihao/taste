@@ -16,7 +16,7 @@ public class UploadFileUtil {
         // 重构文件名称
         String pikId = UUID.randomUUID().toString().replaceAll("-", "");
         String newFileName = pikId + "." + fileExt;
-        String path = "C:/taste/file";
+        String path = "/usr/taste/file";
         File dest = new File(path);
         //判断文件父目录是否存在
         if (!dest.getParentFile().exists()) {
@@ -73,7 +73,7 @@ public class UploadFileUtil {
         try {
             basee64code.replaceAll(" ", "+");
             basee64code = basee64code.substring(basee64code.indexOf(",")+1);
-            out = new FileOutputStream("C:/taste/file/"+newFileName);
+            out = new FileOutputStream("/usr/taste/file/"+newFileName);
             // Base64解码
             byte[] b = decoder.decodeBuffer(basee64code);
 
