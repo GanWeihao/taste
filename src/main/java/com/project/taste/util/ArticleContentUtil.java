@@ -1,6 +1,7 @@
 package com.project.taste.util;
 
 import com.project.taste.bo.Article_Content;
+import com.project.taste.model.Article;
 import com.project.taste.model.Content;
 import com.project.taste.model.User;
 import com.project.taste.service.ContentService;
@@ -26,6 +27,21 @@ public class ArticleContentUtil {
         List<Content> list = contentService.selectByArticleId(obj.get("id").toString());
         article_content.setList(list);
         User user = userService.selectById(obj.get("articleUserId").toString());
+        article_content.setUser(user);
+        return article_content;
+    }
+
+    public static Article_Content put2(Article article, ContentService contentService, UserService userService) throws ParseException {
+        Article_Content article_content = new Article_Content();
+        article_content.setArticleId(article.getArticleId());
+        article_content.setArticleCategoryId(article.getArticleCategoryId());
+        article_content.setArticleStatus(article.getArticleStatus());
+        article_content.setArticleTime(article.getArticleTime());
+        article_content.setArticleTitle(article.getArticleTitle());
+        article_content.setArticleUserId(article.getArticleUserId());
+        List<Content> list = contentService.selectByArticleId(article.getArticleId());
+        article_content.setList(list);
+        User user = userService.selectById(article.getArticleUserId());
         article_content.setUser(user);
         return article_content;
     }

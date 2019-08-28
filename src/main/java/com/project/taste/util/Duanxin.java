@@ -21,13 +21,13 @@ public class Duanxin {
             SERVER_URL="https://api.netease.im/sms/sendcode.action";
     //网易云信分配的账号，请替换你在管理后台应用下申请的Appkey
     private static final String
-            APP_KEY="655a7fdba5b3917bf158287e3cb56fbe";
+            APP_KEY="bb32e49fc60b4931988c8813e805314d";
     //网易云信分配的密钥，请替换你在管理后台应用下申请的appSecret
-    private static final String APP_SECRET="620aac38bd8f";
+    private static final String APP_SECRET="0025fde28e18";
     //随机数
     private static final String NONCE="123456";
     //短信模板ID
-    private static final String TEMPLATEID="14793696";
+    private static final String TEMPLATEID="14818134";
     //手机号
 //    private static final String MOBILE="17609976784";
     //验证码长度，范围4～10，默认为4

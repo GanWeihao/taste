@@ -165,7 +165,12 @@ public class ArticleController {
         try{
             PageHelper.startPage(pageNum, pageSize);
             List<Article> list = articleService.selectByCategoryId(articleCategoryId);
-            PageInfo pageInfo = new PageInfo(list);
+            List<Article_Content> list1 = new ArrayList<>();
+            for(Article article:list){
+                Article_Content article_content = ArticleContentUtil.put2(article, contentService, userService);
+                list1.add(article_content);
+            }
+            PageInfo pageInfo = new PageInfo(list1);
             if(list.size()>0){
                 js = new JsonResult(Constants.STATUS_SUCCESS,"查询成功",pageInfo);
             }else{
@@ -246,7 +251,7 @@ public class ArticleController {
                 js = new JsonResult(Constants.STATUS_FAIL,"添加失败");
             }
         }catch (Exception e){
-            js = new JsonResult(Constants.STATUS_ERROR,"添加异常"+e.getMessage());
+            js = new JsonResult(Constants.STATUS_ERROR,"添加异常");
         }
         return js;
     }
